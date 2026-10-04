@@ -2,6 +2,7 @@
 <html lang="de">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -11,107 +12,358 @@
 
     <meta
         name="description"
-        content="Österreichischer Roter Stern – internes Faction System für Mitglieder, Einsätze, Medizin und Verwaltung."
+        content="Österreichischer Roter Stern – Faction System"
     >
 
-    <meta name="theme-color" content="#080a0f">
+    <meta
+        name="theme-color"
+        content="#08090d"
+    >
 
     <title>Österreichischer Roter Stern</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet"
     >
 
-    <!-- Iconoir über Iconify -->
+
+    <!-- Iconoir -->
     <script
         src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"
     ></script>
+
 
     <link
         rel="stylesheet"
         href="./ors/css/style.css"
     >
+
 </head>
+
 
 <body>
 
-    <!-- Hintergrund -->
+
+    <!-- =====================================================
+         BACKGROUND
+         ===================================================== -->
+
     <div class="background">
+
         <div class="background-grid"></div>
+
         <div class="background-glow background-glow-one"></div>
+
         <div class="background-glow background-glow-two"></div>
+
     </div>
 
-    <!-- HEADER -->
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
     <header class="site-header">
 
         <div class="header-inner">
 
-            <a href="#start" class="brand">
+
+            <!-- BRAND -->
+
+            <a
+                href="#start"
+                class="brand"
+            >
 
                 <div class="brand-icon">
                     <span>Ö</span>
                 </div>
 
                 <div class="brand-text">
-                    <strong>Österreichischer Roter Stern</strong>
-                    <small>Faction System</small>
+
+                    <strong>
+                        Österreichischer Roter Stern
+                    </strong>
+
+                    <small>
+                        Faction System
+                    </small>
+
                 </div>
 
             </a>
 
+
+
+            <!-- NAVIGATION -->
+
             <nav class="main-nav">
 
-                <a href="#start" class="nav-link active">
+                <a
+                    href="#start"
+                    class="nav-link active"
+                >
                     <iconify-icon icon="iconoir:home"></iconify-icon>
                     <span>Startseite</span>
                 </a>
 
-                <a href="#about" class="nav-link">
+
+                <a
+                    href="#about"
+                    class="nav-link"
+                >
                     <iconify-icon icon="iconoir:info-circle"></iconify-icon>
                     <span>Über ÖRS</span>
                 </a>
 
-                <a href="#discord" class="nav-link">
+
+                <a
+                    href="#discord"
+                    class="nav-link"
+                >
                     <iconify-icon icon="iconoir:community"></iconify-icon>
                     <span>Discord</span>
                 </a>
 
-                <a href="#status" class="nav-link">
+
+                <a
+                    href="#status"
+                    class="nav-link"
+                >
                     <iconify-icon icon="iconoir:activity"></iconify-icon>
                     <span>Status</span>
                 </a>
 
-                <a href="#contact" class="nav-link">
+
+                <a
+                    href="#contact"
+                    class="nav-link"
+                >
                     <iconify-icon icon="iconoir:mail"></iconify-icon>
                     <span>Kontakt</span>
                 </a>
 
             </nav>
 
+
+
+            <!-- HEADER ACTIONS -->
+
             <div class="header-actions">
+
+
+                <!-- LOGIN -->
 
                 <button
                     id="discord-login"
                     class="button button-discord"
                     type="button"
                 >
+
                     <iconify-icon icon="iconoir:log-in"></iconify-icon>
-                    <span>Mit Discord anmelden</span>
+
+                    <span>
+                        Mit Discord anmelden
+                    </span>
+
                 </button>
 
-                <button
-                    id="discord-logout"
-                    class="button button-ghost hidden"
-                    type="button"
+
+
+                <!-- PROFIL -->
+
+                <div
+                    id="profile-menu"
+                    class="profile-menu hidden"
                 >
-                    <iconify-icon icon="iconoir:log-out"></iconify-icon>
-                    <span>Abmelden</span>
-                </button>
+
+
+                    <button
+                        id="profile-trigger"
+                        class="profile-trigger"
+                        type="button"
+                        aria-expanded="false"
+                        aria-haspopup="true"
+                    >
+
+                        <span class="profile-trigger-avatar">
+
+                            <img
+                                id="header-user-avatar"
+                                src=""
+                                alt=""
+                            >
+
+                            <span class="profile-online"></span>
+
+                        </span>
+
+
+                        <span class="profile-trigger-info">
+
+                            <strong id="header-user-name">
+                                Benutzer
+                            </strong>
+
+                            <small id="header-user-access">
+                                ÖRS Mitglied
+                            </small>
+
+                        </span>
+
+
+                        <iconify-icon
+                            id="profile-chevron"
+                            icon="iconoir:nav-arrow-down"
+                        ></iconify-icon>
+
+                    </button>
+
+
+
+                    <!-- DROPDOWN -->
+
+                    <div
+                        id="profile-dropdown"
+                        class="profile-dropdown"
+                    >
+
+
+                        <!-- PROFILE HEADER -->
+
+                        <div class="profile-dropdown-head">
+
+                            <div class="profile-dropdown-avatar">
+
+                                <img
+                                    id="dropdown-user-avatar"
+                                    src=""
+                                    alt=""
+                                >
+
+                            </div>
+
+
+                            <div class="profile-dropdown-user">
+
+                                <strong id="dropdown-user-name">
+                                    Benutzer
+                                </strong>
+
+                                <span id="dropdown-user-id">
+                                    Discord ID
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="profile-dropdown-divider"></div>
+
+
+
+                        <!-- PROFILE LINKS -->
+
+                        <div class="profile-dropdown-links">
+
+
+                            <button
+                                type="button"
+                                class="profile-dropdown-link"
+                                data-profile-action="profile"
+                            >
+
+                                <iconify-icon icon="iconoir:user"></iconify-icon>
+
+                                <span>
+                                    Mein Profil
+                                </span>
+
+                            </button>
+
+
+
+                            <button
+                                id="profile-dashboard"
+                                type="button"
+                                class="profile-dropdown-link"
+                                data-profile-action="dashboard"
+                            >
+
+                                <iconify-icon icon="iconoir:dashboard"></iconify-icon>
+
+                                <span>
+                                    Dashboard
+                                </span>
+
+                            </button>
+
+
+                        </div>
+
+
+
+                        <!-- ROLE SECTION -->
+
+                        <div
+                            id="profile-role-section"
+                            class="profile-role-section hidden"
+                        >
+
+                            <div class="profile-role-title">
+                                BEREICH
+                            </div>
+
+
+                            <div
+                                id="profile-role-links"
+                                class="profile-dropdown-links"
+                            ></div>
+
+                        </div>
+
+
+
+                        <div class="profile-dropdown-divider"></div>
+
+
+
+                        <!-- LOGOUT -->
+
+                        <button
+                            id="discord-logout"
+                            class="profile-dropdown-logout"
+                            type="button"
+                        >
+
+                            <iconify-icon icon="iconoir:log-out"></iconify-icon>
+
+                            <span>
+                                Abmelden
+                            </span>
+
+                        </button>
+
+
+                    </div>
+
+                </div>
 
             </div>
 
@@ -120,9 +372,18 @@
     </header>
 
 
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
     <main>
 
-        <!-- HERO -->
+
+        <!-- =================================================
+             HERO
+             ================================================= -->
+
         <section
             id="start"
             class="hero section"
@@ -130,23 +391,43 @@
 
             <div class="container hero-grid">
 
+
                 <div class="hero-content">
 
+
                     <div class="eyebrow">
+
                         <span class="status-dot"></span>
-                        <span>ÖRS SYSTEM ONLINE</span>
+
+                        <span>
+                            ÖRS SYSTEM ONLINE
+                        </span>
+
                     </div>
 
+
+
                     <h1>
+
                         Österreichischer
-                        <span>Roter Stern.</span>
+
+                        <span>
+                            Roter Stern.
+                        </span>
+
                     </h1>
 
+
+
                     <p class="hero-description">
+
                         Das zentrale System für unsere Fraktion.
-                        Mitglieder, Einsätze, medizinische Informationen
-                        und interne Verwaltung an einem Ort.
+                        Mitglieder, Einsätze und interne Informationen
+                        an einem Ort.
+
                     </p>
+
+
 
                     <div class="hero-actions">
 
@@ -155,35 +436,67 @@
                             class="button button-primary"
                             type="button"
                         >
+
                             <iconify-icon icon="iconoir:log-in"></iconify-icon>
-                            <span>Mit Discord anmelden</span>
+
+                            <span>
+                                Mit Discord anmelden
+                            </span>
+
                         </button>
+
 
                         <a
                             href="#about"
                             class="button button-secondary"
                         >
-                            <span>System ansehen</span>
-                            <iconify-icon icon="iconoir:nav-arrow-down"></iconify-icon>
+
+                            <span>
+                                System ansehen
+                            </span>
+
+                            <iconify-icon
+                                icon="iconoir:nav-arrow-down"
+                            ></iconify-icon>
+
                         </a>
 
                     </div>
 
+
+
                     <div class="hero-meta">
 
                         <div>
+
                             <iconify-icon icon="iconoir:shield"></iconify-icon>
-                            <span>ÖRS Faction</span>
+
+                            <span>
+                                ÖRS Faction
+                            </span>
+
                         </div>
 
+
                         <div>
+
                             <iconify-icon icon="iconoir:server"></iconify-icon>
-                            <span>System aktiv</span>
+
+                            <span>
+                                System aktiv
+                            </span>
+
                         </div>
 
+
                         <div>
+
                             <iconify-icon icon="iconoir:lock"></iconify-icon>
-                            <span>Discord Zugriff</span>
+
+                            <span>
+                                Discord Zugriff
+                            </span>
+
                         </div>
 
                     </div>
@@ -191,37 +504,69 @@
                 </div>
 
 
+
                 <!-- SYSTEM PANEL -->
+
                 <div class="hero-panel glass-panel">
+
 
                     <div class="panel-top">
 
                         <div>
-                            <span class="panel-label">SYSTEM</span>
-                            <strong>ÖRS Control</strong>
+
+                            <span class="panel-label">
+                                SYSTEM
+                            </span>
+
+                            <strong>
+                                ÖRS Control
+                            </strong>
+
                         </div>
 
+
                         <div class="panel-status">
+
                             <span class="status-dot"></span>
+
                             Online
+
                         </div>
 
                     </div>
 
+
+
                     <div class="system-preview">
+
 
                         <div class="preview-header">
 
                             <div class="preview-title">
+
                                 <div class="mini-icon">
-                                    <iconify-icon icon="iconoir:shield"></iconify-icon>
+
+                                    <iconify-icon
+                                        icon="iconoir:shield"
+                                    ></iconify-icon>
+
                                 </div>
 
+
                                 <div>
-                                    <strong>ÖRS Dashboard</strong>
-                                    <span>Interne Plattform</span>
+
+                                    <strong>
+                                        ÖRS Dashboard
+                                    </strong>
+
+                                    <span>
+                                        Interne Plattform
+                                    </span>
+
                                 </div>
+
                             </div>
+
 
                             <span class="preview-badge">
                                 BETA
@@ -230,77 +575,154 @@
                         </div>
 
 
+
                         <div class="preview-stats">
 
-                            <div class="preview-stat">
-                                <span>System</span>
-                                <strong>Online</strong>
-                                <small>
-                                    <span class="tiny-dot"></span>
-                                    Stabil
-                                </small>
-                            </div>
 
                             <div class="preview-stat">
-                                <span>Discord</span>
-                                <strong>Verbunden</strong>
+
+                                <span>
+                                    System
+                                </span>
+
+                                <strong>
+                                    Online
+                                </strong>
+
                                 <small>
+
                                     <span class="tiny-dot"></span>
-                                    Aktiv
+
+                                    Stabil
+
                                 </small>
+
                             </div>
+
+
+
+                            <div class="preview-stat">
+
+                                <span>
+                                    Discord
+                                </span>
+
+                                <strong>
+                                    Verbunden
+                                </strong>
+
+                                <small>
+
+                                    <span class="tiny-dot"></span>
+
+                                    Aktiv
+
+                                </small>
+
+                            </div>
+
 
                         </div>
 
 
+
                         <div class="preview-list">
 
+
                             <div class="preview-item">
+
                                 <div class="preview-item-icon">
-                                    <iconify-icon icon="iconoir:user"></iconify-icon>
+
+                                    <iconify-icon
+                                        icon="iconoir:user"
+                                    ></iconify-icon>
+
                                 </div>
 
+
                                 <div>
-                                    <strong>Mitglieder</strong>
-                                    <span>Fraktionsverwaltung</span>
+
+                                    <strong>
+                                        Mitglieder
+                                    </strong>
+
+                                    <span>
+                                        Fraktionsverwaltung
+                                    </span>
+
                                 </div>
+
 
                                 <iconify-icon
                                     icon="iconoir:nav-arrow-right"
                                 ></iconify-icon>
+
                             </div>
 
 
+
                             <div class="preview-item">
+
                                 <div class="preview-item-icon">
-                                    <iconify-icon icon="iconoir:map"></iconify-icon>
+
+                                    <iconify-icon
+                                        icon="iconoir:map"
+                                    ></iconify-icon>
+
                                 </div>
 
+
                                 <div>
-                                    <strong>Einsätze</strong>
-                                    <span>Operationen verwalten</span>
+
+                                    <strong>
+                                        Einsätze
+                                    </strong>
+
+                                    <span>
+                                        Operationen
+                                    </span>
+
                                 </div>
+
 
                                 <iconify-icon
                                     icon="iconoir:nav-arrow-right"
                                 ></iconify-icon>
+
                             </div>
 
 
+
                             <div class="preview-item">
+
                                 <div class="preview-item-icon">
-                                    <iconify-icon icon="iconoir:health-shield"></iconify-icon>
+
+                                    <iconify-icon
+                                        icon="iconoir:health-shield"
+                                    ></iconify-icon>
+
                                 </div>
 
+
                                 <div>
-                                    <strong>Medizin</strong>
-                                    <span>Interne medizinische Daten</span>
+
+                                    <strong>
+                                        Medizin
+                                    </strong>
+
+                                    <span>
+                                        Medizinischer Bereich
+                                    </span>
+
                                 </div>
+
 
                                 <iconify-icon
                                     icon="iconoir:nav-arrow-right"
                                 ></iconify-icon>
+
                             </div>
+
 
                         </div>
 
@@ -313,59 +735,91 @@
         </section>
 
 
-        <!-- ABOUT -->
+
+        <!-- =================================================
+             ABOUT
+             ================================================= -->
+
         <section
             id="about"
-            class="section section-about"
+            class="section"
         >
 
             <div class="container">
 
+
                 <div class="section-heading">
 
                     <div>
-                        <span class="section-kicker">DAS SYSTEM</span>
+
+                        <span class="section-kicker">
+                            DAS SYSTEM
+                        </span>
 
                         <h2>
+
                             Alles Wichtige.
-                            <span>Ein System.</span>
+
+                            <span>
+                                Ein System.
+                            </span>
+
                         </h2>
+
                     </div>
 
+
                     <p>
-                        Das ÖRS System verbindet die wichtigsten internen
-                        Bereiche unserer Fraktion und schafft einen
-                        zentralen Überblick.
+
+                        Die wichtigsten Bereiche der Fraktion
+                        werden Schritt für Schritt in das System
+                        übernommen.
+
                     </p>
 
                 </div>
 
 
+
                 <div class="feature-grid">
+
 
                     <article class="feature-card glass-card">
 
                         <div class="feature-icon">
-                            <iconify-icon icon="iconoir:user"></iconify-icon>
+
+                            <iconify-icon
+                                icon="iconoir:user"
+                            ></iconify-icon>
+
                         </div>
+
 
                         <div class="feature-content">
 
                             <div class="feature-top">
-                                <span class="feature-number">01</span>
+
+                                <span class="feature-number">
+                                    01
+                                </span>
 
                                 <iconify-icon
                                     icon="iconoir:arrow-up-right"
                                 ></iconify-icon>
+
                             </div>
 
-                            <h3>Mitglieder</h3>
+
+                            <h3>
+                                Mitglieder
+                            </h3>
+
 
                             <p>
-                                Übersicht und Verwaltung der
-                                Fraktionsmitglieder sowie deren
-                                Berechtigungen.
+                                Mitglieder und grundlegende
+                                Fraktionsinformationen.
                             </p>
+
 
                             <span class="feature-status">
                                 In Entwicklung
@@ -376,30 +830,45 @@
                     </article>
 
 
+
                     <article class="feature-card glass-card">
 
                         <div class="feature-icon">
-                            <iconify-icon icon="iconoir:map"></iconify-icon>
+
+                            <iconify-icon
+                                icon="iconoir:map"
+                            ></iconify-icon>
+
                         </div>
+
 
                         <div class="feature-content">
 
                             <div class="feature-top">
-                                <span class="feature-number">02</span>
+
+                                <span class="feature-number">
+                                    02
+                                </span>
 
                                 <iconify-icon
                                     icon="iconoir:arrow-up-right"
                                 ></iconify-icon>
+
                             </div>
 
-                            <h3>Einsätze</h3>
+
+                            <h3>
+                                Einsätze
+                            </h3>
+
 
                             <p>
-                                Einsätze dokumentieren, Mitglieder
-                                zuordnen und vergangene Operationen
+                                Einsätze erstellen, Mitglieder
+                                zuordnen und vergangene Einsätze
                                 nachvollziehen.
                             </p>
 
+
                             <span class="feature-status">
                                 In Entwicklung
                             </span>
@@ -407,30 +876,45 @@
                         </div>
 
                     </article>
+
 
 
                     <article class="feature-card glass-card">
 
                         <div class="feature-icon">
-                            <iconify-icon icon="iconoir:health-shield"></iconify-icon>
+
+                            <iconify-icon
+                                icon="iconoir:health-shield"
+                            ></iconify-icon>
+
                         </div>
+
 
                         <div class="feature-content">
 
                             <div class="feature-top">
-                                <span class="feature-number">03</span>
+
+                                <span class="feature-number">
+                                    03
+                                </span>
 
                                 <iconify-icon
                                     icon="iconoir:arrow-up-right"
                                 ></iconify-icon>
+
                             </div>
 
-                            <h3>Medizin</h3>
+
+                            <h3>
+                                Medizin
+                            </h3>
+
 
                             <p>
-                                Medizinische Informationen, Behandlungen
-                                und interne Einsatzdaten verwalten.
+                                Medizinische Bereiche für entsprechend
+                                berechtigte Mitglieder.
                             </p>
+
 
                             <span class="feature-status">
                                 In Entwicklung
@@ -439,30 +923,45 @@
                         </div>
 
                     </article>
+
 
 
                     <article class="feature-card glass-card">
 
                         <div class="feature-icon">
-                            <iconify-icon icon="iconoir:settings"></iconify-icon>
+
+                            <iconify-icon
+                                icon="iconoir:settings"
+                            ></iconify-icon>
+
                         </div>
+
 
                         <div class="feature-content">
 
                             <div class="feature-top">
-                                <span class="feature-number">04</span>
+
+                                <span class="feature-number">
+                                    04
+                                </span>
 
                                 <iconify-icon
                                     icon="iconoir:arrow-up-right"
                                 ></iconify-icon>
+
                             </div>
 
-                            <h3>Verwaltung</h3>
+
+                            <h3>
+                                Verwaltung
+                            </h3>
+
 
                             <p>
-                                Interne Einstellungen, Berechtigungen
-                                und Systemverwaltung.
+                                Interne Einstellungen und Verwaltung
+                                für entsprechend berechtigte Nutzer.
                             </p>
+
 
                             <span class="feature-status">
                                 In Entwicklung
@@ -471,6 +970,7 @@
                         </div>
 
                     </article>
+
 
                 </div>
 
@@ -479,7 +979,11 @@
         </section>
 
 
-        <!-- DISCORD -->
+
+        <!-- =================================================
+             DISCORD
+             ================================================= -->
+
         <section
             id="discord"
             class="section"
@@ -489,52 +993,96 @@
 
                 <div class="discord-card glass-panel">
 
+
                     <div class="discord-info">
 
-                        <div class="section-kicker">
+                        <span class="section-kicker">
                             DISCORD
-                        </div>
+                        </span>
+
 
                         <h2>
+
                             Unsere Fraktion
-                            <span>auf Discord.</span>
+
+                            <span>
+                                auf Discord.
+                            </span>
+
                         </h2>
 
+
                         <p>
-                            Der Discord Server ist der zentrale Treffpunkt
-                            des Österreichischen Roten Sterns. Hier findest
-                            du Informationen, Kommunikation und den Zugang
-                            zur Fraktion.
+
+                            Der Discord Server ist der zentrale
+                            Treffpunkt des Österreichischen Roten
+                            Sterns.
+
                         </p>
+
 
                         <div class="discord-details">
 
-                            <div class="detail-row">
-                                <div class="detail-icon">
-                                    <iconify-icon icon="iconoir:community"></iconify-icon>
-                                </div>
-
-                                <div>
-                                    <span>Server</span>
-                                    <strong>Österreichischer Roter Stern</strong>
-                                </div>
-                            </div>
 
                             <div class="detail-row">
+
                                 <div class="detail-icon">
-                                    <iconify-icon icon="iconoir:shield"></iconify-icon>
+
+                                    <iconify-icon
+                                        icon="iconoir:community"
+                                    ></iconify-icon>
+
                                 </div>
 
+
                                 <div>
-                                    <span>Status</span>
-                                    <strong class="online-text">
-                                        <span class="status-dot"></span>
-                                        Online
+
+                                    <span>
+                                        Server
+                                    </span>
+
+                                    <strong>
+                                        Österreichischer Roter Stern
                                     </strong>
+
                                 </div>
+
                             </div>
+
+
+
+                            <div class="detail-row">
+
+                                <div class="detail-icon">
+
+                                    <iconify-icon
+                                        icon="iconoir:shield"
+                                    ></iconify-icon>
+
+                                </div>
+
+
+                                <div>
+
+                                    <span>
+                                        Status
+                                    </span>
+
+                                    <strong class="online-text">
+
+                                        <span class="status-dot"></span>
+
+                                        Online
+
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
 
                         </div>
+
 
                         <a
                             href="https://discord.gg/nN5JS4Kc9t"
@@ -542,14 +1090,23 @@
                             rel="noopener noreferrer"
                             class="button button-discord"
                         >
-                            <iconify-icon icon="iconoir:community"></iconify-icon>
-                            <span>Discord Server öffnen</span>
+
+                            <iconify-icon
+                                icon="iconoir:community"
+                            ></iconify-icon>
+
+                            <span>
+                                Discord Server öffnen
+                            </span>
+
                             <iconify-icon
                                 icon="iconoir:arrow-up-right"
                             ></iconify-icon>
+
                         </a>
 
                     </div>
+
 
 
                     <div class="discord-widget">
@@ -561,29 +1118,32 @@
                                 <span class="widget-status"></span>
 
                                 <div>
-                                    <strong>ÖRS Discord</strong>
-                                    <small>Community</small>
+
+                                    <strong>
+                                        ÖRS Discord
+                                    </strong>
+
+                                    <small>
+                                        Community
+                                    </small>
+
                                 </div>
 
                             </div>
 
-                            <iconify-icon
-                                icon="iconoir:community"
-                            ></iconify-icon>
-
                         </div>
+
 
                         <iframe
                             src="https://discord.com/widget?id=1440335667770032181&theme=dark"
-                            width="350"
-                            height="500"
+                            title="ÖRS Discord"
                             allowtransparency="true"
                             frameborder="0"
                             sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
-                            title="ÖRS Discord Server"
                         ></iframe>
 
                     </div>
+
 
                 </div>
 
@@ -592,7 +1152,11 @@
         </section>
 
 
-        <!-- STATUS -->
+
+        <!-- =================================================
+             STATUS
+             ================================================= -->
+
         <section
             id="status"
             class="section"
@@ -600,82 +1164,143 @@
 
             <div class="container">
 
+
                 <div class="section-heading">
 
                     <div>
-                        <span class="section-kicker">SYSTEM STATUS</span>
+
+                        <span class="section-kicker">
+                            SYSTEM STATUS
+                        </span>
 
                         <h2>
-                            Alles im
-                            <span>Überblick.</span>
+
+                            Aktueller
+
+                            <span>
+                                Status.
+                            </span>
+
                         </h2>
+
                     </div>
 
+
                     <p>
-                        Aktueller technischer Status der wichtigsten
+                        Der aktuelle Stand der wichtigsten
                         Komponenten.
                     </p>
 
                 </div>
 
 
+
                 <div class="status-grid">
 
+
                     <div class="status-card glass-card">
 
                         <div class="status-card-icon">
-                            <iconify-icon icon="iconoir:open-in-browser"></iconify-icon>
+
+                            <iconify-icon
+                                icon="iconoir:open-in-browser"
+                            ></iconify-icon>
+
                         </div>
 
+
                         <div class="status-card-content">
-                            <span>Website</span>
-                            <strong>Online</strong>
+
+                            <span>
+                                Website
+                            </span>
+
+                            <strong>
+                                Online
+                            </strong>
 
                             <small>
+
                                 <span class="status-dot"></span>
+
                                 Erreichbar
+
                             </small>
+
                         </div>
 
                     </div>
 
 
+
                     <div class="status-card glass-card">
 
                         <div class="status-card-icon">
-                            <iconify-icon icon="iconoir:community"></iconify-icon>
+
+                            <iconify-icon
+                                icon="iconoir:community"
+                            ></iconify-icon>
+
                         </div>
 
+
                         <div class="status-card-content">
-                            <span>Discord</span>
-                            <strong>Online</strong>
+
+                            <span>
+                                Discord
+                            </span>
+
+                            <strong>
+                                Online
+                            </strong>
 
                             <small>
+
                                 <span class="status-dot"></span>
+
                                 Verbunden
+
                             </small>
+
                         </div>
 
                     </div>
+
 
 
                     <div class="status-card glass-card">
 
                         <div class="status-card-icon">
-                            <iconify-icon icon="iconoir:server"></iconify-icon>
+
+                            <iconify-icon
+                                icon="iconoir:server"
+                            ></iconify-icon>
+
                         </div>
+
 
                         <div class="status-card-content">
-                            <span>ÖRS Plattform</span>
-                            <strong>Entwicklung</strong>
+
+                            <span>
+                                ÖRS Plattform
+                            </span>
+
+                            <strong>
+                                Entwicklung
+                            </strong>
 
                             <small>
+
                                 <span class="status-dot status-dot-yellow"></span>
+
                                 Wird aufgebaut
+
                             </small>
+
                         </div>
 
                     </div>
+
 
                 </div>
 
@@ -684,132 +1309,11 @@
         </section>
 
 
-        <!-- ROADMAP -->
-        <section class="section">
 
-            <div class="container">
+        <!-- =================================================
+             ACCOUNT
+             ================================================= -->
 
-                <div class="roadmap glass-panel">
-
-                    <div class="roadmap-heading">
-
-                        <div>
-                            <span class="section-kicker">ROADMAP</span>
-
-                            <h2>
-                                Der nächste
-                                <span>Schritt.</span>
-                            </h2>
-                        </div>
-
-                        <span class="roadmap-label">
-                            2026
-                        </span>
-
-                    </div>
-
-
-                    <div class="roadmap-list">
-
-                        <div class="roadmap-item completed">
-
-                            <div class="roadmap-icon">
-                                <iconify-icon icon="iconoir:check"></iconify-icon>
-                            </div>
-
-                            <div class="roadmap-text">
-                                <strong>Website Grundsystem</strong>
-                                <span>Grundstruktur und Design</span>
-                            </div>
-
-                            <span class="roadmap-state">
-                                Abgeschlossen
-                            </span>
-
-                        </div>
-
-
-                        <div class="roadmap-item completed">
-
-                            <div class="roadmap-icon">
-                                <iconify-icon icon="iconoir:check"></iconify-icon>
-                            </div>
-
-                            <div class="roadmap-text">
-                                <strong>Discord Login</strong>
-                                <span>Authentifizierung über Discord</span>
-                            </div>
-
-                            <span class="roadmap-state">
-                                Aktiv
-                            </span>
-
-                        </div>
-
-
-                        <div class="roadmap-item">
-
-                            <div class="roadmap-icon">
-                                <iconify-icon icon="iconoir:dashboard"></iconify-icon>
-                            </div>
-
-                            <div class="roadmap-text">
-                                <strong>Dashboards</strong>
-                                <span>Rollenbasierte interne Bereiche</span>
-                            </div>
-
-                            <span class="roadmap-state">
-                                Geplant
-                            </span>
-
-                        </div>
-
-
-                        <div class="roadmap-item">
-
-                            <div class="roadmap-icon">
-                                <iconify-icon icon="iconoir:map"></iconify-icon>
-                            </div>
-
-                            <div class="roadmap-text">
-                                <strong>Einsatzverwaltung</strong>
-                                <span>Operationen und Historien</span>
-                            </div>
-
-                            <span class="roadmap-state">
-                                Geplant
-                            </span>
-
-                        </div>
-
-
-                        <div class="roadmap-item">
-
-                            <div class="roadmap-icon">
-                                <iconify-icon icon="iconoir:health-shield"></iconify-icon>
-                            </div>
-
-                            <div class="roadmap-text">
-                                <strong>Medizin-System</strong>
-                                <span>Interne medizinische Verwaltung</span>
-                            </div>
-
-                            <span class="roadmap-state">
-                                Geplant
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ACCOUNT -->
         <section
             id="account"
             class="section account-section hidden"
@@ -817,42 +1321,68 @@
 
             <div class="container">
 
+
                 <div class="account-card glass-panel">
 
-                    <div class="account-avatar-wrapper">
 
-                        <img
-                            id="user-avatar"
-                            src=""
-                            alt="Profilbild"
-                            class="account-avatar"
-                        >
+                    <div class="account-main">
 
-                        <span class="account-online"></span>
 
-                    </div>
+                        <div class="account-avatar-wrapper">
 
-                    <div class="account-info">
+                            <img
+                                id="user-avatar"
+                                src=""
+                                alt="Profilbild"
+                                class="account-avatar"
+                            >
 
-                        <span class="section-kicker">
-                            ANGEMELDET
-                        </span>
+                            <span class="account-online"></span>
 
-                        <h2 id="user-name">
-                            Benutzer
-                        </h2>
-
-                        <p>
-                            Discord ID:
-                            <strong id="user-discord-id">–</strong>
-                        </p>
-
-                        <div class="access-badge">
-                            <iconify-icon icon="iconoir:shield"></iconify-icon>
-                            <span id="user-access">Zugriff wird geprüft...</span>
                         </div>
 
+
+                        <div class="account-info">
+
+                            <span class="section-kicker">
+                                ANGEMELDET
+                            </span>
+
+
+                            <h2 id="user-name">
+                                Benutzer
+                            </h2>
+
+
+                            <p>
+
+                                Discord ID:
+
+                                <strong id="user-discord-id">
+                                    –
+                                </strong>
+
+                            </p>
+
+
+                            <div class="access-badge">
+
+                                <iconify-icon
+                                    icon="iconoir:shield"
+                                ></iconify-icon>
+
+                                <span id="user-access">
+                                    Zugriff wird geprüft...
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
                     </div>
+
+
 
                     <div class="account-action">
 
@@ -861,14 +1391,19 @@
                             class="button button-primary"
                             type="button"
                         >
-                            <span>Dashboard öffnen</span>
+
+                            <span>
+                                Dashboard öffnen
+                            </span>
 
                             <iconify-icon
                                 icon="iconoir:arrow-up-right"
                             ></iconify-icon>
+
                         </button>
 
                     </div>
+
 
                 </div>
 
@@ -877,15 +1412,20 @@
         </section>
 
 
-        <!-- CONTACT -->
+
+        <!-- =================================================
+             CONTACT
+             ================================================= -->
+
         <section
             id="contact"
-            class="section contact-section"
+            class="section"
         >
 
             <div class="container">
 
                 <div class="contact-box glass-panel">
+
 
                     <div>
 
@@ -893,17 +1433,27 @@
                             KONTAKT
                         </span>
 
+
                         <h2>
+
                             Fragen zum
-                            <span>System?</span>
+
+                            <span>
+                                System?
+                            </span>
+
                         </h2>
 
+
                         <p>
-                            Für Fragen, Probleme oder Informationen
-                            steht unser Discord Server zur Verfügung.
+
+                            Für Fragen oder Probleme findest du
+                            uns auf dem ÖRS Discord Server.
+
                         </p>
 
                     </div>
+
 
                     <a
                         href="https://discord.gg/nN5JS4Kc9t"
@@ -911,11 +1461,15 @@
                         rel="noopener noreferrer"
                         class="button button-secondary"
                     >
-                        <span>Discord öffnen</span>
+
+                        <span>
+                            Discord öffnen
+                        </span>
 
                         <iconify-icon
                             icon="iconoir:arrow-up-right"
                         ></iconify-icon>
+
                     </a>
 
                 </div>
@@ -924,13 +1478,19 @@
 
         </section>
 
+
     </main>
 
 
-    <!-- FOOTER -->
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
     <footer class="site-footer">
 
         <div class="container footer-inner">
+
 
             <div class="footer-brand">
 
@@ -938,12 +1498,21 @@
                     <span>Ö</span>
                 </div>
 
+
                 <div>
-                    <strong>Österreichischer Roter Stern</strong>
-                    <span>Faction System</span>
+
+                    <strong>
+                        Österreichischer Roter Stern
+                    </strong>
+
+                    <span>
+                        Faction System
+                    </span>
+
                 </div>
 
             </div>
+
 
             <div class="footer-right">
 
@@ -959,16 +1528,18 @@
 
             </div>
 
+
         </div>
 
     </footer>
 
 
-    <!-- JS -->
+
     <script
         type="module"
         src="./ors/js/main.js"
     ></script>
+
 
 </body>
 
