@@ -1,1 +1,264 @@
+<!DOCTYPE html>
+<html lang="de">
 
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>ÖRS Mitglieder</title>
+
+<link
+    rel="stylesheet"
+    href="../css/style.css"
+>
+
+<link
+    rel="stylesheet"
+    href="../css/dashboard.css"
+>
+
+<script
+    src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"
+></script>
+
+</head>
+
+
+<body class="dashboard-body">
+
+
+<header class="dashboard-header">
+
+<a
+    class="dashboard-brand"
+    href="dashboard.html"
+>
+
+<span class="brand-icon">
+
+<iconify-icon
+    icon="iconoir:shield"
+></iconify-icon>
+
+</span>
+
+<span>
+
+<strong>ÖRS</strong>
+
+<small>
+Control Center
+</small>
+
+</span>
+
+</a>
+
+
+<div class="dashboard-user">
+
+<img
+    data-user-avatar
+    src=""
+    alt="Profilbild"
+>
+
+<div>
+
+<strong data-user-name>
+Mitglied
+</strong>
+
+<small data-user-access>
+—
+</small>
+
+</div>
+
+</div>
+
+</header>
+
+
+<div class="dashboard-layout">
+
+
+<aside class="dashboard-sidebar">
+
+<div
+    class="dashboard-nav"
+    data-dashboard-nav
+>
+
+<span class="nav-heading">
+Übersicht
+</span>
+
+<a
+    class="dashboard-nav-item"
+    href="dashboard.html"
+>
+
+<iconify-icon
+    icon="iconoir:dashboard"
+></iconify-icon>
+
+Dashboard
+
+</a>
+
+
+<a
+    class="dashboard-nav-item active"
+    href="members.html"
+>
+
+<iconify-icon
+    icon="iconoir:group"
+></iconify-icon>
+
+Mitglieder
+
+</a>
+
+
+<a
+    class="dashboard-nav-item"
+    href="operations.html"
+>
+
+<iconify-icon
+    icon="iconoir:map"
+></iconify-icon>
+
+Einsätze
+
+</a>
+
+
+<span class="nav-heading">
+Bereiche
+</span>
+
+
+<a
+    class="dashboard-nav-item"
+    href="medical.html"
+    data-permission="medical"
+>
+
+<iconify-icon
+    icon="iconoir:health-shield"
+></iconify-icon>
+
+Medizin
+
+</a>
+
+
+<a
+    class="dashboard-nav-item"
+    href="officer.html"
+    data-permission="officer"
+>
+
+<iconify-icon
+    icon="iconoir:badge-check"
+></iconify-icon>
+
+Officer
+
+</a>
+
+
+<a
+    class="dashboard-nav-item"
+    href="leadership.html"
+    data-permission="leadership"
+>
+
+<iconify-icon
+    icon="iconoir:shield"
+></iconify-icon>
+
+Führung
+
+</a>
+
+</div>
+
+
+<button
+    class="dashboard-logout"
+    data-action="logout"
+>
+
+<iconify-icon
+    icon="iconoir:log-out"
+></iconify-icon>
+
+Abmelden
+
+</button>
+
+</aside>
+
+
+<main class="dashboard-main">
+
+
+<section class="dashboard-hero">
+
+<span class="section-kicker">
+ÖRS MITGLIEDER
+</span>
+
+<h1>
+Mitglieder
+</h1>
+
+<p>
+Übersicht der für deinen Zugriff
+freigegebenen Mitgliederinformationen.
+</p>
+
+</section>
+
+
+<section class="empty-dashboard-card">
+
+<iconify-icon
+    icon="iconoir:group"
+></iconify-icon>
+
+<h2>
+Mitgliederverwaltung
+</h2>
+
+<p>
+Die eigentliche Mitgliederübersicht wird
+als nächster Schritt direkt mit der
+Supabase-Datenbank verbunden.
+</p>
+
+</section>
+
+
+</main>
+
+</div>
+
+
+<script
+    type="module"
+    src="../js/dashboard.js"
+></script>
+
+</body>
+
+</html>
