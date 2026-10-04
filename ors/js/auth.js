@@ -1,79 +1,52 @@
-
-
 import {
     supabase,
     getSession,
     getCurrentUser
 } from './supabase.js';
 
-import { ORS_CONFIG } from './config.js';
-
+import {
+    ORS_CONFIG
+} from './config.js';
 
 
 function log(...args) {
     console.log('[ÖRS Auth]', ...args);
 }
 
-function warn(...args) {
-    console.warn('[ÖRS Auth]', ...args);
-}
 
 function error(...args) {
     console.error('[ÖRS Auth]', ...args);
 }
 
 
-
+/* =========================================================
+   DISCORD LOGIN
+========================================================= */
 
 export async function signInWithDiscord() {
 
     try {
 
-        log('Starte Discord OAuth...');
+        const {
+            error: loginError
+        } = await supabase.auth.signInWithOAuth({
 
-        const redirectUrl =
-            ORS_CONFIG.website.url;
+            provider: 'discord',
 
-        if (!redirectUrl) {
-            throw new Error(
-                '[ÖRS Auth] Website URL fehlt in config.js.'
-            );
+            options: {
+
+                redirectTo:
+                    ORS_CONFIG.website.url,
+
+                scopes:
+                    'identify'
+            }
+        });
+
+
+        if (loginError) {
+            throw loginError;
         }
-
-
-        const { data, error: authError } =
-            await supabase.auth.signInWithOAuth({
-
-                provider: 'discord',
-
-                options: {
-
-                    redirectTo: redirectUrl,
-
-                    scopes:
-                        'identify guilds'
-                }
-            });
-
-
-        if (authError) {
-
-            error(
-                'Discord OAuth Fehler:',
-                authError
-            );
-
-            throw authError;
-        }
-
-
-        log(
-            'Discord OAuth wurde gestartet.',
-            data
-        );
-
-
-        return data;
 
     } catch (err) {
 
@@ -87,33 +60,21 @@ export async function signInWithDiscord() {
 }
 
 
-
+/* =========================================================
+   LOGOUT
+========================================================= */
 
 export async function signOut() {
 
     try {
 
-        log('Melde Benutzer ab...');
-
         const {
-            error: authError
+            error: logoutError
         } = await supabase.auth.signOut();
 
-
-        if (authError) {
-
-            error(
-                'Supabase Logout Fehler:',
-                authError
-            );
-
-            throw authError;
+        if (logoutError) {
+            throw logoutError;
         }
-
-
-        log(
-            'Benutzer erfolgreich abgemeldet.'
-        );
 
     } catch (err) {
 
@@ -127,74 +88,34 @@ export async function signOut() {
 }
 
 
+/* =========================================================
+   USER
+========================================================= */
 
 export async function getAuthenticatedUser() {
 
-    try {
-
-        const user =
-            await getCurrentUser();
-
-        return user;
-
-    } catch (err) {
-
-        error(
-            'Fehler beim Laden des aktuellen Users:',
-            err
-        );
-
-        return null;
-    }
+    return await getCurrentUser();
 }
-
 
 
 export async function getAuthenticatedSession() {
 
-    try {
-
-        const session =
-            await getSession();
-
-        return session;
-
-    } catch (err) {
-
-        error(
-            'Fehler beim Laden der Session:',
-            err
-        );
-
-        return null;
-    }
+    return await getSession();
 }
 
 
+/* =========================================================
+   PROFILE
+========================================================= */
 
-export async function getProfile(
-    userId = null
-) {
+export async function getProfile(userId) {
+
+    if (!userId) {
+        return null;
+    }
+
 
     try {
-
-        const user =
-            await getCurrentUser();
-
-
-        if (!user) {
-
-            warn(
-                'Kein angemeldeter Benutzer.'
-            );
-
-            return null;
-        }
-
-
-        const id =
-            userId || user.id;
-
 
         const {
             data,
@@ -210,18 +131,18 @@ export async function getProfile(
                 last_login,
                 updated_at
             `)
-            .eq('id', id)
+            .eq('id', userId)
             .maybeSingle();
 
 
         if (profileError) {
 
             error(
-                'Fehler beim Laden des Profils:',
+                'Profil konnte nicht geladen werden:',
                 profileError
             );
 
-            throw profileError;
+            return null;
         }
 
 
@@ -230,7 +151,7 @@ export async function getProfile(
     } catch (err) {
 
         error(
-            'getProfile fehlgeschlagen:',
+            'getProfile Fehler:',
             err
         );
 
@@ -239,7 +160,9 @@ export async function getProfile(
 }
 
 
-
+/* =========================================================
+   ROLLEN
+========================================================= */
 
 export async function isLeadership() {
 
@@ -256,7 +179,7 @@ export async function isLeadership() {
         if (rpcError) {
 
             error(
-                'Leadership-Prüfung fehlgeschlagen:',
+                'Leadership-Prüfung:',
                 rpcError
             );
 
@@ -268,16 +191,11 @@ export async function isLeadership() {
 
     } catch (err) {
 
-        error(
-            'isLeadership Fehler:',
-            err
-        );
+        error(err);
 
         return false;
     }
 }
-
-
 
 
 export async function isOfficer() {
@@ -295,7 +213,7 @@ export async function isOfficer() {
         if (rpcError) {
 
             error(
-                'Officer-Prüfung fehlgeschlagen:',
+                'Officer-Prüfung:',
                 rpcError
             );
 
@@ -307,16 +225,11 @@ export async function isOfficer() {
 
     } catch (err) {
 
-        error(
-            'isOfficer Fehler:',
-            err
-        );
+        error(err);
 
         return false;
     }
 }
-
-
 
 
 export async function isMedical() {
@@ -334,7 +247,7 @@ export async function isMedical() {
         if (rpcError) {
 
             error(
-                'Medical-Prüfung fehlgeschlagen:',
+                'Medical-Prüfung:',
                 rpcError
             );
 
@@ -346,16 +259,11 @@ export async function isMedical() {
 
     } catch (err) {
 
-        error(
-            'isMedical Fehler:',
-            err
-        );
+        error(err);
 
         return false;
     }
 }
-
-
 
 
 export async function hasORSAccess() {
@@ -373,7 +281,7 @@ export async function hasORSAccess() {
         if (rpcError) {
 
             error(
-                'ÖRS Zugriff konnte nicht geprüft werden:',
+                'ÖRS-Zugriff:',
                 rpcError
             );
 
@@ -385,93 +293,69 @@ export async function hasORSAccess() {
 
     } catch (err) {
 
-        error(
-            'hasORSAccess Fehler:',
-            err
-        );
+        error(err);
 
         return false;
     }
 }
 
 
+/* =========================================================
+   KOMPLETTER ACCESS
+========================================================= */
 
 export async function getORSAccess() {
 
-    try {
-
-        const user =
-            await getCurrentUser();
+    const user =
+        await getCurrentUser();
 
 
-        if (!user) {
-
-            return {
-                authenticated: false,
-
-                hasAccess: false,
-
-                isLeadership: false,
-                isOfficer: false,
-                isMedical: false
-            };
-        }
-
-
-        const [
-            leadership,
-            officer,
-            medical,
-            access
-        ] = await Promise.all([
-
-            isLeadership(),
-
-            isOfficer(),
-
-            isMedical(),
-
-            hasORSAccess()
-        ]);
-
+    if (!user) {
 
         return {
 
-            authenticated: true,
-
-            hasAccess: access,
-
-            isLeadership: leadership,
-
-            isOfficer: officer,
-
-            isMedical: medical
-        };
-
-    } catch (err) {
-
-        error(
-            'getORSAccess fehlgeschlagen:',
-            err
-        );
-
-
-        return {
-
-            authenticated: true,
+            authenticated: false,
 
             hasAccess: false,
 
             isLeadership: false,
-
             isOfficer: false,
-
             isMedical: false
         };
     }
+
+
+    const [
+        leadership,
+        officer,
+        medical,
+        access
+    ] = await Promise.all([
+
+        isLeadership(),
+        isOfficer(),
+        isMedical(),
+        hasORSAccess()
+
+    ]);
+
+
+    return {
+
+        authenticated: true,
+
+        hasAccess: access,
+
+        isLeadership: leadership,
+        isOfficer: officer,
+        isMedical: medical
+    };
 }
 
 
+/* =========================================================
+   USER + PROFILE + ACCESS
+========================================================= */
 
 export async function getUserAccessInfo() {
 
@@ -482,7 +366,6 @@ export async function getUserAccessInfo() {
 
 
         if (!user) {
-
             return null;
         }
 
@@ -493,8 +376,8 @@ export async function getUserAccessInfo() {
         ] = await Promise.all([
 
             getProfile(user.id),
-
             getORSAccess()
+
         ]);
 
 
@@ -523,7 +406,7 @@ export async function getUserAccessInfo() {
     } catch (err) {
 
         error(
-            'getUserAccessInfo fehlgeschlagen:',
+            'Access-Information:',
             err
         );
 
@@ -532,11 +415,11 @@ export async function getUserAccessInfo() {
 }
 
 
+/* =========================================================
+   ACCESS LEVEL
+========================================================= */
 
-
-export function getAccessLevel(
-    accessInfo
-) {
+export function getAccessLevel(accessInfo) {
 
     if (!accessInfo) {
         return 'Kein Zugriff';
@@ -564,6 +447,87 @@ export function getAccessLevel(
 
 
     return 'Kein ÖRS Zugriff';
+}
+
+
+/* =========================================================
+   USER DATA
+========================================================= */
+
+export function getDiscordId(
+    user,
+    profile = null
+) {
+
+    return (
+        profile?.discord_id ||
+        user?.user_metadata?.provider_id ||
+        user?.user_metadata?.sub ||
+        user?.app_metadata?.provider_id ||
+        'Nicht verfügbar'
+    );
+}
+
+
+export function getDisplayName(
+    user,
+    profile = null
+) {
+
+    return (
+        profile?.display_name ||
+        profile?.username ||
+        user?.user_metadata?.global_name ||
+        user?.user_metadata?.full_name ||
+        user?.user_metadata?.preferred_username ||
+        user?.user_metadata?.username ||
+        'ÖRS Mitglied'
+    );
+}
+
+
+export function getAvatarUrl(
+    user,
+    profile = null
+) {
+
+    if (profile?.avatar_url) {
+        return profile.avatar_url;
+    }
+
+
+    if (user?.user_metadata?.avatar_url) {
+        return user.user_metadata.avatar_url;
+    }
+
+
+    return null;
+}
+
+
+/* =========================================================
+   HELPER
+========================================================= */
+
+export async function isAuthenticated() {
+
+    const session =
+        await getSession();
+
+    return Boolean(
+        session?.user
+    );
+}
+
+
+export async function isORSMember() {
+
+    const access =
+        await getORSAccess();
+
+    return Boolean(
+        access.hasAccess
+    );
 }
 
 
@@ -599,178 +563,34 @@ export function canAccessMedical(
 }
 
 
-
-export async function isAuthenticated() {
-
-    const session =
-        await getSession();
-
-    return Boolean(
-        session?.user
-    );
-}
-
-
-
-
-export function getDiscordId(
-    user,
-    profile = null
-) {
-
-    if (profile?.discord_id) {
-        return profile.discord_id;
-    }
-
-
-    if (user?.user_metadata?.provider_id) {
-        return user.user_metadata.provider_id;
-    }
-
-
-    if (user?.user_metadata?.sub) {
-        return user.user_metadata.sub;
-    }
-
-
-    if (user?.app_metadata?.provider_id) {
-        return user.app_metadata.provider_id;
-    }
-
-
-    return null;
-}
-
-
-
-
-export function getDiscordDisplayName(
-    user,
-    profile = null
-) {
-
-    if (profile?.display_name) {
-        return profile.display_name;
-    }
-
-
-    if (profile?.username) {
-        return profile.username;
-    }
-
-
-    if (user?.user_metadata?.global_name) {
-        return user.user_metadata.global_name;
-    }
-
-
-    if (user?.user_metadata?.name) {
-        return user.user_metadata.name;
-    }
-
-
-    if (user?.user_metadata?.full_name) {
-        return user.user_metadata.full_name;
-    }
-
-
-    if (user?.user_metadata?.preferred_username) {
-        return user.user_metadata.preferred_username;
-    }
-
-
-    if (user?.user_metadata?.username) {
-        return user.user_metadata.username;
-    }
-
-
-    return 'ÖRS Mitglied';
-}
-
-
-
-
-export function getDiscordAvatar(
-    user,
-    profile = null
-) {
-
-    if (profile?.avatar_url) {
-        return profile.avatar_url;
-    }
-
-
-    if (user?.user_metadata?.avatar_url) {
-        return user.user_metadata.avatar_url;
-    }
-
-
-    if (user?.user_metadata?.picture) {
-        return user.user_metadata.picture;
-    }
-
-
-    if (user?.user_metadata?.avatar) {
-        return user.user_metadata.avatar;
-    }
-
-
-    return null;
-}
-
-
-
-export function isORSMember(
-    accessInfo
-) {
-
-    return Boolean(
-        accessInfo?.hasAccess
-    );
-}
-
-
-
-
 export default {
 
     signInWithDiscord,
-
     signOut,
 
     getAuthenticatedUser,
-
     getAuthenticatedSession,
 
     getProfile,
 
     isLeadership,
-
     isOfficer,
-
     isMedical,
-
     hasORSAccess,
 
     getORSAccess,
-
     getUserAccessInfo,
 
     getAccessLevel,
 
-    canAccessLeadership,
-
-    canAccessOfficer,
-
-    canAccessMedical,
+    getDiscordId,
+    getDisplayName,
+    getAvatarUrl,
 
     isAuthenticated,
+    isORSMember,
 
-    getDiscordId,
-
-    getDiscordDisplayName,
-
-    getDiscordAvatar,
-
-    isORSMember
+    canAccessLeadership,
+    canAccessOfficer,
+    canAccessMedical
 };
