@@ -12,6 +12,12 @@
     --red-light: #ed3947;
     --red-dark: #8f111b;
 
+    --discord: #5865f2;
+    --discord-light: #6875f5;
+
+    --green: #69d58b;
+    --yellow: #e2a72f;
+
     --text-main: #f5f7fa;
     --text-secondary: #a9b0bb;
     --text-muted: #707985;
@@ -19,7 +25,8 @@
     --border: rgba(255, 255, 255, 0.08);
     --border-red: rgba(201, 31, 44, 0.35);
 
-    --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    --shadow:
+        0 20px 60px rgba(0, 0, 0, 0.35);
 
     --radius: 16px;
     --radius-small: 10px;
@@ -81,6 +88,10 @@ a {
     text-decoration: none;
 }
 
+img {
+    max-width: 100%;
+}
+
 
 /* =========================================================
    UTILITY
@@ -102,7 +113,8 @@ a {
 
     width: 100%;
 
-    background: rgba(7, 9, 13, 0.82);
+    background:
+        rgba(7, 9, 13, 0.82);
 
     border-bottom: 1px solid var(--border);
 
@@ -111,7 +123,10 @@ a {
 }
 
 .nav-container {
-    width: min(var(--max-width), calc(100% - 40px));
+    width: min(
+        var(--max-width),
+        calc(100% - 40px)
+    );
 
     min-height: 78px;
 
@@ -173,10 +188,10 @@ a {
 }
 
 .brand-title {
+    color: var(--text-main);
+
     font-size: 14px;
     font-weight: 700;
-
-    color: var(--text-main);
 }
 
 .brand-subtitle {
@@ -221,7 +236,8 @@ a {
 .nav-link:hover {
     color: var(--text-main);
 
-    background: rgba(255, 255, 255, 0.04);
+    background:
+        rgba(255, 255, 255, 0.04);
 }
 
 .nav-link.active {
@@ -245,6 +261,9 @@ a {
 }
 
 
+/* =========================================================
+   NAV ACTIONS
+   ========================================================= */
 
 .nav-actions {
     display: flex;
@@ -254,6 +273,9 @@ a {
 }
 
 
+/* =========================================================
+   BUTTONS
+   ========================================================= */
 
 .btn {
     display: inline-flex;
@@ -286,6 +308,9 @@ a {
     transform: translateY(0);
 }
 
+
+/* Primary */
+
 .btn-primary {
     color: #ffffff;
 
@@ -305,18 +330,27 @@ a {
         0 14px 35px rgba(201, 31, 44, 0.32);
 }
 
+
+/* Discord */
+
 .btn-discord {
     color: #ffffff;
 
-    background: #5865f2;
+    background: var(--discord);
 
     box-shadow:
         0 8px 25px rgba(88, 101, 242, 0.18);
 }
 
 .btn-discord:hover {
-    background: #6875f5;
+    background: var(--discord-light);
+
+    box-shadow:
+        0 12px 30px rgba(88, 101, 242, 0.28);
 }
+
+
+/* Secondary */
 
 .btn-secondary {
     color: var(--text-main);
@@ -329,25 +363,34 @@ a {
 .btn-secondary:hover {
     background: var(--bg-card-hover);
 
-    border-color: rgba(255, 255, 255, 0.15);
+    border-color:
+        rgba(255, 255, 255, 0.15);
 }
+
+
+/* Outline */
 
 .btn-outline {
     color: var(--text-main);
 
-    background: rgba(255, 255, 255, 0.025);
+    background:
+        rgba(255, 255, 255, 0.025);
 
     border: 1px solid var(--border);
 }
 
 .btn-outline:hover {
-    background: rgba(255, 255, 255, 0.06);
+    background:
+        rgba(255, 255, 255, 0.06);
 
-    border-color: rgba(255, 255, 255, 0.15);
+    border-color:
+        rgba(255, 255, 255, 0.15);
 }
 
 
-
+/* =========================================================
+   HERO
+   ========================================================= */
 
 .hero-section {
     position: relative;
@@ -373,7 +416,8 @@ a {
 
     transform: translateX(-50%);
 
-    background: rgba(201, 31, 44, 0.08);
+    background:
+        rgba(201, 31, 44, 0.08);
 
     border-radius: 50%;
 
@@ -417,7 +461,8 @@ a {
 
     color: var(--red-light);
 
-    background: rgba(201, 31, 44, 0.08);
+    background:
+        rgba(201, 31, 44, 0.08);
 
     border: 1px solid var(--border-red);
 
@@ -473,7 +518,9 @@ a {
 }
 
 
-
+/* =========================================================
+   HERO PANEL
+   ========================================================= */
 
 .hero-panel {
     position: relative;
@@ -525,7 +572,8 @@ a {
     width: 230px;
     height: 230px;
 
-    background: rgba(201, 31, 44, 0.18);
+    background:
+        rgba(201, 31, 44, 0.18);
 
     border-radius: 50%;
 
@@ -554,6 +602,7 @@ a {
     color: var(--red-light);
 
     font-size: 86px;
+
     line-height: 1;
 
     letter-spacing: -5px;
@@ -580,7 +629,8 @@ a {
 
     color: var(--text-secondary);
 
-    background: rgba(255, 255, 255, 0.04);
+    background:
+        rgba(255, 255, 255, 0.04);
 
     border: 1px solid var(--border);
 
@@ -590,7 +640,9 @@ a {
 }
 
 
-
+/* =========================================================
+   STATUS DOT
+   ========================================================= */
 
 .status-dot {
     width: 8px;
@@ -600,10 +652,17 @@ a {
 
     border-radius: 50%;
 
-    background: #e2a72f;
+    background: var(--yellow);
 
     box-shadow:
         0 0 12px rgba(226, 167, 47, 0.5);
+}
+
+.status-online {
+    background: var(--green);
+
+    box-shadow:
+        0 0 12px rgba(105, 213, 139, 0.5);
 }
 
 
@@ -663,6 +722,10 @@ a {
 }
 
 
+/* =========================================================
+   FEATURE GRID
+   ========================================================= */
+
 .feature-grid {
     display: grid;
 
@@ -712,7 +775,8 @@ a {
 
     margin-bottom: 25px;
 
-    background: rgba(201, 31, 44, 0.09);
+    background:
+        rgba(201, 31, 44, 0.09);
 
     border: 1px solid var(--border-red);
 
@@ -736,7 +800,235 @@ a {
 }
 
 
+/* =========================================================
+   DISCORD
+   ========================================================= */
 
+.discord-section {
+    background:
+        linear-gradient(
+            180deg,
+            rgba(88, 101, 242, 0.025),
+            transparent
+        );
+}
+
+.discord-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(350px, 1fr)
+        minmax(300px, 0.8fr);
+
+    gap: 24px;
+
+    align-items: stretch;
+}
+
+
+/* Discord widget */
+
+.discord-widget-card {
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(88, 101, 242, 0.08),
+            rgba(255, 255, 255, 0.02)
+        );
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow);
+}
+
+.discord-widget-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 22px 24px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.widget-label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #7289da;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+}
+
+.discord-widget-header h3 {
+    font-size: 17px;
+}
+
+.discord-live {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 6px 10px;
+
+    color: var(--green);
+
+    background:
+        rgba(105, 213, 139, 0.08);
+
+    border: 1px solid
+        rgba(105, 213, 139, 0.18);
+
+    border-radius: 999px;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+.live-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: var(--green);
+
+    box-shadow:
+        0 0 10px rgba(105, 213, 139, 0.5);
+}
+
+.discord-widget {
+    display: flex;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: #080b10;
+}
+
+.discord-widget iframe {
+    display: block;
+
+    width: 100%;
+    max-width: 350px;
+
+    min-height: 500px;
+
+    border-radius: 10px;
+}
+
+
+/* Discord info */
+
+.discord-info {
+    display: flex;
+    flex-direction: column;
+
+    gap: 16px;
+}
+
+.discord-info-card {
+    flex: 1;
+
+    padding: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.04),
+            rgba(255, 255, 255, 0.015)
+        );
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.discord-info-card:hover {
+    transform: translateY(-3px);
+
+    border-color: var(--border-red);
+}
+
+.discord-info-card h3 {
+    margin-bottom: 8px;
+
+    font-size: 17px;
+}
+
+.discord-info-card p {
+    margin-bottom: 18px;
+
+    color: var(--text-secondary);
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+.info-number {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: var(--red-light);
+
+    font-size: 28px;
+    font-weight: 900;
+}
+
+.info-title {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: var(--text-main);
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.info-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    margin-bottom: 15px;
+
+    color: var(--red-light);
+
+    background:
+        rgba(201, 31, 44, 0.08);
+
+    border: 1px solid var(--border-red);
+
+    border-radius: 11px;
+}
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
 
 .status-section {
     background:
@@ -745,6 +1037,15 @@ a {
             rgba(255, 255, 255, 0.01),
             transparent
         );
+}
+
+.status-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 16px;
 }
 
 .status-card {
@@ -761,6 +1062,17 @@ a {
     border: 1px solid var(--border);
 
     border-radius: var(--radius);
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.status-card:hover {
+    transform: translateY(-3px);
+
+    border-color:
+        rgba(255, 255, 255, 0.14);
 }
 
 .status-card-left {
@@ -793,11 +1105,13 @@ a {
 .status-badge {
     padding: 7px 11px;
 
-    color: #e2a72f;
+    color: var(--yellow);
 
-    background: rgba(226, 167, 47, 0.08);
+    background:
+        rgba(226, 167, 47, 0.08);
 
-    border: 1px solid rgba(226, 167, 47, 0.2);
+    border: 1px solid
+        rgba(226, 167, 47, 0.2);
 
     border-radius: 999px;
 
@@ -807,12 +1121,147 @@ a {
     letter-spacing: 1px;
 }
 
+.status-badge-online {
+    color: var(--green);
 
+    background:
+        rgba(105, 213, 139, 0.08);
+
+    border-color:
+        rgba(105, 213, 139, 0.2);
+}
+
+
+/* =========================================================
+   ROADMAP
+   ========================================================= */
+
+.roadmap {
+    position: relative;
+
+    max-width: 850px;
+
+    margin: 0 auto;
+}
+
+.roadmap::before {
+    content: "";
+
+    position: absolute;
+
+    top: 25px;
+    bottom: 25px;
+    left: 22px;
+
+    width: 1px;
+
+    background:
+        linear-gradient(
+            180deg,
+            var(--red),
+            var(--border)
+        );
+}
+
+.roadmap-item {
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns: 46px 1fr;
+
+    gap: 20px;
+
+    padding-bottom: 35px;
+}
+
+.roadmap-item:last-child {
+    padding-bottom: 0;
+}
+
+.roadmap-marker {
+    position: relative;
+    z-index: 2;
+
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--bg-main);
+
+    border: 1px solid var(--border);
+
+    border-radius: 50%;
+
+    color: var(--text-muted);
+
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.roadmap-item.completed .roadmap-marker {
+    color: #ffffff;
+
+    background: var(--red);
+
+    border-color: var(--red);
+}
+
+.roadmap-item.active .roadmap-marker {
+    color: var(--red-light);
+
+    border-color: var(--red);
+
+    box-shadow:
+        0 0 25px rgba(201, 31, 44, 0.15);
+}
+
+.roadmap-content {
+    padding-top: 3px;
+}
+
+.roadmap-status {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: var(--text-muted);
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+}
+
+.roadmap-item.active .roadmap-status {
+    color: var(--red-light);
+}
+
+.roadmap-content h3 {
+    margin-bottom: 6px;
+
+    font-size: 19px;
+}
+
+.roadmap-content p {
+    color: var(--text-secondary);
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   ACCOUNT
+   ========================================================= */
 
 .account-card {
     display: grid;
 
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns:
+        auto 1fr auto;
 
     align-items: center;
 
@@ -844,6 +1293,8 @@ a {
     border-radius: 50%;
 
     border: 2px solid var(--red);
+
+    background: var(--bg-card);
 }
 
 .account-avatar img {
@@ -891,7 +1342,23 @@ a {
 }
 
 
+/* =========================================================
+   CONTACT
+   ========================================================= */
 
+.contact-section {
+    background:
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(201, 31, 44, 0.06),
+            transparent 45%
+        );
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
 
 .site-footer {
     padding: 30px 0;
@@ -943,6 +1410,38 @@ a {
 }
 
 
+/* =========================================================
+   HOVER ANIMATION
+   ========================================================= */
+
+@keyframes pulseStatus {
+
+    0% {
+        box-shadow:
+            0 0 0 0 rgba(105, 213, 139, 0.35);
+    }
+
+    70% {
+        box-shadow:
+            0 0 0 7px rgba(105, 213, 139, 0);
+    }
+
+    100% {
+        box-shadow:
+            0 0 0 0 rgba(105, 213, 139, 0);
+    }
+
+}
+
+.status-online {
+    animation:
+        pulseStatus 2.5s infinite;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
 
 @media (max-width: 1000px) {
 
@@ -950,15 +1449,18 @@ a {
         display: none;
     }
 
+
     .hero-container {
         grid-template-columns: 1fr;
 
         gap: 50px;
     }
 
+
     .hero-content {
         max-width: 800px;
     }
+
 
     .hero-panel {
         max-width: 600px;
@@ -968,13 +1470,24 @@ a {
         margin: 0 auto;
     }
 
+
     .feature-grid {
         grid-template-columns:
             repeat(2, minmax(0, 1fr));
     }
+
+
+    .status-grid {
+        grid-template-columns:
+            1fr;
+    }
+
 }
 
 
+/* =========================================================
+   MOBILE
+   ========================================================= */
 
 @media (max-width: 650px) {
 
@@ -989,22 +1502,27 @@ a {
         gap: 10px;
     }
 
+
     .brand-title {
         font-size: 12px;
     }
 
+
     .brand-subtitle {
         font-size: 9px;
     }
+
 
     .brand-logo {
         width: 38px;
         height: 38px;
     }
 
+
     .nav-actions .btn-secondary {
         display: none;
     }
+
 
     .nav-actions .btn {
         min-height: 38px;
@@ -1014,11 +1532,13 @@ a {
         font-size: 12px;
     }
 
+
     .hero-section {
         min-height: auto;
 
         padding: 100px 0 80px;
     }
+
 
     .hero-container {
         width: min(
@@ -1027,27 +1547,33 @@ a {
         );
     }
 
+
     .hero-content h1 {
         font-size: 48px;
 
         letter-spacing: -2px;
     }
 
+
     .hero-description {
         font-size: 15px;
     }
+
 
     .hero-panel {
         min-height: 300px;
     }
 
+
     .hero-panel h2 {
         font-size: 68px;
     }
 
+
     .content-section {
         padding: 80px 0;
     }
+
 
     .section-container {
         width: min(
@@ -1056,13 +1582,43 @@ a {
         );
     }
 
+
     .feature-grid {
         grid-template-columns: 1fr;
     }
 
+
     .feature-card {
         min-height: auto;
     }
+
+
+    .discord-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .discord-info {
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+
+    .discord-widget-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .discord-widget iframe {
+        width: 100%;
+
+        max-width: 350px;
+    }
+
 
     .status-card {
         align-items: flex-start;
@@ -1070,15 +1626,37 @@ a {
         flex-direction: column;
     }
 
+
+    .roadmap-item {
+        grid-template-columns:
+            38px 1fr;
+
+        gap: 15px;
+    }
+
+
+    .roadmap::before {
+        left: 18px;
+    }
+
+
+    .roadmap-marker {
+        width: 38px;
+        height: 38px;
+    }
+
+
     .account-card {
         grid-template-columns: 1fr;
 
         text-align: center;
     }
 
+
     .account-avatar {
         margin: 0 auto;
     }
+
 
     .account-access {
         min-width: 0;
@@ -1086,9 +1664,58 @@ a {
         text-align: center;
     }
 
+
     .footer-container {
         flex-direction: column;
 
         text-align: center;
     }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 430px) {
+
+    .brand-text {
+        display: none;
+    }
+
+
+    .nav-actions .btn-discord {
+        padding: 0 10px;
+
+        font-size: 11px;
+    }
+
+
+    .hero-content h1 {
+        font-size: 41px;
+    }
+
+
+    .hero-panel h2 {
+        font-size: 58px;
+    }
+
+
+    .discord-info {
+        grid-template-columns: 1fr;
+    }
+
+
+    .hero-actions {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+
+    .hero-actions .btn {
+        width: 100%;
+    }
+
 }
