@@ -1,12 +1,10 @@
 // =========================================================
-// ÖRS - MAIN.JS
+// ÖRS MAIN.JS
 // Österreichischer Roter Stern
-// Zentrale Steuerung der Website
 // =========================================================
 
 import {
     getSession,
-    getCurrentUser,
     onAuthStateChange
 } from './supabase.js';
 
@@ -18,33 +16,92 @@ import {
 
 
 // =========================================================
-// DOM ELEMENTE
+// DOM
 // =========================================================
 
 const elements = {
-    discordLogin: document.getElementById('discord-login'),
-    discordLogout: document.getElementById('discord-logout'),
 
-    heroLogin: document.getElementById('hero-login'),
+    discordLogin:
+        document.getElementById('discord-login'),
 
-    accountSection: document.getElementById('account'),
+    discordLogout:
+        document.getElementById('discord-logout'),
 
-    userAvatar: document.getElementById('user-avatar'),
-    userName: document.getElementById('user-name'),
-    userDiscordId: document.getElementById('user-discord-id'),
-    userAccess: document.getElementById('user-access'),
+    heroLogin:
+        document.getElementById('hero-login'),
 
-    accountDashboard: document.getElementById('account-dashboard'),
+    accountSection:
+        document.getElementById('account'),
 
-    navLinks: document.querySelectorAll('.nav-link')
+    userAvatar:
+        document.getElementById('user-avatar'),
+
+    userName:
+        document.getElementById('user-name'),
+
+    userDiscordId:
+        document.getElementById('user-discord-id'),
+
+    userAccess:
+        document.getElementById('user-access'),
+
+    accountDashboard:
+        document.getElementById('account-dashboard'),
+
+    navLinks:
+        document.querySelectorAll('.nav-link'),
+
+
+    // Profil oben rechts
+
+    profileMenu:
+        document.getElementById('profile-menu'),
+
+    profileTrigger:
+        document.getElementById('profile-trigger'),
+
+    profileDropdown:
+        document.getElementById('profile-dropdown'),
+
+    profileChevron:
+        document.getElementById('profile-chevron'),
+
+    headerUserAvatar:
+        document.getElementById('header-user-avatar'),
+
+    headerUserName:
+        document.getElementById('header-user-name'),
+
+    headerUserAccess:
+        document.getElementById('header-user-access'),
+
+    dropdownUserAvatar:
+        document.getElementById('dropdown-user-avatar'),
+
+    dropdownUserName:
+        document.getElementById('dropdown-user-name'),
+
+    dropdownUserId:
+        document.getElementById('dropdown-user-id'),
+
+    profileDashboard:
+        document.getElementById('profile-dashboard'),
+
+    profileRoleSection:
+        document.getElementById('profile-role-section'),
+
+    profileRoleLinks:
+        document.getElementById('profile-role-links')
+
 };
 
 
 // =========================================================
-// WEBSITE STATUS
+// STATE
 // =========================================================
 
 let currentUser = null;
+
 let currentAccess = null;
 
 
@@ -53,49 +110,65 @@ let currentAccess = null;
 // =========================================================
 
 function log(...args) {
-    console.log('[ÖRS]', ...args);
+
+    console.log(
+        '[ÖRS]',
+        ...args
+    );
+
 }
 
-function warn(...args) {
-    console.warn('[ÖRS]', ...args);
-}
 
 function error(...args) {
-    console.error('[ÖRS]', ...args);
+
+    console.error(
+        '[ÖRS]',
+        ...args
+    );
+
 }
 
 
 // =========================================================
-// LOGIN / LOGOUT BUTTONS
+// LOGIN STATUS
 // =========================================================
 
 function setLoginState(loggedIn) {
 
     if (elements.discordLogin) {
+
         elements.discordLogin.classList.toggle(
             'hidden',
             loggedIn
         );
+
     }
 
-    if (elements.discordLogout) {
-        elements.discordLogout.classList.toggle(
+
+    if (elements.profileMenu) {
+
+        elements.profileMenu.classList.toggle(
             'hidden',
             !loggedIn
         );
+
     }
 
+
     if (elements.heroLogin) {
+
         elements.heroLogin.classList.toggle(
             'hidden',
             loggedIn
         );
+
     }
+
 }
 
 
 // =========================================================
-// ACCOUNT SECTION
+// ACCOUNT
 // =========================================================
 
 function showAccount() {
@@ -104,8 +177,12 @@ function showAccount() {
         return;
     }
 
-    elements.accountSection.classList.remove('hidden');
+    elements.accountSection.classList.remove(
+        'hidden'
+    );
+
 }
+
 
 function hideAccount() {
 
@@ -113,37 +190,62 @@ function hideAccount() {
         return;
     }
 
-    elements.accountSection.classList.add('hidden');
+    elements.accountSection.classList.add(
+        'hidden'
+    );
+
 }
 
 
 // =========================================================
-// ACCOUNT DATEN ZURÜCKSETZEN
+// RESET
 // =========================================================
 
 function resetAccountUI() {
 
     if (elements.userAvatar) {
-        elements.userAvatar.removeAttribute('src');
-        elements.userAvatar.alt = 'Profilbild';
+
+        elements.userAvatar.removeAttribute(
+            'src'
+        );
+
+        elements.userAvatar.alt =
+            'Profilbild';
+
     }
+
 
     if (elements.userName) {
-        elements.userName.textContent = 'Benutzer';
+
+        elements.userName.textContent =
+            'Benutzer';
+
     }
+
 
     if (elements.userDiscordId) {
-        elements.userDiscordId.textContent = '–';
+
+        elements.userDiscordId.textContent =
+            '–';
+
     }
 
+
     if (elements.userAccess) {
-        elements.userAccess.textContent = 'Kein Zugriff';
+
+        elements.userAccess.textContent =
+            'Kein Zugriff';
+
     }
+
+
+    resetProfileMenu();
+
 }
 
 
 // =========================================================
-// DISCORD PROFILBILD
+// AVATAR
 // =========================================================
 
 function getAvatarUrl(user) {
@@ -152,89 +254,102 @@ function getAvatarUrl(user) {
         return null;
     }
 
-    // Supabase Discord Provider
-    if (user.user_metadata?.avatar_url) {
-        return user.user_metadata.avatar_url;
-    }
 
-    if (user.user_metadata?.picture) {
-        return user.user_metadata.picture;
-    }
+    return (
+        user.user_metadata?.avatar_url ||
+        user.user_metadata?.picture ||
+        user.user_metadata?.avatar ||
+        null
+    );
 
-    if (user.user_metadata?.avatar) {
-        return user.user_metadata.avatar;
-    }
-
-    return null;
 }
 
 
 // =========================================================
-// DISCORD NAME
+// NAME
 // =========================================================
 
-function getDisplayName(user, profile) {
+function getDisplayName(
+    user,
+    profile
+) {
 
     if (profile?.display_name) {
         return profile.display_name;
     }
 
+
     if (profile?.username) {
         return profile.username;
     }
+
 
     if (user?.user_metadata?.global_name) {
         return user.user_metadata.global_name;
     }
 
+
     if (user?.user_metadata?.name) {
         return user.user_metadata.name;
     }
+
 
     if (user?.user_metadata?.full_name) {
         return user.user_metadata.full_name;
     }
 
+
     if (user?.user_metadata?.preferred_username) {
         return user.user_metadata.preferred_username;
     }
+
 
     if (user?.user_metadata?.username) {
         return user.user_metadata.username;
     }
 
+
     return 'ÖRS Mitglied';
+
 }
 
 
 // =========================================================
-// DISCORD ID ERMITTELN
+// DISCORD ID
 // =========================================================
 
-function getDiscordId(user, profile) {
+function getDiscordId(
+    user,
+    profile
+) {
 
     if (profile?.discord_id) {
         return profile.discord_id;
     }
 
+
     if (user?.user_metadata?.provider_id) {
         return user.user_metadata.provider_id;
     }
+
 
     if (user?.user_metadata?.sub) {
         return user.user_metadata.sub;
     }
 
+
     if (user?.app_metadata?.provider_id) {
         return user.app_metadata.provider_id;
     }
 
+
     return 'Nicht verfügbar';
+
 }
 
 
 // =========================================================
-// ZUGRIFFSSTUFE
+// ACCESS LABEL
 // =========================================================
 
 function getAccessLabel(access) {
@@ -243,170 +358,764 @@ function getAccessLabel(access) {
         return 'Kein Zugriff';
     }
 
+
     if (access.isLeadership) {
         return 'Leadership';
     }
+
 
     if (access.isOfficer) {
         return 'Officer';
     }
 
+
     if (access.isMedical) {
         return 'Medical';
     }
+
 
     if (access.hasAccess) {
         return 'ÖRS Mitglied';
     }
 
+
     return 'Kein ÖRS Zugriff';
+
 }
 
 
 // =========================================================
-// ACCOUNT UI AKTUALISIEREN
+// PROFIL-DROPDOWN ÖFFNEN
+// =========================================================
+
+function openProfileMenu() {
+
+    if (!elements.profileMenu) {
+        return;
+    }
+
+
+    elements.profileMenu.classList.add(
+        'open'
+    );
+
+
+    if (elements.profileTrigger) {
+
+        elements.profileTrigger.setAttribute(
+            'aria-expanded',
+            'true'
+        );
+
+    }
+
+
+    if (elements.profileChevron) {
+
+        elements.profileChevron.style.transform =
+            'rotate(180deg)';
+
+    }
+
+}
+
+
+// =========================================================
+// PROFIL-DROPDOWN SCHLIESSEN
+// =========================================================
+
+function closeProfileMenu() {
+
+    if (!elements.profileMenu) {
+        return;
+    }
+
+
+    elements.profileMenu.classList.remove(
+        'open'
+    );
+
+
+    if (elements.profileTrigger) {
+
+        elements.profileTrigger.setAttribute(
+            'aria-expanded',
+            'false'
+        );
+
+    }
+
+
+    if (elements.profileChevron) {
+
+        elements.profileChevron.style.transform =
+            'rotate(0deg)';
+
+    }
+
+}
+
+
+// =========================================================
+// PROFIL-DROPDOWN TOGGLE
+// =========================================================
+
+function toggleProfileMenu() {
+
+    if (!elements.profileMenu) {
+        return;
+    }
+
+
+    if (
+        elements.profileMenu.classList.contains(
+            'open'
+        )
+    ) {
+
+        closeProfileMenu();
+
+    } else {
+
+        openProfileMenu();
+
+    }
+
+}
+
+
+// =========================================================
+// ROLE MENU
+// =========================================================
+
+function clearRoleMenu() {
+
+    if (!elements.profileRoleLinks) {
+        return;
+    }
+
+
+    elements.profileRoleLinks.innerHTML = '';
+
+}
+
+
+// =========================================================
+// ROLE LINK
+// =========================================================
+
+function createRoleLink(
+    icon,
+    label,
+    action
+) {
+
+    const button =
+        document.createElement('button');
+
+
+    button.type =
+        'button';
+
+
+    button.className =
+        'profile-dropdown-link';
+
+
+    button.dataset.roleAction =
+        action;
+
+
+    button.innerHTML = `
+
+        <iconify-icon
+            icon="${icon}"
+        ></iconify-icon>
+
+        <span>
+            ${escapeHtml(label)}
+        </span>
+
+    `;
+
+
+    button.addEventListener(
+        'click',
+        () => {
+
+            handleRoleAction(
+                action
+            );
+
+        }
+    );
+
+
+    return button;
+
+}
+
+
+// =========================================================
+// ROLE MENÜ AUFBAUEN
+// =========================================================
+
+function updateRoleMenu(access) {
+
+    clearRoleMenu();
+
+
+    if (
+        !elements.profileRoleSection ||
+        !elements.profileRoleLinks
+    ) {
+        return;
+    }
+
+
+    const links = [];
+
+
+    // -----------------------------------------------------
+    // Leadership
+    // -----------------------------------------------------
+
+    if (access?.isLeadership) {
+
+        links.push(
+            createRoleLink(
+                'iconoir:dashboard',
+                'Führungsbereich',
+                'leadership'
+            )
+        );
+
+
+        links.push(
+            createRoleLink(
+                'iconoir:group',
+                'Mitgliederverwaltung',
+                'members'
+            )
+        );
+
+
+        links.push(
+            createRoleLink(
+                'iconoir:map',
+                'Einsatzverwaltung',
+                'operations'
+            )
+        );
+
+
+        links.push(
+            createRoleLink(
+                'iconoir:settings',
+                'Systemverwaltung',
+                'settings'
+            )
+        );
+
+    }
+
+
+    // -----------------------------------------------------
+    // Officer
+    // -----------------------------------------------------
+
+    else if (access?.isOfficer) {
+
+        links.push(
+            createRoleLink(
+                'iconoir:dashboard',
+                'Officer-Bereich',
+                'officer'
+            )
+        );
+
+
+        links.push(
+            createRoleLink(
+                'iconoir:group',
+                'Mitglieder',
+                'members'
+            )
+        );
+
+
+        links.push(
+            createRoleLink(
+                'iconoir:map',
+                'Einsätze',
+                'operations'
+            )
+        );
+
+    }
+
+
+    // -----------------------------------------------------
+    // Medical
+    // -----------------------------------------------------
+
+    if (
+        access?.isMedical ||
+        access?.isLeadership
+    ) {
+
+        links.push(
+            createRoleLink(
+                'iconoir:health-shield',
+                'Medizin',
+                'medical'
+            )
+        );
+
+
+        links.push(
+            createRoleLink(
+                'iconoir:medical-case',
+                'Behandlungen',
+                'treatments'
+            )
+        );
+
+
+        links.push(
+            createRoleLink(
+                'iconoir:activity',
+                'Reanimation',
+                'reanimation'
+            )
+        );
+
+
+        links.push(
+            createRoleLink(
+                'iconoir:box',
+                'Ausrüstung',
+                'equipment'
+            )
+        );
+
+    }
+
+
+    // -----------------------------------------------------
+    // Links einsetzen
+    // -----------------------------------------------------
+
+    if (!links.length) {
+
+        elements.profileRoleSection.classList.add(
+            'hidden'
+        );
+
+        return;
+    }
+
+
+    links.forEach(
+        link => {
+
+            elements.profileRoleLinks.appendChild(
+                link
+            );
+
+        }
+    );
+
+
+    elements.profileRoleSection.classList.remove(
+        'hidden'
+    );
+
+}
+
+
+// =========================================================
+// ROLE ACTION
+// =========================================================
+
+function handleRoleAction(action) {
+
+    closeProfileMenu();
+
+
+    /*
+     * Die eigentlichen Dashboard-Bereiche
+     * werden später mit dem Dashboard verbunden.
+     */
+
+    const messages = {
+
+        leadership:
+            'Führungsbereich wird geöffnet.',
+
+        officer:
+            'Officer-Bereich wird geöffnet.',
+
+        medical:
+            'Medizinischer Bereich wird geöffnet.',
+
+        members:
+            'Mitgliederverwaltung wird geöffnet.',
+
+        operations:
+            'Einsatzverwaltung wird geöffnet.',
+
+        treatments:
+            'Behandlungen werden geöffnet.',
+
+        reanimation:
+            'Reanimationsbereich wird geöffnet.',
+
+        equipment:
+            'Ausrüstung wird geöffnet.',
+
+        settings:
+            'Systemverwaltung wird geöffnet.'
+
+    };
+
+
+    showNotification(
+        messages[action] ||
+        'Bereich wird geöffnet.',
+        'info'
+    );
+
+
+    log(
+        'Bereich:',
+        action
+    );
+
+}
+
+
+// =========================================================
+// HEADER PROFIL AKTUALISIEREN
+// =========================================================
+
+function updateHeaderProfile(
+    user,
+    profile,
+    access
+) {
+
+    const name =
+        getDisplayName(
+            user,
+            profile
+        );
+
+
+    const discordId =
+        getDiscordId(
+            user,
+            profile
+        );
+
+
+    const avatar =
+        getAvatarUrl(
+            user
+        );
+
+
+    const accessLabel =
+        getAccessLabel(
+            access
+        );
+
+
+    // Header
+
+    if (elements.headerUserName) {
+
+        elements.headerUserName.textContent =
+            name;
+
+    }
+
+
+    if (elements.headerUserAccess) {
+
+        elements.headerUserAccess.textContent =
+            accessLabel;
+
+    }
+
+
+    // Dropdown
+
+    if (elements.dropdownUserName) {
+
+        elements.dropdownUserName.textContent =
+            name;
+
+    }
+
+
+    if (elements.dropdownUserId) {
+
+        elements.dropdownUserId.textContent =
+            `Discord ID: ${discordId}`;
+
+    }
+
+
+    // Header Avatar
+
+    if (elements.headerUserAvatar) {
+
+        if (avatar) {
+
+            elements.headerUserAvatar.src =
+                avatar;
+
+        } else {
+
+            elements.headerUserAvatar.removeAttribute(
+                'src'
+            );
+
+        }
+
+        elements.headerUserAvatar.alt =
+            `${name} Profilbild`;
+
+    }
+
+
+    // Dropdown Avatar
+
+    if (elements.dropdownUserAvatar) {
+
+        if (avatar) {
+
+            elements.dropdownUserAvatar.src =
+                avatar;
+
+        } else {
+
+            elements.dropdownUserAvatar.removeAttribute(
+                'src'
+            );
+
+        }
+
+        elements.dropdownUserAvatar.alt =
+            `${name} Profilbild`;
+
+    }
+
+
+    // Rollenmenü
+
+    updateRoleMenu(
+        access
+    );
+
+}
+
+
+// =========================================================
+// ACCOUNT UI
 // =========================================================
 
 async function updateAccountUI(user) {
 
     if (!user) {
+
         resetAccountUI();
+
         hideAccount();
 
         return;
+
     }
+
 
     try {
 
-        log('Lade ÖRS Benutzerinformationen...');
+        log(
+            'Lade Benutzerinformationen...'
+        );
 
-        const accessInfo = await getUserAccessInfo();
+
+        const accessInfo =
+            await getUserAccessInfo();
+
 
         if (!accessInfo) {
-            warn('Keine Benutzerinformationen erhalten.');
 
             resetAccountUI();
-
-            if (elements.userName) {
-                elements.userName.textContent =
-                    getDisplayName(user, null);
-            }
-
-            if (elements.userDiscordId) {
-                elements.userDiscordId.textContent =
-                    getDiscordId(user, null);
-            }
-
-            if (elements.userAccess) {
-                elements.userAccess.textContent =
-                    'Zugriff wird geprüft...';
-            }
 
             showAccount();
 
             return;
+
         }
 
 
-        currentAccess = accessInfo;
+        currentAccess =
+            accessInfo;
 
 
         const profile =
             accessInfo.profile || null;
 
 
-        // -----------------------------------------
-        // NAME
-        // -----------------------------------------
+        const name =
+            getDisplayName(
+                user,
+                profile
+            );
+
+
+        const discordId =
+            getDiscordId(
+                user,
+                profile
+            );
+
+
+        const avatar =
+            getAvatarUrl(
+                user
+            );
+
+
+        const accessLabel =
+            getAccessLabel(
+                accessInfo
+            );
+
+
+        // Account Name
 
         if (elements.userName) {
 
             elements.userName.textContent =
-                getDisplayName(
-                    user,
-                    profile
-                );
+                name;
+
         }
 
 
-        // -----------------------------------------
-        // DISCORD ID
-        // -----------------------------------------
+        // Discord ID
 
         if (elements.userDiscordId) {
 
             elements.userDiscordId.textContent =
-                getDiscordId(
-                    user,
-                    profile
-                );
+                discordId;
+
         }
 
 
-        // -----------------------------------------
-        // AVATAR
-        // -----------------------------------------
+        // Avatar
 
         if (elements.userAvatar) {
 
-            const avatarUrl =
-                getAvatarUrl(user);
-
-            if (avatarUrl) {
+            if (avatar) {
 
                 elements.userAvatar.src =
-                    avatarUrl;
+                    avatar;
 
                 elements.userAvatar.alt =
-                    `${getDisplayName(user, profile)} Profilbild`;
+                    `${name} Profilbild`;
 
             } else {
 
-                elements.userAvatar.removeAttribute('src');
+                elements.userAvatar.removeAttribute(
+                    'src'
+                );
 
-                elements.userAvatar.alt =
-                    'Kein Profilbild verfügbar';
             }
+
         }
 
 
-        // -----------------------------------------
-        // ZUGRIFF
-        // -----------------------------------------
+        // Zugriff
 
         if (elements.userAccess) {
 
             elements.userAccess.textContent =
-                getAccessLabel(accessInfo);
+                accessLabel;
+
+        }
+
+
+        // Header
+
+        updateHeaderProfile(
+            user,
+            profile,
+            accessInfo
+        );
+
+
+        // Dashboard Button
+
+        if (elements.accountDashboard) {
+
+            elements.accountDashboard.classList.toggle(
+                'hidden',
+                !accessInfo.hasAccess
+            );
+
+        }
+
+
+        // Dropdown Dashboard
+
+        if (elements.profileDashboard) {
+
+            elements.profileDashboard.classList.toggle(
+                'hidden',
+                !accessInfo.hasAccess
+            );
+
         }
 
 
         showAccount();
 
-        log(
-            'Benutzer geladen:',
-            getDisplayName(user, profile)
-        );
 
         log(
-            'ÖRS Zugriff:',
-            getAccessLabel(accessInfo)
+            'Benutzer:',
+            name
         );
+
+
+        log(
+            'Zugriff:',
+            accessLabel
+        );
+
 
     } catch (err) {
 
         error(
-            'Fehler beim Aktualisieren des Accounts:',
+            'Fehler beim Laden des Accounts:',
             err
         );
 
+
         if (elements.userAccess) {
+
             elements.userAccess.textContent =
                 'Zugriff konnte nicht geprüft werden';
+
         }
 
+
         showAccount();
+
     }
+
 }
 
 
@@ -418,17 +1127,24 @@ async function login() {
 
     try {
 
-        log('Starte Discord Login...');
-
         if (elements.discordLogin) {
-            elements.discordLogin.disabled = true;
+
+            elements.discordLogin.disabled =
+                true;
+
         }
+
 
         if (elements.heroLogin) {
-            elements.heroLogin.disabled = true;
+
+            elements.heroLogin.disabled =
+                true;
+
         }
 
+
         await signInWithDiscord();
+
 
     } catch (err) {
 
@@ -437,19 +1153,30 @@ async function login() {
             err
         );
 
+
         showNotification(
             'Der Discord Login konnte nicht gestartet werden.',
             'error'
         );
 
+
         if (elements.discordLogin) {
-            elements.discordLogin.disabled = false;
+
+            elements.discordLogin.disabled =
+                false;
+
         }
 
+
         if (elements.heroLogin) {
-            elements.heroLogin.disabled = false;
+
+            elements.heroLogin.disabled =
+                false;
+
         }
+
     }
+
 }
 
 
@@ -461,20 +1188,30 @@ async function logout() {
 
     try {
 
-        log('Melde Benutzer ab...');
+        closeProfileMenu();
+
 
         await signOut();
 
-        currentUser = null;
-        currentAccess = null;
 
-        setLoginState(false);
+        currentUser =
+            null;
+
+
+        currentAccess =
+            null;
+
+
+        setLoginState(
+            false
+        );
+
 
         hideAccount();
 
+
         resetAccountUI();
 
-        log('Logout erfolgreich.');
 
     } catch (err) {
 
@@ -483,11 +1220,14 @@ async function logout() {
             err
         );
 
+
         showNotification(
             'Das Abmelden ist fehlgeschlagen.',
             'error'
         );
+
     }
+
 }
 
 
@@ -499,59 +1239,43 @@ async function handleAuthState(session) {
 
     if (!session?.user) {
 
-        currentUser = null;
-        currentAccess = null;
+        currentUser =
+            null;
 
-        setLoginState(false);
+
+        currentAccess =
+            null;
+
+
+        setLoginState(
+            false
+        );
+
 
         hideAccount();
 
+
         resetAccountUI();
 
-        log('Kein Benutzer angemeldet.');
 
         return;
+
     }
 
 
-    currentUser = session.user;
+    currentUser =
+        session.user;
 
-    setLoginState(true);
+
+    setLoginState(
+        true
+    );
+
 
     await updateAccountUI(
         session.user
     );
-}
 
-
-// =========================================================
-// SESSION INITIALISIEREN
-// =========================================================
-
-async function initializeAuthentication() {
-
-    try {
-
-        log('Prüfe aktuelle Session...');
-
-        const session =
-            await getSession();
-
-        await handleAuthState(
-            session
-        );
-
-    } catch (err) {
-
-        error(
-            'Fehler beim Initialisieren der Authentifizierung:',
-            err
-        );
-
-        setLoginState(false);
-
-        hideAccount();
-    }
 }
 
 
@@ -564,12 +1288,16 @@ function initializeAuthListener() {
     try {
 
         onAuthStateChange(
-            async (event, session) => {
+            async (
+                event,
+                session
+            ) => {
 
                 log(
                     'Auth Event:',
                     event
                 );
+
 
                 switch (event) {
 
@@ -590,14 +1318,9 @@ function initializeAuthListener() {
 
                     case 'SIGNED_OUT':
 
-                        currentUser = null;
-                        currentAccess = null;
-
-                        setLoginState(false);
-
-                        hideAccount();
-
-                        resetAccountUI();
+                        await handleAuthState(
+                            null
+                        );
 
                         break;
 
@@ -605,112 +1328,170 @@ function initializeAuthListener() {
                     default:
 
                         if (session) {
+
                             await handleAuthState(
                                 session
                             );
+
                         }
 
                         break;
-                }
-            }
-        );
 
-        log(
-            'Auth Listener aktiviert.'
+                }
+
+            }
         );
 
     } catch (err) {
 
         error(
-            'Auth Listener konnte nicht aktiviert werden:',
+            'Auth Listener Fehler:',
             err
         );
+
     }
+
 }
 
 
 // =========================================================
-// NAVIGATION
+// PROFIL MENU
 // =========================================================
 
-function initializeNavigation() {
+function initializeProfileMenu() {
 
-    if (!elements.navLinks?.length) {
+    if (!elements.profileTrigger) {
         return;
     }
 
-    elements.navLinks.forEach(link => {
 
-        link.addEventListener(
-            'click',
-            () => {
+    elements.profileTrigger.addEventListener(
+        'click',
+        event => {
 
-                elements.navLinks.forEach(
-                    otherLink => {
-                        otherLink.classList.remove(
-                            'active'
-                        );
-                    }
-                );
+            event.stopPropagation();
 
-                link.classList.add(
-                    'active'
-                );
+            toggleProfileMenu();
+
+        }
+    );
+
+
+    document.addEventListener(
+        'click',
+        event => {
+
+            if (
+                elements.profileMenu &&
+                !elements.profileMenu.contains(
+                    event.target
+                )
+            ) {
+
+                closeProfileMenu();
+
             }
-        );
 
-    });
-
-    // Aktiven Bereich beim Scrollen erkennen
-    const sections =
-        document.querySelectorAll(
-            'main section[id]'
-        );
-
-    if (!sections.length) {
-        return;
-    }
+        }
+    );
 
 
-    const observer =
-        new IntersectionObserver(
-            entries => {
+    document.addEventListener(
+        'keydown',
+        event => {
 
-                entries.forEach(
-                    entry => {
+            if (
+                event.key === 'Escape'
+            ) {
 
-                        if (!entry.isIntersecting) {
-                            return;
+                closeProfileMenu();
+
+            }
+
+        }
+    );
+
+
+    document.querySelectorAll(
+        '[data-profile-action]'
+    ).forEach(
+        button => {
+
+            button.addEventListener(
+                'click',
+                () => {
+
+                    const action =
+                        button.dataset.profileAction;
+
+
+                    if (
+                        action === 'profile'
+                    ) {
+
+                        closeProfileMenu();
+
+
+                        elements.accountSection?.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center'
+                        });
+
+                    }
+
+
+                    if (
+                        action === 'dashboard'
+                    ) {
+
+                        closeProfileMenu();
+
+
+                        if (
+                            currentAccess?.hasAccess
+                        ) {
+
+                            showNotification(
+                                'Das Dashboard wird als nächster Bereich eingebunden.',
+                                'info'
+                            );
+
                         }
 
-                        const id =
-                            entry.target.id;
-
-                        elements.navLinks.forEach(
-                            link => {
-
-                                const href =
-                                    link.getAttribute('href');
-
-                                link.classList.toggle(
-                                    'active',
-                                    href === `#${id}`
-                                );
-                            }
-                        );
                     }
-                );
-            },
-            {
-                rootMargin:
-                    '-35% 0px -55% 0px'
-            }
-        );
 
+                }
+            );
 
-    sections.forEach(
-        section => observer.observe(section)
+        }
     );
+
+}
+
+
+// =========================================================
+// LOGIN BUTTONS
+// =========================================================
+
+function initializeLoginButtons() {
+
+    elements.discordLogin?.addEventListener(
+        'click',
+        login
+    );
+
+
+    elements.heroLogin?.addEventListener(
+        'click',
+        login
+    );
+
+
+    elements.discordLogout?.addEventListener(
+        'click',
+        logout
+    );
+
 }
 
 
@@ -724,6 +1505,7 @@ function initializeDashboardButton() {
         return;
     }
 
+
     elements.accountDashboard.addEventListener(
         'click',
         () => {
@@ -736,88 +1518,200 @@ function initializeDashboardButton() {
                 );
 
                 return;
+
             }
 
 
-            if (!currentAccess) {
+            if (
+                !currentAccess?.hasAccess
+            ) {
 
                 showNotification(
-                    'Deine Zugriffsrechte werden noch geprüft.',
+                    'Du hast keinen Zugriff auf das ÖRS Dashboard.',
                     'error'
                 );
 
                 return;
+
             }
 
-
-            if (!currentAccess.hasAccess) {
-
-                showNotification(
-                    'Du hast aktuell keinen ÖRS Dashboard-Zugriff.',
-                    'error'
-                );
-
-                return;
-            }
-
-
-            /*
-             * DASHBOARD
-             *
-             * Die eigentliche Dashboard-Seite
-             * wird später hier eingebunden.
-             */
 
             showNotification(
-                'Das Dashboard befindet sich noch in Entwicklung.',
+                'Das Dashboard wird als nächster Bereich eingebunden.',
                 'info'
             );
 
-            log(
-                'Dashboard-Aufruf:',
-                currentAccess
-            );
         }
     );
+
 }
 
 
 // =========================================================
-// LOGIN BUTTONS
+// NAVIGATION
 // =========================================================
 
-function initializeLoginButtons() {
+function initializeNavigation() {
 
-    if (elements.discordLogin) {
-
-        elements.discordLogin.addEventListener(
-            'click',
-            login
+    const links =
+        Array.from(
+            elements.navLinks
         );
+
+
+    if (!links.length) {
+        return;
     }
 
 
-    if (elements.heroLogin) {
+    links.forEach(
+        link => {
 
-        elements.heroLogin.addEventListener(
-            'click',
-            login
+            link.addEventListener(
+                'click',
+                () => {
+
+                    links.forEach(
+                        item =>
+                            item.classList.remove(
+                                'active'
+                            )
+                    );
+
+
+                    link.classList.add(
+                        'active'
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    const sections =
+        document.querySelectorAll(
+            'main section[id]'
         );
+
+
+    if (!sections.length) {
+        return;
     }
 
 
-    if (elements.discordLogout) {
+    const observer =
+        new IntersectionObserver(
+            entries => {
 
-        elements.discordLogout.addEventListener(
-            'click',
-            logout
+                entries.forEach(
+                    entry => {
+
+                        if (
+                            !entry.isIntersecting
+                        ) {
+                            return;
+                        }
+
+
+                        const id =
+                            entry.target.id;
+
+
+                        links.forEach(
+                            link => {
+
+                                link.classList.toggle(
+                                    'active',
+                                    link.getAttribute(
+                                        'href'
+                                    ) === `#${id}`
+                                );
+
+                            }
+                        );
+
+                    }
+                );
+
+            },
+            {
+                rootMargin:
+                    '-35% 0px -55% 0px'
+            }
         );
-    }
+
+
+    sections.forEach(
+        section =>
+            observer.observe(
+                section
+            )
+    );
+
 }
 
 
 // =========================================================
-// NOTIFICATION SYSTEM
+// AVATAR FALLBACK
+// =========================================================
+
+function initializeAvatarFallback() {
+
+    const avatars = [
+        elements.userAvatar,
+        elements.headerUserAvatar,
+        elements.dropdownUserAvatar
+    ];
+
+
+    avatars.forEach(
+        avatar => {
+
+            avatar?.addEventListener(
+                'error',
+                () => {
+
+                    avatar.removeAttribute(
+                        'src'
+                    );
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+// =========================================================
+// EXTERNE LINKS
+// =========================================================
+
+function initializeExternalLinks() {
+
+    document
+        .querySelectorAll(
+            'a[target="_blank"]'
+        )
+        .forEach(
+            link => {
+
+                link.setAttribute(
+                    'rel',
+                    'noopener noreferrer'
+                );
+
+            }
+        );
+
+}
+
+
+// =========================================================
+// NOTIFICATIONS
 // =========================================================
 
 function showNotification(
@@ -834,33 +1728,26 @@ function showNotification(
     if (!container) {
 
         container =
-            document.createElement('div');
+            document.createElement(
+                'div'
+            );
+
 
         container.className =
             'ors-notifications';
 
-        Object.assign(
-            container.style,
-            {
-                position: 'fixed',
-                right: '20px',
-                bottom: '20px',
-                zIndex: '9999',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '10px',
-                width: 'min(360px, calc(100vw - 40px))'
-            }
-        );
 
         document.body.appendChild(
             container
         );
+
     }
 
 
     const notification =
-        document.createElement('div');
+        document.createElement(
+            'div'
+        );
 
 
     notification.className =
@@ -876,62 +1763,22 @@ function showNotification(
 
 
     notification.innerHTML = `
+
         <div class="ors-notification-icon">
-            <iconify-icon icon="${icon}"></iconify-icon>
+
+            <iconify-icon
+                icon="${icon}"
+            ></iconify-icon>
+
         </div>
 
         <div class="ors-notification-text">
+
             ${escapeHtml(message)}
+
         </div>
+
     `;
-
-
-    Object.assign(
-        notification.style,
-        {
-            display: 'flex',
-            alignItems: 'center',
-            gap: '11px',
-            padding: '13px 15px',
-            borderRadius: '13px',
-            background: 'rgba(16, 21, 29, 0.94)',
-            border: '1px solid rgba(255,255,255,.08)',
-            boxShadow: '0 18px 50px rgba(0,0,0,.4)',
-            backdropFilter: 'blur(18px)',
-            color: '#f4f6f8',
-            fontSize: '11px',
-            fontWeight: '600',
-            opacity: '0',
-            transform: 'translateY(10px)',
-            transition: 'all .2s ease'
-        }
-    );
-
-
-    const iconElement =
-        notification.querySelector(
-            '.ors-notification-icon'
-        );
-
-
-    if (iconElement) {
-
-        Object.assign(
-            iconElement.style,
-            {
-                width: '32px',
-                height: '32px',
-                display: 'grid',
-                placeItems: 'center',
-                flexShrink: '0',
-                borderRadius: '9px',
-                background:
-                    type === 'error'
-                        ? 'rgba(201,33,48,.12)'
-                        : 'rgba(255,255,255,.05)'
-            }
-        );
-    }
 
 
     container.appendChild(
@@ -942,11 +1789,10 @@ function showNotification(
     requestAnimationFrame(
         () => {
 
-            notification.style.opacity =
-                '1';
+            notification.classList.add(
+                'visible'
+            );
 
-            notification.style.transform =
-                'translateY(0)';
         }
     );
 
@@ -954,83 +1800,60 @@ function showNotification(
     setTimeout(
         () => {
 
-            notification.style.opacity =
-                '0';
-
-            notification.style.transform =
-                'translateY(10px)';
+            notification.classList.remove(
+                'visible'
+            );
 
 
             setTimeout(
                 () => {
+
                     notification.remove();
+
                 },
                 220
             );
 
         },
-        4000
+        3500
     );
+
 }
 
 
 // =========================================================
-// HTML ESCAPING
+// ESCAPE HTML
 // =========================================================
 
 function escapeHtml(value) {
 
     return String(value)
-        .replaceAll('&', '&amp;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;')
-        .replaceAll('"', '&quot;')
-        .replaceAll("'", '&#039;');
-}
 
-
-// =========================================================
-// AVATAR ERROR
-// =========================================================
-
-function initializeAvatarFallback() {
-
-    if (!elements.userAvatar) {
-        return;
-    }
-
-    elements.userAvatar.addEventListener(
-        'error',
-        () => {
-
-            elements.userAvatar.removeAttribute(
-                'src'
-            );
-
-            elements.userAvatar.alt =
-                'Profilbild nicht verfügbar';
-        }
-    );
-}
-
-
-// =========================================================
-// EXTERNE LINKS
-// =========================================================
-
-function initializeExternalLinks() {
-
-    document
-        .querySelectorAll(
-            'a[target="_blank"]'
+        .replaceAll(
+            '&',
+            '&amp;'
         )
-        .forEach(link => {
 
-            link.setAttribute(
-                'rel',
-                'noopener noreferrer'
-            );
-        });
+        .replaceAll(
+            '<',
+            '&lt;'
+        )
+
+        .replaceAll(
+            '>',
+            '&gt;'
+        )
+
+        .replaceAll(
+            '"',
+            '&quot;'
+        )
+
+        .replaceAll(
+            "'",
+            '&#039;'
+        );
+
 }
 
 
@@ -1041,45 +1864,71 @@ function initializeExternalLinks() {
 async function initialize() {
 
     log(
-        'ÖRS Website wird initialisiert...'
+        'ÖRS Website wird initialisiert.'
     );
 
 
-    // Login / Logout
     initializeLoginButtons();
 
+    initializeProfileMenu();
 
-    // Navigation
     initializeNavigation();
 
-
-    // Dashboard
     initializeDashboardButton();
 
-
-    // Avatar
     initializeAvatarFallback();
 
-
-    // externe Links
     initializeExternalLinks();
 
-
-    // Auth Listener
     initializeAuthListener();
 
 
-    // aktuelle Session
     await initializeAuthentication();
 
 
     log(
-        'ÖRS Website erfolgreich initialisiert.'
+        'ÖRS Website bereit.'
     );
+
 }
 
 
+// =========================================================
+// SESSION
+// =========================================================
 
+async function initializeAuthentication() {
+
+    try {
+
+        const session =
+            await getSession();
+
+
+        await handleAuthState(
+            session
+        );
+
+    } catch (err) {
+
+        error(
+            'Session konnte nicht geladen werden:',
+            err
+        );
+
+
+        setLoginState(
+            false
+        );
+
+    }
+
+}
+
+
+// =========================================================
+// START
+// =========================================================
 
 if (
     document.readyState === 'loading'
@@ -1096,4 +1945,5 @@ if (
 } else {
 
     initialize();
+
 }
