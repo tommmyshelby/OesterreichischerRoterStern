@@ -17,9 +17,7 @@ import {
 } from './auth.js';
 
 
-// =========================================================
-// DOM
-// =========================================================
+
 
 const elements = {
 
@@ -54,9 +52,7 @@ const elements = {
         document.querySelectorAll('.nav-link'),
 
 
-    // =====================================================
-    // PROFIL OBEN RECHTS
-    // =====================================================
+
 
     profileMenu:
         document.getElementById('profile-menu'),
@@ -100,18 +96,13 @@ const elements = {
 };
 
 
-// =========================================================
-// STATE
-// =========================================================
 
 let currentUser = null;
 
 let currentAccess = null;
 
 
-// =========================================================
-// LOG
-// =========================================================
+
 
 function log(...args) {
 
@@ -133,9 +124,7 @@ function error(...args) {
 }
 
 
-// =========================================================
-// LOGIN STATUS
-// =========================================================
+
 
 function setLoginState(loggedIn) {
 
@@ -171,10 +160,6 @@ function setLoginState(loggedIn) {
 }
 
 
-// =========================================================
-// ACCOUNT
-// =========================================================
-
 function showAccount() {
 
     if (!elements.accountSection) {
@@ -203,9 +188,7 @@ function hideAccount() {
 }
 
 
-// =========================================================
-// RESET ACCOUNT
-// =========================================================
+
 
 function resetAccountUI() {
 
@@ -250,9 +233,7 @@ function resetAccountUI() {
 }
 
 
-// =========================================================
-// AVATAR
-// =========================================================
+
 
 function getAvatarUrl(user) {
 
@@ -271,9 +252,7 @@ function getAvatarUrl(user) {
 }
 
 
-// =========================================================
-// NAME
-// =========================================================
+
 
 function getDisplayName(
     user,
@@ -320,9 +299,6 @@ function getDisplayName(
 }
 
 
-// =========================================================
-// DISCORD ID
-// =========================================================
 
 function getDiscordId(
     user,
@@ -354,9 +330,7 @@ function getDiscordId(
 }
 
 
-// =========================================================
-// ACCESS LABEL
-// =========================================================
+
 
 function getAccessLabel(access) {
 
@@ -1532,10 +1506,16 @@ function initializeProfileMenu() {
                         closeProfileMenu();
 
 
-                        elements.accountSection?.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'center'
-                        });
+                        /*
+                         * Eigenständige Profilseite.
+                         *
+                         * Das Profil wird dort anhand
+                         * der aktuell angemeldeten
+                         * Supabase-Session geladen.
+                         */
+
+                        window.location.href =
+                            './ors/profile/';
 
                     }
 
@@ -1816,9 +1796,7 @@ function initializeExternalLinks() {
 }
 
 
-// =========================================================
-// NOTIFICATIONS
-// =========================================================
+
 
 function showNotification(
     message,
