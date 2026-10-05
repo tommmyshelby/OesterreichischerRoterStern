@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Mitglieder | ÖRS Leadership
+    </title>
+
+    <meta
+        name="description"
+        content="Mitgliederverwaltung des Österreichischen Roten Sterns."
+    >
+
+    <link
+        rel="stylesheet"
+        href="./members.css"
+    >
+
+    <script
+        src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"
+    ></script>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         BACKGROUND
+         ===================================================== -->
+
+    <div class="background">
+
+        <div class="background-grid"></div>
+
+        <div class="background-glow background-glow-one"></div>
+
+        <div class="background-glow background-glow-two"></div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header class="members-header">
+
+        <div class="header-inner">
+
+
+            <!-- BRAND -->
+
+            <a
+                href="../"
+                class="brand"
+            >
+
+                <div class="brand-mark">
+
+                    <iconify-icon
+                        icon="iconoir:shield"
+                    ></iconify-icon>
+
+                </div>
+
+
+                <div class="brand-text">
+
+                    <strong>
+                        ÖRS
+                    </strong>
+
+                    <span>
+                        Leadership
+                    </span>
+
+                </div>
+
+            </a>
+
+
+
+            <!-- NAVIGATION -->
+
+            <nav class="header-navigation">
+
+                <a
+                    href="../"
+                    class="header-link"
+                >
+
+                    <iconify-icon
+                        icon="iconoir:arrow-left"
+                    ></iconify-icon>
+
+                    <span>
+                        Leadership
+                    </span>
+
+                </a>
+
+
+                <span class="header-divider"></span>
+
+
+                <span class="header-current">
+
+                    <iconify-icon
+                        icon="iconoir:group"
+                    ></iconify-icon>
+
+                    <span>
+                        Mitglieder
+                    </span>
+
+                </span>
+
+            </nav>
+
+
+
+            <!-- ACCOUNT -->
+
+            <div class="header-account">
+
+                <div
+                    class="header-account-status"
+                    title="Leadership-Zugriff"
+                >
+
+                    <span class="status-dot"></span>
+
+                </div>
+
+
+                <button
+                    id="logout-button"
+                    class="logout-button"
+                    type="button"
+                    title="Abmelden"
+                >
+
+                    <iconify-icon
+                        icon="iconoir:log-out"
+                    ></iconify-icon>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main class="members-main">
+
+
+        <!-- =================================================
+             PAGE INTRO
+             ================================================= -->
+
+        <section class="page-intro">
+
+            <div class="intro-content">
+
+                <span class="section-kicker">
+                    Leadership
+                </span>
+
+                <h1>
+                    Mitglieder
+                </h1>
+
+                <p>
+                    Übersicht der im ÖRS-System erfassten
+                    Mitglieder und ihrer aktuellen Zugriffsbereiche.
+                </p>
+
+            </div>
+
+
+            <a
+                href="../"
+                class="back-button"
+            >
+
+                <iconify-icon
+                    icon="iconoir:arrow-left"
+                ></iconify-icon>
+
+                <span>
+                    Zurück
+                </span>
+
+            </a>
+
+        </section>
+
+
+
+        <!-- =================================================
+             STATISTIKEN
+             ================================================= -->
+
+        <section class="member-statistics">
+
+
+            <article class="stat-card">
+
+                <div class="stat-icon">
+
+                    <iconify-icon
+                        icon="iconoir:group"
+                    ></iconify-icon>
+
+                </div>
+
+
+                <div class="stat-content">
+
+                    <span>
+                        Mitglieder
+                    </span>
+
+                    <strong id="total-members">
+                        –
+                    </strong>
+
+                    <small>
+                        Gesamt erfasst
+                    </small>
+
+                </div>
+
+            </article>
+
+
+
+            <article class="stat-card">
+
+                <div class="stat-icon">
+
+                    <iconify-icon
+                        icon="iconoir:shield"
+                    ></iconify-icon>
+
+                </div>
+
+
+                <div class="stat-content">
+
+                    <span>
+                        Leadership
+                    </span>
+
+                    <strong id="leadership-members">
+                        –
+                    </strong>
+
+                    <small>
+                        Führungsebene
+                    </small>
+
+                </div>
+
+            </article>
+
+
+
+            <article class="stat-card">
+
+                <div class="stat-icon">
+
+                    <iconify-icon
+                        icon="iconoir:verified-badge"
+                    ></iconify-icon>
+
+                </div>
+
+
+                <div class="stat-content">
+
+                    <span>
+                        Officer
+                    </span>
+
+                    <strong id="officer-members">
+                        –
+                    </strong>
+
+                    <small>
+                        Officer-Zugriff
+                    </small>
+
+                </div>
+
+            </article>
+
+
+
+            <article class="stat-card">
+
+                <div class="stat-icon">
+
+                    <iconify-icon
+                        icon="iconoir:health-shield"
+                    ></iconify-icon>
+
+                </div>
+
+
+                <div class="stat-content">
+
+                    <span>
+                        Medical
+                    </span>
+
+                    <strong id="medical-members">
+                        –
+                    </strong>
+
+                    <small>
+                        Medizinischer Zugriff
+                    </small>
+
+                </div>
+
+            </article>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             MEMBERS PANEL
+             ================================================= -->
+
+        <section class="members-panel">
+
+
+            <!-- PANEL HEADER -->
+
+            <div class="panel-header">
+
+                <div>
+
+                    <span class="section-kicker">
+                        Verwaltung
+                    </span>
+
+                    <h2>
+                        Mitgliederübersicht
+                    </h2>
+
+                </div>
+
+
+                <div class="panel-count">
+
+                    <span id="visible-count">
+                        0
+                    </span>
+
+                    <span>
+                        angezeigt
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 FILTER
+                 ================================================= -->
+
+            <div class="member-controls">
+
+
+                <div class="search-wrapper">
+
+                    <iconify-icon
+                        icon="iconoir:search"
+                    ></iconify-icon>
+
+                    <input
+                        id="member-search"
+                        type="search"
+                        placeholder="Mitglied suchen..."
+                        autocomplete="off"
+                    >
+
+                </div>
+
+
+
+                <div class="filter-wrapper">
+
+                    <iconify-icon
+                        icon="iconoir:filter"
+                    ></iconify-icon>
+
+                    <select
+                        id="member-filter"
+                    >
+
+                        <option value="all">
+                            Alle Mitglieder
+                        </option>
+
+                        <option value="leadership">
+                            Leadership
+                        </option>
+
+                        <option value="officer">
+                            Officer
+                        </option>
+
+                        <option value="medical">
+                            Medical
+                        </option>
+
+                        <option value="member">
+                            ÖRS Mitglied
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 LOADING
+                 ================================================= -->
+
+            <div
+                id="members-loading"
+                class="members-loading"
+            >
+
+                <div class="loading-spinner"></div>
+
+                <span>
+                    Mitglieder werden geladen...
+                </span>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 ERROR
+                 ================================================= -->
+
+            <div
+                id="members-error"
+                class="members-message hidden"
+            >
+
+                <div class="message-icon">
+
+                    <iconify-icon
+                        icon="iconoir:warning-triangle"
+                    ></iconify-icon>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Mitglieder konnten nicht geladen werden.
+                    </strong>
+
+                    <span id="members-error-text">
+                        Bitte versuche es später erneut.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 EMPTY
+                 ================================================= -->
+
+            <div
+                id="members-empty"
+                class="members-message hidden"
+            >
+
+                <div class="message-icon">
+
+                    <iconify-icon
+                        icon="iconoir:group"
+                    ></iconify-icon>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Keine Mitglieder gefunden.
+                    </strong>
+
+                    <span>
+                        Passe deine Suche oder den Filter an.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 MEMBER LIST
+                 ================================================= -->
+
+            <div
+                id="members-list"
+                class="members-list"
+            ></div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         MEMBER DETAIL MODAL
+         ===================================================== -->
+
+    <div
+        id="member-modal"
+        class="member-modal hidden"
+    >
+
+        <div class="modal-backdrop"></div>
+
+
+        <div class="member-modal-box">
+
+
+            <button
+                id="modal-close"
+                class="modal-close"
+                type="button"
+                aria-label="Schließen"
+            >
+
+                <iconify-icon
+                    icon="iconoir:xmark"
+                ></iconify-icon>
+
+            </button>
+
+
+
+            <div class="modal-profile">
+
+                <div class="modal-avatar-wrapper">
+
+                    <img
+                        id="modal-avatar"
+                        class="modal-avatar"
+                        alt="Profilbild"
+                    >
+
+                    <span
+                        id="modal-status-dot"
+                        class="modal-status-dot"
+                    ></span>
+
+                </div>
+
+
+                <div class="modal-profile-info">
+
+                    <span
+                        id="modal-access"
+                        class="modal-access"
+                    >
+                        Mitglied
+                    </span>
+
+                    <h2 id="modal-name">
+                        Mitglied
+                    </h2>
+
+                    <p id="modal-username">
+                        @username
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="modal-details">
+
+
+                <div class="detail-item">
+
+                    <span>
+                        Discord ID
+                    </span>
+
+                    <strong id="modal-discord-id">
+                        –
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span>
+                        Benutzername
+                    </span>
+
+                    <strong id="modal-discord-name">
+                        –
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span>
+                        Zugriffsbereich
+                    </span>
+
+                    <strong id="modal-role">
+                        –
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <span>
+                        Status
+                    </span>
+
+                    <strong id="modal-member-status">
+                        –
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+
+    <div
+        id="notification-container"
+        class="notification-container"
+    ></div>
+
+
+
+ 
+
+    <script
+        type="module"
+        src="./members.js"
+    ></script>
+
+
+</body>
+
+</html>
