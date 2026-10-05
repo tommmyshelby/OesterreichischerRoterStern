@@ -3,10 +3,12 @@
 // Österreichischer Roter Stern
 // =========================================================
 
+
 import {
     getSession,
     onAuthStateChange
 } from './supabase.js';
+
 
 import {
     signInWithDiscord,
@@ -52,7 +54,9 @@ const elements = {
         document.querySelectorAll('.nav-link'),
 
 
-    // Profil oben rechts
+    // =====================================================
+    // PROFIL OBEN RECHTS
+    // =====================================================
 
     profileMenu:
         document.getElementById('profile-menu'),
@@ -177,6 +181,7 @@ function showAccount() {
         return;
     }
 
+
     elements.accountSection.classList.remove(
         'hidden'
     );
@@ -190,6 +195,7 @@ function hideAccount() {
         return;
     }
 
+
     elements.accountSection.classList.add(
         'hidden'
     );
@@ -198,7 +204,7 @@ function hideAccount() {
 
 
 // =========================================================
-// RESET
+// RESET ACCOUNT
 // =========================================================
 
 function resetAccountUI() {
@@ -485,7 +491,39 @@ function toggleProfileMenu() {
 
 
 // =========================================================
-// ROLE MENU
+// PROFILE MENU RESET
+// =========================================================
+
+function resetProfileMenu() {
+
+    clearRoleMenu();
+
+
+    if (elements.profileRoleSection) {
+
+        elements.profileRoleSection.classList.add(
+            'hidden'
+        );
+
+    }
+
+
+    if (elements.profileDashboard) {
+
+        elements.profileDashboard.classList.add(
+            'hidden'
+        );
+
+    }
+
+
+    closeProfileMenu();
+
+}
+
+
+// =========================================================
+// ROLE MENU LEEREN
 // =========================================================
 
 function clearRoleMenu() {
@@ -495,7 +533,8 @@ function clearRoleMenu() {
     }
 
 
-    elements.profileRoleLinks.innerHTML = '';
+    elements.profileRoleLinks.innerHTML =
+        '';
 
 }
 
@@ -511,7 +550,9 @@ function createRoleLink(
 ) {
 
     const button =
-        document.createElement('button');
+        document.createElement(
+            'button'
+        );
 
 
     button.type =
@@ -576,16 +617,16 @@ function updateRoleMenu(access) {
     const links = [];
 
 
-    // -----------------------------------------------------
-    // Leadership
-    // -----------------------------------------------------
+    // =====================================================
+    // LEADERSHIP
+    // =====================================================
 
     if (access?.isLeadership) {
 
         links.push(
             createRoleLink(
                 'iconoir:dashboard',
-                'Führungsbereich',
+                'Führungsebene',
                 'leadership'
             )
         );
@@ -620,9 +661,9 @@ function updateRoleMenu(access) {
     }
 
 
-    // -----------------------------------------------------
-    // Officer
-    // -----------------------------------------------------
+    // =====================================================
+    // OFFICER
+    // =====================================================
 
     else if (access?.isOfficer) {
 
@@ -655,9 +696,9 @@ function updateRoleMenu(access) {
     }
 
 
-    // -----------------------------------------------------
-    // Medical
-    // -----------------------------------------------------
+    // =====================================================
+    // MEDICAL
+    // =====================================================
 
     if (
         access?.isMedical ||
@@ -702,9 +743,9 @@ function updateRoleMenu(access) {
     }
 
 
-    // -----------------------------------------------------
-    // Links einsetzen
-    // -----------------------------------------------------
+    // =====================================================
+    // KEINE ROLLEN-BEREICHE
+    // =====================================================
 
     if (!links.length) {
 
@@ -715,6 +756,10 @@ function updateRoleMenu(access) {
         return;
     }
 
+
+    // =====================================================
+    // LINKS EINFÜGEN
+    // =====================================================
 
     links.forEach(
         link => {
@@ -743,46 +788,73 @@ function handleRoleAction(action) {
     closeProfileMenu();
 
 
-    /*
-     * Die eigentlichen Dashboard-Bereiche
-     * werden später mit dem Dashboard verbunden.
-     */
+    // =====================================================
+    // LEADERSHIP
+    // =====================================================
+
+    if (action === 'leadership') {
+
+        /*
+         * Frontend-Prüfung als zusätzliche UX-Sicherung.
+         *
+         * Die eigentliche Sicherheit erfolgt weiterhin
+         * über Supabase und die Leadership-Seite selbst.
+         */
+
+        if (!currentAccess?.isLeadership) {
+
+            showNotification(
+                'Du hast keinen Zugriff auf die Führungsebene.',
+                'error'
+            );
+
+            return;
+        }
+
+
+        window.location.href =
+            './ors/leadership/';
+
+        return;
+    }
+
+
+    // =====================================================
+    // ZUKÜNFTIGE BEREICHE
+    // =====================================================
 
     const messages = {
 
-        leadership:
-            'Führungsbereich wird geöffnet.',
-
         officer:
-            'Officer-Bereich wird geöffnet.',
+            'Der Officer-Bereich wird später eingebunden.',
 
         medical:
-            'Medizinischer Bereich wird geöffnet.',
+            'Der medizinische Bereich wird später eingebunden.',
 
         members:
-            'Mitgliederverwaltung wird geöffnet.',
+            'Die Mitgliederverwaltung wird später eingebunden.',
 
         operations:
-            'Einsatzverwaltung wird geöffnet.',
+            'Die Einsatzverwaltung wird später eingebunden.',
 
         treatments:
-            'Behandlungen werden geöffnet.',
+            'Die Behandlungsverwaltung wird später eingebunden.',
 
         reanimation:
-            'Reanimationsbereich wird geöffnet.',
+            'Der Reanimationsbereich wird später eingebunden.',
 
         equipment:
-            'Ausrüstung wird geöffnet.',
+            'Die Ausrüstungsverwaltung wird später eingebunden.',
 
         settings:
-            'Systemverwaltung wird geöffnet.'
+            'Die Systemverwaltung wird später eingebunden.'
 
     };
 
 
     showNotification(
         messages[action] ||
-        'Bereich wird geöffnet.',
+        'Dieser Bereich wird später eingebunden.',
         'info'
     );
 
@@ -831,7 +903,9 @@ function updateHeaderProfile(
         );
 
 
-    // Header
+    // =====================================================
+    // HEADER
+    // =====================================================
 
     if (elements.headerUserName) {
 
@@ -849,7 +923,9 @@ function updateHeaderProfile(
     }
 
 
-    // Dropdown
+    // =====================================================
+    // DROPDOWN
+    // =====================================================
 
     if (elements.dropdownUserName) {
 
@@ -867,7 +943,9 @@ function updateHeaderProfile(
     }
 
 
-    // Header Avatar
+    // =====================================================
+    // HEADER AVATAR
+    // =====================================================
 
     if (elements.headerUserAvatar) {
 
@@ -884,13 +962,16 @@ function updateHeaderProfile(
 
         }
 
+
         elements.headerUserAvatar.alt =
             `${name} Profilbild`;
 
     }
 
 
-    // Dropdown Avatar
+    // =====================================================
+    // DROPDOWN AVATAR
+    // =====================================================
 
     if (elements.dropdownUserAvatar) {
 
@@ -907,13 +988,16 @@ function updateHeaderProfile(
 
         }
 
+
         elements.dropdownUserAvatar.alt =
             `${name} Profilbild`;
 
     }
 
 
-    // Rollenmenü
+    // =====================================================
+    // ROLLENMENÜ
+    // =====================================================
 
     updateRoleMenu(
         access
@@ -935,7 +1019,6 @@ async function updateAccountUI(user) {
         hideAccount();
 
         return;
-
     }
 
 
@@ -957,7 +1040,6 @@ async function updateAccountUI(user) {
             showAccount();
 
             return;
-
         }
 
 
@@ -995,7 +1077,9 @@ async function updateAccountUI(user) {
             );
 
 
-        // Account Name
+        // =================================================
+        // ACCOUNT NAME
+        // =================================================
 
         if (elements.userName) {
 
@@ -1005,7 +1089,9 @@ async function updateAccountUI(user) {
         }
 
 
-        // Discord ID
+        // =================================================
+        // DISCORD ID
+        // =================================================
 
         if (elements.userDiscordId) {
 
@@ -1015,7 +1101,9 @@ async function updateAccountUI(user) {
         }
 
 
-        // Avatar
+        // =================================================
+        // ACCOUNT AVATAR
+        // =================================================
 
         if (elements.userAvatar) {
 
@@ -1038,7 +1126,9 @@ async function updateAccountUI(user) {
         }
 
 
-        // Zugriff
+        // =================================================
+        // ZUGRIFF
+        // =================================================
 
         if (elements.userAccess) {
 
@@ -1048,7 +1138,9 @@ async function updateAccountUI(user) {
         }
 
 
-        // Header
+        // =================================================
+        // HEADER
+        // =================================================
 
         updateHeaderProfile(
             user,
@@ -1057,7 +1149,9 @@ async function updateAccountUI(user) {
         );
 
 
-        // Dashboard Button
+        // =================================================
+        // ACCOUNT DASHBOARD BUTTON
+        // =================================================
 
         if (elements.accountDashboard) {
 
@@ -1069,7 +1163,9 @@ async function updateAccountUI(user) {
         }
 
 
-        // Dropdown Dashboard
+        // =================================================
+        // DROPDOWN DASHBOARD
+        // =================================================
 
         if (elements.profileDashboard) {
 
@@ -1425,6 +1521,10 @@ function initializeProfileMenu() {
                         button.dataset.profileAction;
 
 
+                    // =====================================
+                    // PROFIL
+                    // =====================================
+
                     if (
                         action === 'profile'
                     ) {
@@ -1439,6 +1539,10 @@ function initializeProfileMenu() {
 
                     }
 
+
+                    // =====================================
+                    // DASHBOARD
+                    // =====================================
 
                     if (
                         action === 'dashboard'
@@ -1518,7 +1622,6 @@ function initializeDashboardButton() {
                 );
 
                 return;
-
             }
 
 
@@ -1532,7 +1635,6 @@ function initializeDashboardButton() {
                 );
 
                 return;
-
             }
 
 
@@ -1660,9 +1762,13 @@ function initializeNavigation() {
 function initializeAvatarFallback() {
 
     const avatars = [
+
         elements.userAvatar,
+
         elements.headerUserAvatar,
+
         elements.dropdownUserAvatar
+
     ];
 
 
@@ -1821,9 +1927,6 @@ function showNotification(
 }
 
 
-// =========================================================
-// ESCAPE HTML
-// =========================================================
 
 function escapeHtml(value) {
 
@@ -1857,9 +1960,6 @@ function escapeHtml(value) {
 }
 
 
-// =========================================================
-// INITIALISIERUNG
-// =========================================================
 
 async function initialize() {
 
@@ -1893,9 +1993,7 @@ async function initialize() {
 }
 
 
-// =========================================================
-// SESSION
-// =========================================================
+
 
 async function initializeAuthentication() {
 
@@ -1908,6 +2006,7 @@ async function initializeAuthentication() {
         await handleAuthState(
             session
         );
+
 
     } catch (err) {
 
@@ -1926,9 +2025,6 @@ async function initializeAuthentication() {
 }
 
 
-// =========================================================
-// START
-// =========================================================
 
 if (
     document.readyState === 'loading'
