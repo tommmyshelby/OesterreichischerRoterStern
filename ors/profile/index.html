@@ -1,1 +1,514 @@
+<!DOCTYPE html>
+<html lang="de">
 
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Dein persönliches Profil im Österreichischen Roten Stern."
+    >
+
+    <title>Mein Profil | ÖRS</title>
+
+    <!-- Iconoir -->
+    <script
+        src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"
+    ></script>
+
+    <!-- Eigenes Profil-CSS -->
+    <link
+        rel="stylesheet"
+        href="./profile.css"
+    >
+</head>
+
+<body>
+
+    <div class="profile-background">
+        <div class="background-grid"></div>
+        <div class="background-glow background-glow-one"></div>
+        <div class="background-glow background-glow-two"></div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="profile-header">
+
+        <div class="header-left">
+
+            <a
+                href="../../index.html"
+                class="brand"
+            >
+
+                <div class="brand-icon">
+                    <iconify-icon icon="iconoir:shield-check"></iconify-icon>
+                </div>
+
+                <div class="brand-text">
+                    <strong>ÖRS</strong>
+                    <span>Österreichischer Roter Stern</span>
+                </div>
+
+            </a>
+
+        </div>
+
+        <div class="header-right">
+
+            <a
+                href="../../index.html"
+                class="header-link"
+            >
+                <iconify-icon icon="iconoir:home"></iconify-icon>
+                <span>Startseite</span>
+            </a>
+
+            <button
+                id="logout-button"
+                class="logout-button"
+                type="button"
+            >
+                <iconify-icon icon="iconoir:log-out"></iconify-icon>
+                <span>Abmelden</span>
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN -->
+    <main class="profile-main">
+
+        <!-- PAGE HEADING -->
+        <section class="page-heading">
+
+            <div class="heading-icon">
+                <iconify-icon icon="iconoir:user"></iconify-icon>
+            </div>
+
+            <div>
+                <span class="eyebrow">PERSÖNLICHER BEREICH</span>
+
+                <h1>Mein Profil</h1>
+
+                <p>
+                    Deine persönlichen Informationen und dein aktueller
+                    ÖRS-Mitgliedsstatus.
+                </p>
+            </div>
+
+        </section>
+
+
+        <!-- PROFILE HERO -->
+        <section class="profile-card profile-card-main">
+
+            <div class="profile-main-top">
+
+                <div class="profile-avatar-wrapper">
+
+                    <img
+                        id="profile-avatar"
+                        class="profile-avatar"
+                        src=""
+                        alt="Profilbild"
+                    >
+
+                    <span
+                        id="profile-status-dot"
+                        class="profile-status-dot"
+                    ></span>
+
+                </div>
+
+                <div class="profile-identity">
+
+                    <div class="profile-name-row">
+
+                        <h2 id="profile-name">
+                            Wird geladen...
+                        </h2>
+
+                        <span
+                            id="profile-rank"
+                            class="rank-badge"
+                        >
+                            Mitglied
+                        </span>
+
+                    </div>
+
+                    <p id="profile-username">
+                        Discord-Profil wird geladen...
+                    </p>
+
+                    <div class="identity-status">
+
+                        <span
+                            id="profile-status"
+                            class="status-label"
+                        >
+                            Wird geladen
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROFILE INFORMATION -->
+            <div class="profile-information">
+
+                <div class="information-item">
+
+                    <div class="information-icon">
+                        <iconify-icon icon="iconoir:discord"></iconify-icon>
+                    </div>
+
+                    <div class="information-content">
+
+                        <span class="information-label">
+                            Discord-ID
+                        </span>
+
+                        <strong id="profile-discord-id">
+                            Wird geladen...
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="information-item">
+
+                    <div class="information-icon">
+                        <iconify-icon icon="iconoir:user"></iconify-icon>
+                    </div>
+
+                    <div class="information-content">
+
+                        <span class="information-label">
+                            Benutzername
+                        </span>
+
+                        <strong id="profile-display-name">
+                            Wird geladen...
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="information-item">
+
+                    <div class="information-icon">
+                        <iconify-icon icon="iconoir:badge"></iconify-icon>
+                    </div>
+
+                    <div class="information-content">
+
+                        <span class="information-label">
+                            ÖRS-Bereich
+                        </span>
+
+                        <strong id="profile-access">
+                            Mitglied
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="information-item">
+
+                    <div class="information-icon">
+                        <iconify-icon icon="iconoir:calendar"></iconify-icon>
+                    </div>
+
+                    <div class="information-content">
+
+                        <span class="information-label">
+                            Letzte Anmeldung
+                        </span>
+
+                        <strong id="profile-last-login">
+                            Wird geladen...
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PERSONAL AREA -->
+        <section class="profile-grid">
+
+            <!-- ACCOUNT -->
+            <article class="profile-card information-card">
+
+                <div class="card-heading">
+
+                    <div class="card-heading-icon">
+                        <iconify-icon icon="iconoir:shield"></iconify-icon>
+                    </div>
+
+                    <div>
+                        <span class="card-eyebrow">
+                            ACCOUNT
+                        </span>
+
+                        <h3>
+                            Kontostatus
+                        </h3>
+                    </div>
+
+                </div>
+
+                <div class="card-content">
+
+                    <div class="status-row">
+
+                        <span>
+                            Anmeldung
+                        </span>
+
+                        <span
+                            id="account-status"
+                            class="value-status"
+                        >
+                            Aktiv
+                        </span>
+
+                    </div>
+
+                    <div class="status-row">
+
+                        <span>
+                            Discord verbunden
+                        </span>
+
+                        <span
+                            id="discord-status"
+                            class="value-status"
+                        >
+                            Verbunden
+                        </span>
+
+                    </div>
+
+                    <div class="status-row">
+
+                        <span>
+                            ÖRS-Zugriff
+                        </span>
+
+                        <span
+                            id="ors-access-status"
+                            class="value-status"
+                        >
+                            Aktiv
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- ACCESS -->
+            <article class="profile-card information-card">
+
+                <div class="card-heading">
+
+                    <div class="card-heading-icon">
+                        <iconify-icon icon="iconoir:lock"></iconify-icon>
+                    </div>
+
+                    <div>
+                        <span class="card-eyebrow">
+                            BERECHTIGUNGEN
+                        </span>
+
+                        <h3>
+                            Dein Bereich
+                        </h3>
+                    </div>
+
+                </div>
+
+                <div
+                    id="permission-list"
+                    class="permission-list"
+                >
+
+                    <div class="permission-item">
+
+                        <span class="permission-name">
+                            Mitgliederbereich
+                        </span>
+
+                        <span class="permission-state active">
+                            Verfügbar
+                        </span>
+
+                    </div>
+
+                    <div class="permission-item">
+
+                        <span class="permission-name">
+                            Officer-Bereich
+                        </span>
+
+                        <span
+                            id="officer-permission"
+                            class="permission-state"
+                        >
+                            Nicht verfügbar
+                        </span>
+
+                    </div>
+
+                    <div class="permission-item">
+
+                        <span class="permission-name">
+                            Medizinischer Bereich
+                        </span>
+
+                        <span
+                            id="medical-permission"
+                            class="permission-state"
+                        >
+                            Nicht verfügbar
+                        </span>
+
+                    </div>
+
+                    <div class="permission-item">
+
+                        <span class="permission-name">
+                            Führungsebene
+                        </span>
+
+                        <span
+                            id="leadership-permission"
+                            class="permission-state"
+                        >
+                            Nicht verfügbar
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+        </section>
+
+
+        <!-- FUTURE DATA -->
+        <section class="profile-card future-card">
+
+            <div class="future-icon">
+                <iconify-icon icon="iconoir:database"></iconify-icon>
+            </div>
+
+            <div class="future-content">
+
+                <span class="card-eyebrow">
+                    ÖRS MITGLIEDSDATEN
+                </span>
+
+                <h3>
+                    Persönlicher Bereich
+                </h3>
+
+                <p>
+                    Weitere persönliche Informationen, Einsätze,
+                    Aktivitäten und Mitgliedsdaten werden später
+                    direkt mit deinem ÖRS-Profil verbunden.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <div
+        id="profile-loading"
+        class="loading-screen"
+    >
+
+        <div class="loading-box">
+
+            <div class="loading-spinner"></div>
+
+            <span>
+                Profil wird geladen...
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- NOTIFICATION -->
+    <div
+        id="notification"
+        class="notification"
+        hidden
+    >
+
+        <div class="notification-icon">
+            <iconify-icon icon="iconoir:info-circle"></iconify-icon>
+        </div>
+
+        <div class="notification-content">
+
+            <strong id="notification-title">
+                Hinweis
+            </strong>
+
+            <span id="notification-message">
+                ...
+            </span>
+
+        </div>
+
+        <button
+            id="notification-close"
+            type="button"
+            aria-label="Schließen"
+        >
+            <iconify-icon icon="iconoir:xmark"></iconify-icon>
+        </button>
+
+    </div>
+
+
+    <script
+        type="module"
+        src="../js/profile.js"
+    ></script>
+
+</body>
+
+</html>
