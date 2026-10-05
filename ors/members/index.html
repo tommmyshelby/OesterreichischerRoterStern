@@ -1,1 +1,559 @@
+<!DOCTYPE html>
+<html lang="de">
 
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="ÖRS Leadership – Mitgliederverwaltung"
+    >
+
+    <title>Mitgliederverwaltung – ÖRS</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://code.iconify.design/3/3.1.1/iconify.min.js"
+    >
+
+    <link
+        rel="stylesheet"
+        href="./members.css"
+    >
+</head>
+
+<body>
+
+    <div class="page-background">
+        <div class="background-orb orb-one"></div>
+        <div class="background-orb orb-two"></div>
+        <div class="background-grid"></div>
+    </div>
+
+    <div
+        id="loadingScreen"
+        class="loading-screen"
+    >
+        <div class="loading-box">
+            <div class="loading-spinner"></div>
+
+            <div>
+                <strong>Mitglieder werden geladen</strong>
+                <span>ÖRS Leadership</span>
+            </div>
+        </div>
+    </div>
+
+    <div
+        id="notification"
+        class="notification"
+        aria-hidden="true"
+    >
+        <span
+            id="notificationIcon"
+            class="iconify"
+            data-icon="iconoir:info-circle"
+        ></span>
+
+        <span id="notificationText"></span>
+    </div>
+
+    <header class="topbar">
+
+        <div class="topbar-left">
+
+            <a
+                class="brand"
+                href="../../../"
+                aria-label="ÖRS Startseite"
+            >
+                <div class="brand-mark">
+                    <span
+                        class="iconify"
+                        data-icon="iconoir:shield"
+                    ></span>
+                </div>
+
+                <div class="brand-text">
+                    <strong>ÖRS</strong>
+                    <span>Österreichischer Roter Stern</span>
+                </div>
+            </a>
+
+            <div class="breadcrumb">
+
+                <a href="../">
+                    <span
+                        class="iconify"
+                        data-icon="iconoir:home"
+                    ></span>
+                    Leadership
+                </a>
+
+                <span class="breadcrumb-separator">
+                    /
+                </span>
+
+                <span class="breadcrumb-current">
+                    Mitglieder
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="topbar-right">
+
+            <a
+                class="back-button"
+                href="../"
+            >
+                <span
+                    class="iconify"
+                    data-icon="iconoir:arrow-left"
+                ></span>
+
+                <span>Leadership</span>
+            </a>
+
+            <div
+                id="profileMenu"
+                class="profile-menu"
+            >
+
+                <button
+                    id="profileTrigger"
+                    class="profile-trigger"
+                    type="button"
+                    aria-expanded="false"
+                >
+
+                    <img
+                        id="profileAvatar"
+                        class="profile-avatar"
+                        src=""
+                        alt=""
+                    >
+
+                    <div class="profile-info">
+                        <strong id="profileName">
+                            Wird geladen...
+                        </strong>
+
+                        <span id="profileRole">
+                            Leadership
+                        </span>
+                    </div>
+
+                    <span
+                        id="profileChevron"
+                        class="iconify profile-chevron"
+                        data-icon="iconoir:nav-arrow-down"
+                    ></span>
+
+                </button>
+
+                <div
+                    id="profileDropdown"
+                    class="profile-dropdown"
+                    aria-hidden="true"
+                >
+
+                    <div class="dropdown-header">
+
+                        <img
+                            id="dropdownAvatar"
+                            class="dropdown-avatar"
+                            src=""
+                            alt=""
+                        >
+
+                        <div>
+                            <strong id="dropdownName">
+                                –
+                            </strong>
+
+                            <span id="dropdownDiscordId">
+                                –
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <div class="dropdown-divider"></div>
+
+                    <a
+                        href="../../../profile/"
+                        class="dropdown-link"
+                    >
+                        <span
+                            class="iconify"
+                            data-icon="iconoir:user"
+                        ></span>
+
+                        Mein Profil
+                    </a>
+
+                    <a
+                        href="../"
+                        class="dropdown-link"
+                    >
+                        <span
+                            class="iconify"
+                            data-icon="iconoir:home"
+                        ></span>
+
+                        Leadership Dashboard
+                    </a>
+
+                    <div class="dropdown-divider"></div>
+
+                    <button
+                        id="logoutButton"
+                        class="dropdown-link dropdown-logout"
+                        type="button"
+                    >
+                        <span
+                            class="iconify"
+                            data-icon="iconoir:log-out"
+                        ></span>
+
+                        Abmelden
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <main class="main-content">
+
+        <section class="page-heading">
+
+            <div class="heading-content">
+
+                <div class="heading-icon">
+                    <span
+                        class="iconify"
+                        data-icon="iconoir:group"
+                    ></span>
+                </div>
+
+                <div>
+                    <span class="eyebrow">
+                        Leadership
+                    </span>
+
+                    <h1>
+                        Mitgliederverwaltung
+                    </h1>
+
+                    <p>
+                        Übersicht aller registrierten ÖRS-Mitglieder
+                        und ihrer aktuellen Zugehörigkeit.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="heading-actions">
+
+                <button
+                    id="refreshButton"
+                    class="icon-button"
+                    type="button"
+                    title="Mitglieder aktualisieren"
+                >
+                    <span
+                        class="iconify"
+                        data-icon="iconoir:refresh"
+                    ></span>
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <section class="statistics-grid">
+
+            <article class="stat-card">
+
+                <div class="stat-icon">
+                    <span
+                        class="iconify"
+                        data-icon="iconoir:group"
+                    ></span>
+                </div>
+
+                <div class="stat-content">
+
+                    <span>
+                        Mitglieder
+                    </span>
+
+                    <strong id="totalMembers">
+                        0
+                    </strong>
+
+                </div>
+
+            </article>
+
+
+            <article class="stat-card">
+
+                <div class="stat-icon active">
+                    <span
+                        class="iconify"
+                        data-icon="iconoir:check-circle"
+                    ></span>
+                </div>
+
+                <div class="stat-content">
+
+                    <span>
+                        Aktiv
+                    </span>
+
+                    <strong id="activeMembers">
+                        0
+                    </strong>
+
+                </div>
+
+            </article>
+
+
+            <article class="stat-card">
+
+                <div class="stat-icon inactive">
+                    <span
+                        class="iconify"
+                        data-icon="iconoir:user-xmark"
+                    ></span>
+                </div>
+
+                <div class="stat-content">
+
+                    <span>
+                        Inaktiv
+                    </span>
+
+                    <strong id="inactiveMembers">
+                        0
+                    </strong>
+
+                </div>
+
+            </article>
+
+
+            <article class="stat-card">
+
+                <div class="stat-icon department">
+                    <span
+                        class="iconify"
+                        data-icon="iconoir:building"
+                    ></span>
+                </div>
+
+                <div class="stat-content">
+
+                    <span>
+                        Abteilungen
+                    </span>
+
+                    <strong id="departmentCount">
+                        0
+                    </strong>
+
+                </div>
+
+            </article>
+
+        </section>
+
+
+        <section class="members-panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h2>
+                        Mitglieder
+                    </h2>
+
+                    <span id="resultInfo">
+                        0 Mitglieder
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="filters">
+
+                <div class="search-box">
+
+                    <span
+                        class="iconify"
+                        data-icon="iconoir:search"
+                    ></span>
+
+                    <input
+                        id="searchInput"
+                        type="search"
+                        placeholder="Mitglied suchen..."
+                        autocomplete="off"
+                    >
+
+                    <button
+                        id="clearSearch"
+                        class="clear-search"
+                        type="button"
+                        aria-label="Suche löschen"
+                    >
+                        <span
+                            class="iconify"
+                            data-icon="iconoir:xmark"
+                        ></span>
+                    </button>
+
+                </div>
+
+
+                <div class="filter-select-wrapper">
+
+                    <span
+                        class="iconify"
+                        data-icon="iconoir:building"
+                    ></span>
+
+                    <select id="departmentFilter">
+                        <option value="all">
+                            Alle Abteilungen
+                        </option>
+                    </select>
+
+                </div>
+
+
+                <div class="filter-select-wrapper">
+
+                    <span
+                        class="iconify"
+                        data-icon="iconoir:filter"
+                    ></span>
+
+                    <select id="statusFilter">
+                        <option value="all">
+                            Alle Status
+                        </option>
+
+                        <option value="active">
+                            Aktiv
+                        </option>
+
+                        <option value="inactive">
+                            Inaktiv
+                        </option>
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="membersContainer"
+                class="members-container"
+            >
+
+                <div class="empty-state">
+
+                    <span
+                        class="iconify"
+                        data-icon="iconoir:group"
+                    ></span>
+
+                    <h3>
+                        Mitglieder werden geladen
+                    </h3>
+
+                    <p>
+                        Die Mitgliederliste wird gerade
+                        aus Supabase geladen.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <div
+        id="memberModal"
+        class="modal"
+        aria-hidden="true"
+    >
+
+        <div
+            class="modal-backdrop"
+            data-close-modal
+        ></div>
+
+        <div class="modal-card">
+
+            <button
+                id="closeMemberModal"
+                class="modal-close"
+                type="button"
+                aria-label="Schließen"
+            >
+                <span
+                    class="iconify"
+                    data-icon="iconoir:xmark"
+                ></span>
+            </button>
+
+            <div
+                id="memberModalContent"
+                class="modal-content"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+
+    <script
+        type="module"
+        src="./members.js"
+    ></script>
+
+</body>
+
+</html>
