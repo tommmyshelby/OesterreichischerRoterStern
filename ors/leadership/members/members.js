@@ -8,14 +8,15 @@ import {
 } from '../../js/supabase.js';
 
 
-/* =========================================================
-   ÖRS LEADERSHIP — MEMBERS
-   ========================================================= */
 
 
-/* =========================================================
-   DOM
-   ========================================================= */
+const LEADERSHIP_USERS = new Set([
+    '881206091009122406',
+    '1204084190014865439'
+]);
+
+
+
 
 const elements = {
 
@@ -24,150 +25,125 @@ const elements = {
             'logout-button'
         ),
 
-
     search:
         document.getElementById(
             'member-search'
         ),
-
 
     filter:
         document.getElementById(
             'member-filter'
         ),
 
-
     list:
         document.getElementById(
             'members-list'
         ),
-
 
     loading:
         document.getElementById(
             'members-loading'
         ),
 
-
     error:
         document.getElementById(
             'members-error'
         ),
-
 
     errorText:
         document.getElementById(
             'members-error-text'
         ),
 
-
     empty:
         document.getElementById(
             'members-empty'
         ),
-
 
     visibleCount:
         document.getElementById(
             'visible-count'
         ),
 
-
     totalMembers:
         document.getElementById(
             'total-members'
         ),
-
 
     leadershipMembers:
         document.getElementById(
             'leadership-members'
         ),
 
-
     officerMembers:
         document.getElementById(
             'officer-members'
         ),
-
 
     medicalMembers:
         document.getElementById(
             'medical-members'
         ),
 
-
     modal:
         document.getElementById(
             'member-modal'
         ),
-
 
     modalClose:
         document.getElementById(
             'modal-close'
         ),
 
-
     modalBackdrop:
         document.querySelector(
             '.modal-backdrop'
         ),
-
 
     modalAvatar:
         document.getElementById(
             'modal-avatar'
         ),
 
-
     modalStatusDot:
         document.getElementById(
             'modal-status-dot'
         ),
-
 
     modalAccess:
         document.getElementById(
             'modal-access'
         ),
 
-
     modalName:
         document.getElementById(
             'modal-name'
         ),
-
 
     modalUsername:
         document.getElementById(
             'modal-username'
         ),
 
-
     modalDiscordId:
         document.getElementById(
             'modal-discord-id'
         ),
-
 
     modalDiscordName:
         document.getElementById(
             'modal-discord-name'
         ),
 
-
     modalRole:
         document.getElementById(
             'modal-role'
         ),
 
-
     modalStatus:
         document.getElementById(
             'modal-member-status'
         ),
-
 
     notifications:
         document.getElementById(
@@ -177,9 +153,6 @@ const elements = {
 };
 
 
-/* =========================================================
-   STATE
-   ========================================================= */
 
 let currentUser = null;
 
@@ -188,9 +161,7 @@ let members = [];
 let filteredMembers = [];
 
 
-/* =========================================================
-   LOG
-   ========================================================= */
+
 
 function log(...args) {
 
@@ -212,9 +183,6 @@ function error(...args) {
 }
 
 
-/* =========================================================
-   AVATAR FALLBACK
-   ========================================================= */
 
 function createAvatar(
     name = 'ÖRS'
@@ -225,7 +193,6 @@ function createAvatar(
             .trim()
             .slice(0, 2)
             .toUpperCase();
-
 
     return (
         'https://ui-avatars.com/api/' +
@@ -238,9 +205,6 @@ function createAvatar(
 }
 
 
-/* =========================================================
-   HTML ESCAPING
-   ========================================================= */
 
 function escapeHtml(value) {
 
@@ -269,9 +233,6 @@ function escapeHtml(value) {
 }
 
 
-/* =========================================================
-   ACCESS LEVEL
-   ========================================================= */
 
 function getAccessLevel(
     member
@@ -285,7 +246,6 @@ function getAccessLevel(
 
     }
 
-
     if (
         member.isOfficer
     ) {
@@ -293,7 +253,6 @@ function getAccessLevel(
         return 'officer';
 
     }
-
 
     if (
         member.isMedical
@@ -303,15 +262,11 @@ function getAccessLevel(
 
     }
 
-
     return 'member';
 
 }
 
 
-/* =========================================================
-   ACCESS LABEL
-   ========================================================= */
 
 function getAccessLabel(
     member
@@ -325,7 +280,6 @@ function getAccessLabel(
 
     }
 
-
     if (
         member.isOfficer
     ) {
@@ -333,7 +287,6 @@ function getAccessLabel(
         return 'Officer';
 
     }
-
 
     if (
         member.isMedical
@@ -343,15 +296,12 @@ function getAccessLabel(
 
     }
 
-
     return 'ÖRS Mitglied';
 
 }
 
 
-/* =========================================================
-   PROFILE NAME
-   ========================================================= */
+
 
 function getProfileName(
     profile,
@@ -371,9 +321,6 @@ function getProfileName(
 }
 
 
-/* =========================================================
-   USERNAME
-   ========================================================= */
 
 function getUsername(
     profile,
@@ -387,7 +334,6 @@ function getUsername(
         row?.discord_name ||
         'Nicht verfügbar';
 
-
     return username.startsWith('@')
         ? username
         : `@${username}`;
@@ -395,9 +341,7 @@ function getUsername(
 }
 
 
-/* =========================================================
-   DISCORD ID
-   ========================================================= */
+
 
 function getDiscordId(
     profile,
@@ -415,9 +359,7 @@ function getDiscordId(
 }
 
 
-/* =========================================================
-   AVATAR
-   ========================================================= */
+
 
 function getAvatar(
     profile,
@@ -458,7 +400,6 @@ function getMemberStatus(
 
     }
 
-
     if (
         row?.status
     ) {
@@ -473,7 +414,6 @@ function getMemberStatus(
         };
 
     }
-
 
     return {
         label: 'Aktiv',
@@ -510,7 +450,6 @@ function formatStatus(
 
     };
 
-
     return (
         values[
             String(status)
@@ -523,7 +462,7 @@ function formatStatus(
 
 
 /* =========================================================
-   PROFILE LOOKUP
+   PROFILES LADEN
    ========================================================= */
 
 async function loadProfiles() {
@@ -533,18 +472,15 @@ async function loadProfiles() {
         error: profileError
     } = await supabase
         .from('profiles')
-        .select(
-            `
-                id,
-                discord_id,
-                username,
-                display_name,
-                avatar_url,
-                last_login,
-                updated_at
-            `
-        );
-
+        .select(`
+            id,
+            discord_id,
+            username,
+            display_name,
+            avatar_url,
+            last_login,
+            updated_at
+        `);
 
     if (profileError) {
 
@@ -557,36 +493,53 @@ async function loadProfiles() {
 
     }
 
-
     return data || [];
 
 }
 
 
 /* =========================================================
-   USER ROLE LOOKUP
+   ACCESS ROLES LADEN
    ========================================================= */
 
-async function loadUserRoles() {
+async function loadAccessRoles() {
+
+    /*
+     * WICHTIG:
+     * Die alte Version verwendete "user_roles".
+     *
+     * Diese Tabelle existiert in unserem aktuellen
+     * ÖRS-Schema nicht.
+     *
+     * Die tatsächlichen Rollen stehen in:
+     *
+     * public.access_roles
+     *
+     * Spalten:
+     * id
+     * discord_id
+     * role
+     * role_id
+     * created_at
+     */
 
     const {
         data,
         error: roleError
     } = await supabase
-        .from('user_roles')
-        .select(
-            `
-                profile_id,
-                role_type,
-                active
-            `
-        );
-
+        .from('access_roles')
+        .select(`
+            id,
+            discord_id,
+            role,
+            role_id,
+            created_at
+        `);
 
     if (roleError) {
 
         console.warn(
-            '[ÖRS Members] User-Rollen konnten nicht geladen werden:',
+            '[ÖRS Members] Access-Rollen konnten nicht geladen werden:',
             roleError.message
         );
 
@@ -594,14 +547,13 @@ async function loadUserRoles() {
 
     }
 
-
     return data || [];
 
 }
 
 
 /* =========================================================
-   MEMBERS TABLE
+   MEMBERS LADEN
    ========================================================= */
 
 async function loadMemberRows() {
@@ -611,8 +563,18 @@ async function loadMemberRows() {
         error: memberError
     } = await supabase
         .from('members')
-        .select('*');
-
+        .select(`
+            id,
+            discord_id,
+            username,
+            display_name,
+            rank,
+            department,
+            joined_at,
+            active,
+            created_at,
+            updated_at
+        `);
 
     if (memberError) {
 
@@ -625,104 +587,124 @@ async function loadMemberRows() {
 
     }
 
-
     return data || [];
 
 }
 
 
 /* =========================================================
-   NORMALIZE
+   ROLE MAP
+   ========================================================= */
+
+function buildRoleMap(
+    accessRoles
+) {
+
+    const roleMap = new Map();
+
+    for (
+        const roleRow of accessRoles
+    ) {
+
+        if (
+            !roleRow?.discord_id
+        ) {
+
+            continue;
+
+        }
+
+        const discordId =
+            String(
+                roleRow.discord_id
+            );
+
+        const role =
+            String(
+                roleRow.role || ''
+            )
+                .trim()
+                .toLowerCase();
+
+        if (
+            !role
+        ) {
+
+            continue;
+
+        }
+
+        if (
+            !roleMap.has(
+                discordId
+            )
+        ) {
+
+            roleMap.set(
+                discordId,
+                new Set()
+            );
+
+        }
+
+        roleMap
+            .get(discordId)
+            .add(role);
+
+    }
+
+    return roleMap;
+
+}
+
+
+/* =========================================================
+   NORMALIZE MEMBERS
    ========================================================= */
 
 function normalizeMembers(
     rows,
     profiles,
-    userRoles
+    accessRoles
 ) {
-
-    const profileById =
-        new Map();
 
     const profileByDiscord =
         new Map();
 
-    const rolesByProfile =
-        new Map();
-
-
     profiles.forEach(
         profile => {
 
-            if (profile?.id) {
-
-                profileById.set(
-                    profile.id,
-                    profile
-                );
-
-            }
-
-
-            if (profile?.discord_id) {
-
-                profileByDiscord.set(
-                    String(
-                        profile.discord_id
-                    ),
-                    profile
-                );
-
-            }
-
-        }
-    );
-
-
-    userRoles.forEach(
-        role => {
-
             if (
-                !role?.profile_id ||
-                role.active === false
+                !profile?.discord_id
             ) {
 
                 return;
 
             }
 
-
-            if (
-                !rolesByProfile.has(
-                    role.profile_id
-                )
-            ) {
-
-                rolesByProfile.set(
-                    role.profile_id,
-                    []
-                );
-
-            }
-
-
-            rolesByProfile
-                .get(role.profile_id)
-                .push(
-                    String(
-                        role.role_type ||
-                        ''
-                    ).toLowerCase()
-                );
+            profileByDiscord.set(
+                String(
+                    profile.discord_id
+                ),
+                profile
+            );
 
         }
     );
 
 
+    const roleMap =
+        buildRoleMap(
+            accessRoles
+        );
+
+
     /*
-     * Falls die Members-Tabelle leer ist,
-     * verwenden wir die Profile als sichere
-     * Fallback-Datenquelle.
+     * Die Members-Tabelle ist die Hauptquelle.
+     *
+     * Falls dort aus irgendeinem Grund keine
+     * Daten vorhanden sind, verwenden wir die
+     * Profile als Fallback.
      */
 
     const sourceRows =
@@ -732,68 +714,94 @@ function normalizeMembers(
 
 
     return sourceRows.map(
-        (row, index) => {
-
-            const profileId =
-                row?.profile_id ||
-                row?.user_id ||
-                row?.profileId ||
-                row?.id;
-
+        (
+            row,
+            index
+        ) => {
 
             const discordId =
-                row?.discord_id ||
-                row?.discord_user_id ||
-                row?.discordId;
+                String(
+                    row?.discord_id ||
+                    row?.discord_user_id ||
+                    row?.discordId ||
+                    ''
+                );
 
 
             const profile =
-                profileById.get(
-                    profileId
-                ) ||
                 profileByDiscord.get(
-                    String(
-                        discordId || ''
-                    )
+                    discordId
                 ) ||
                 (
-                    rows.length
+                    row?.discord_id
                         ? null
                         : row
                 );
 
 
-            const profileRoles =
-                rolesByProfile.get(
-                    profile?.id
-                ) || [];
+            const profileDiscordId =
+                String(
+                    profile?.discord_id ||
+                    discordId ||
+                    ''
+                );
 
+
+            const roles =
+                roleMap.get(
+                    profileDiscordId
+                ) ||
+                new Set();
+
+
+            /*
+             * Leadership wird zusätzlich direkt
+             * über die fest definierten Discord IDs
+             * erkannt.
+             *
+             * Damit bleibt die Berechtigung korrekt,
+             * selbst wenn der Role-Datensatz gerade
+             * noch nicht geladen wurde.
+             */
 
             const isLeadership =
-                profileRoles.includes(
+                LEADERSHIP_USERS.has(
+                    profileDiscordId
+                ) ||
+                roles.has(
                     'leadership'
                 ) ||
-                profileRoles.includes(
+                roles.has(
                     'leitung'
-                ) ||
-                row?.role_type === 'leadership' ||
-                row?.role === 'leadership';
+                );
 
 
             const isOfficer =
-                profileRoles.includes(
-                    'officer'
-                ) ||
-                row?.role_type === 'officer' ||
-                row?.role === 'officer';
+                !isLeadership &&
+                (
+                    roles.has(
+                        'officer'
+                    ) ||
+                    roles.has(
+                        'offizier'
+                    )
+                );
 
 
             const isMedical =
-                profileRoles.includes(
-                    'medical'
-                ) ||
-                row?.role_type === 'medical' ||
-                row?.role === 'medical';
+                !isLeadership &&
+                !isOfficer &&
+                (
+                    roles.has(
+                        'medical'
+                    ) ||
+                    roles.has(
+                        'medizin'
+                    ) ||
+                    roles.has(
+                        'medic'
+                    )
+                );
 
 
             const name =
@@ -809,7 +817,7 @@ function normalizeMembers(
                 );
 
 
-            return {
+            const member = {
 
                 id:
                     row?.id ||
@@ -818,14 +826,11 @@ function normalizeMembers(
 
                 profileId:
                     profile?.id ||
-                    profileId ||
                     null,
 
                 discordId:
-                    getDiscordId(
-                        profile,
-                        row
-                    ),
+                    profileDiscordId ||
+                    'Nicht verfügbar',
 
                 name,
 
@@ -868,12 +873,27 @@ function normalizeMembers(
                 active:
                     status.active,
 
+                rank:
+                    row?.rank ||
+                    null,
+
+                department:
+                    row?.department ||
+                    null,
+
+                joinedAt:
+                    row?.joined_at ||
+                    null,
+
                 raw:
                     row,
 
                 profile
 
             };
+
+
+            return member;
 
         }
     );
@@ -889,20 +909,19 @@ async function loadMembers() {
 
     showLoading();
 
-
     try {
 
         const [
             rows,
             profiles,
-            userRoles
+            accessRoles
         ] = await Promise.all([
 
             loadMemberRows(),
 
             loadProfiles(),
 
-            loadUserRoles()
+            loadAccessRoles()
 
         ]);
 
@@ -911,7 +930,7 @@ async function loadMembers() {
             normalizeMembers(
                 rows,
                 profiles,
-                userRoles
+                accessRoles
             );
 
 
@@ -920,7 +939,10 @@ async function loadMembers() {
          */
 
         members.sort(
-            (a, b) =>
+            (
+                a,
+                b
+            ) =>
                 a.name.localeCompare(
                     b.name,
                     'de',
@@ -944,13 +966,30 @@ async function loadMembers() {
         );
 
 
+        /*
+         * Debug-Ausgabe.
+         *
+         * Damit kannst du in der
+         * Browser-Konsole direkt sehen,
+         * welche Rolle erkannt wurde.
+         */
+
+        members.forEach(
+            member => {
+
+                log(
+                    `${member.name} (${member.discordId}) → ${member.accessLabel}`
+                );
+
+            }
+        );
+
     } catch (err) {
 
         error(
             'Mitglieder konnten nicht geladen werden:',
             err
         );
-
 
         showError(
             err?.message ||
@@ -1030,8 +1069,8 @@ function applyFilters() {
             elements.search?.value ||
             ''
         )
-        .trim()
-        .toLowerCase();
+            .trim()
+            .toLowerCase();
 
 
     const filter =
@@ -1054,8 +1093,8 @@ function applyFilters() {
                     String(
                         member.discordId
                     )
-                    .toLowerCase()
-                    .includes(search);
+                        .toLowerCase()
+                        .includes(search);
 
 
                 if (
@@ -1241,7 +1280,9 @@ function createMemberRow(
         );
 
 
-    if (image) {
+    if (
+        image
+    ) {
 
         image.addEventListener(
             'error',
@@ -1398,6 +1439,7 @@ function openMemberModal(
         'hidden'
     );
 
+
     document.body.style.overflow =
         'hidden';
 
@@ -1422,6 +1464,7 @@ function closeMemberModal() {
     elements.modal.classList.add(
         'hidden'
     );
+
 
     document.body.style.overflow =
         '';
@@ -1789,9 +1832,6 @@ async function checkLeadershipAccess() {
 }
 
 
-/* =========================================================
-   INITIALIZATION
-   ========================================================= */
 
 async function initializeMembers() {
 
@@ -1829,9 +1869,7 @@ async function initializeMembers() {
 }
 
 
-/* =========================================================
-   START
-   ========================================================= */
+
 
 if (
     document.readyState ===
