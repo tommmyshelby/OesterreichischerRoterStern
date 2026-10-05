@@ -6,34 +6,65 @@ import {
 import { supabase } from '../js/supabase.js';
 
 
-/* =========================================================
-   ÖRS LEADERSHIP
-   ========================================================= */
 
 const elements = {
-    /* Profile */
-    profileButton: document.getElementById('profile-button'),
-    profileDropdown: document.getElementById('profile-dropdown'),
+    /* =====================================================
+       PROFILE
+    ===================================================== */
 
-    profileAvatar: document.getElementById('profile-avatar'),
-    profileName: document.getElementById('profile-name'),
-    profileRole: document.getElementById('profile-role'),
+    profileButton:
+        document.getElementById('profile-button'),
 
-    dropdownAvatar: document.getElementById('dropdown-avatar'),
-    dropdownName: document.getElementById('dropdown-name'),
-    dropdownDiscord: document.getElementById('dropdown-discord'),
+    profileDropdown:
+        document.getElementById('profile-dropdown'),
 
-    logoutButton: document.getElementById('logout-button'),
+    profileAvatar:
+        document.getElementById('profile-avatar'),
 
-    /* System */
-    systemDiscordId: document.getElementById('system-discord-id'),
+    profileName:
+        document.getElementById('profile-name'),
 
-    /* Statistics */
-    membersCount: document.getElementById('members-count'),
-    medicalCount: document.getElementById('medical-count'),
-    operationsCount: document.getElementById('operations-count'),
-    activityCount: document.getElementById('activity-count')
+    profileRole:
+        document.getElementById('profile-role'),
+
+    dropdownAvatar:
+        document.getElementById('dropdown-avatar'),
+
+    dropdownName:
+        document.getElementById('dropdown-name'),
+
+    dropdownDiscord:
+        document.getElementById('dropdown-discord'),
+
+    logoutButton:
+        document.getElementById('logout-button'),
+
+
+    /* =====================================================
+       SYSTEM
+    ===================================================== */
+
+    systemDiscordId:
+        document.getElementById('system-discord-id'),
+
+
+    /* =====================================================
+       STATISTICS
+    ===================================================== */
+
+    membersCount:
+        document.getElementById('members-count'),
+
+    medicalCount:
+        document.getElementById('medical-count'),
+
+    operationsCount:
+        document.getElementById('operations-count'),
+
+    activityCount:
+        document.getElementById('activity-count')
 };
+
 
 
 /* =========================================================
@@ -42,10 +73,11 @@ const elements = {
 
 function createAvatar(name = 'ÖRS') {
 
-    const safeName = String(name || 'ÖRS')
-        .trim()
-        .slice(0, 2)
-        .toUpperCase();
+    const safeName =
+        String(name || 'ÖRS')
+            .trim()
+            .slice(0, 2)
+            .toUpperCase();
 
 
     return `https://ui-avatars.com/api/?name=${encodeURIComponent(
@@ -54,14 +86,18 @@ function createAvatar(name = 'ÖRS') {
 }
 
 
+
 /* =========================================================
    PROFILE
    ========================================================= */
 
 function updateProfile(accessInfo) {
 
-    const profile = accessInfo?.profile;
-    const user = accessInfo?.user;
+    const profile =
+        accessInfo?.profile;
+
+    const user =
+        accessInfo?.user;
 
 
     const name =
@@ -85,36 +121,52 @@ function updateProfile(accessInfo) {
         createAvatar(name);
 
 
-    /* Header */
+    /* =====================================================
+       HEADER
+    ===================================================== */
 
     if (elements.profileName) {
-        elements.profileName.textContent = name;
+
+        elements.profileName.textContent =
+            name;
     }
 
 
     if (elements.profileRole) {
-        elements.profileRole.textContent = 'Leadership';
+
+        elements.profileRole.textContent =
+            'Leadership';
     }
 
 
     if (elements.profileAvatar) {
 
-        elements.profileAvatar.src = avatar;
+        elements.profileAvatar.src =
+            avatar;
+
 
         elements.profileAvatar.onerror = () => {
-            elements.profileAvatar.src = createAvatar(name);
+
+            elements.profileAvatar.src =
+                createAvatar(name);
         };
     }
 
 
-    /* Dropdown */
+
+    /* =====================================================
+       DROPDOWN
+    ===================================================== */
 
     if (elements.dropdownName) {
-        elements.dropdownName.textContent = name;
+
+        elements.dropdownName.textContent =
+            name;
     }
 
 
     if (elements.dropdownDiscord) {
+
         elements.dropdownDiscord.textContent =
             `Discord: ${discordId}`;
     }
@@ -122,20 +174,30 @@ function updateProfile(accessInfo) {
 
     if (elements.dropdownAvatar) {
 
-        elements.dropdownAvatar.src = avatar;
+        elements.dropdownAvatar.src =
+            avatar;
+
 
         elements.dropdownAvatar.onerror = () => {
-            elements.dropdownAvatar.src = createAvatar(name);
+
+            elements.dropdownAvatar.src =
+                createAvatar(name);
         };
     }
 
 
-    /* System information */
+
+    /* =====================================================
+       SYSTEM INFORMATION
+    ===================================================== */
 
     if (elements.systemDiscordId) {
-        elements.systemDiscordId.textContent = discordId;
+
+        elements.systemDiscordId.textContent =
+            discordId;
     }
 }
+
 
 
 /* =========================================================
@@ -152,7 +214,10 @@ function setupProfileDropdown() {
     }
 
 
-    /* Öffnen / Schließen */
+
+    /* =====================================================
+       ÖFFNEN / SCHLIESSEN
+    ===================================================== */
 
     elements.profileButton.addEventListener(
         'click',
@@ -173,12 +238,16 @@ function setupProfileDropdown() {
             );
 
 
-            elements.profileDropdown.hidden = isOpen;
+            elements.profileDropdown.hidden =
+                isOpen;
         }
     );
 
 
-    /* Klick außerhalb */
+
+    /* =====================================================
+       KLICK AUSSERHALB
+    ===================================================== */
 
     document.addEventListener(
         'click',
@@ -192,24 +261,30 @@ function setupProfileDropdown() {
                     event.target
                 )
             ) {
+
                 closeProfileDropdown();
             }
         }
     );
 
 
-    /* ESC */
+
+    /* =====================================================
+       ESC
+    ===================================================== */
 
     document.addEventListener(
         'keydown',
         (event) => {
 
             if (event.key === 'Escape') {
+
                 closeProfileDropdown();
             }
         }
     );
 }
+
 
 
 /* =========================================================
@@ -232,8 +307,10 @@ function closeProfileDropdown() {
     );
 
 
-    elements.profileDropdown.hidden = true;
+    elements.profileDropdown.hidden =
+        true;
 }
+
 
 
 /* =========================================================
@@ -251,7 +328,8 @@ function setupLogout() {
         'click',
         async () => {
 
-            elements.logoutButton.disabled = true;
+            elements.logoutButton.disabled =
+                true;
 
 
             try {
@@ -271,11 +349,13 @@ function setupLogout() {
                 );
 
 
-                elements.logoutButton.disabled = false;
+                elements.logoutButton.disabled =
+                    false;
             }
         }
     );
 }
+
 
 
 /* =========================================================
@@ -325,6 +405,7 @@ async function getTableCount(tableName) {
 }
 
 
+
 /* =========================================================
    STATISTIKEN LADEN
    ========================================================= */
@@ -332,7 +413,7 @@ async function getTableCount(tableName) {
 async function loadStatistics() {
 
     /*
-     * Die vier Werte werden parallel geladen.
+     * Alle Statistiken parallel laden.
      */
 
     const [
@@ -352,7 +433,10 @@ async function loadStatistics() {
     ]);
 
 
-    /* Mitglieder */
+
+    /* =====================================================
+       MITGLIEDER
+    ===================================================== */
 
     if (elements.membersCount) {
 
@@ -363,7 +447,10 @@ async function loadStatistics() {
     }
 
 
-    /* Medizin */
+
+    /* =====================================================
+       MEDIZIN
+    ===================================================== */
 
     if (elements.medicalCount) {
 
@@ -374,7 +461,10 @@ async function loadStatistics() {
     }
 
 
-    /* Einsätze */
+
+    /* =====================================================
+       EINSÄTZE
+    ===================================================== */
 
     if (elements.operationsCount) {
 
@@ -385,7 +475,10 @@ async function loadStatistics() {
     }
 
 
-    /* Aktivität */
+
+    /* =====================================================
+       AKTIVITÄT
+    ===================================================== */
 
     if (elements.activityCount) {
 
@@ -395,6 +488,7 @@ async function loadStatistics() {
                 : activity;
     }
 }
+
 
 
 /* =========================================================
@@ -414,9 +508,10 @@ async function checkLeadershipAccess() {
             await getUserAccessInfo();
 
 
-        /*
-         * Nicht eingeloggt
-         */
+
+        /* =================================================
+           NICHT EINGELOGGT
+        ================================================= */
 
         if (!accessInfo?.authenticated) {
 
@@ -434,13 +529,10 @@ async function checkLeadershipAccess() {
         }
 
 
-        /*
-         * Leadership-Zugriff
-         *
-         * Wichtig:
-         * Die Entscheidung kommt aus Supabase
-         * und nicht nur aus dem Frontend.
-         */
+
+        /* =================================================
+           LEADERSHIP ZUGRIFF
+        ================================================= */
 
         if (!accessInfo.isLeadership) {
 
@@ -484,6 +576,7 @@ async function checkLeadershipAccess() {
 }
 
 
+
 /* =========================================================
    SCHNELLZUGRIFF
    ========================================================= */
@@ -516,18 +609,33 @@ function setupQuickActions() {
                 }
 
 
-                /*
-                 * Die Unterseiten bauen wir anschließend
-                 * einzeln auf.
-                 */
+
+                /* =================================================
+                   MITGLIEDERVERWALTUNG
+                   
+                   Dieser Bereich ist jetzt aktiv.
+                   ================================================= */
+
+                if (section === 'members') {
+
+                    window.location.href =
+                        './members/';
+
+                    return;
+                }
+
+
+
+                /* =================================================
+                   ALLE ANDEREN BEREICHE
+                   
+                   Bleiben vorerst Platzhalter.
+                   ================================================= */
 
                 const titles = {
 
-                    members:
-                        'Mitgliederverwaltung',
-
                     operations:
-                        'Einsätze',
+                        'Einsatzverwaltung',
 
                     medical:
                         'Medizin',
@@ -547,6 +655,7 @@ function setupQuickActions() {
         );
     });
 }
+
 
 
 /* =========================================================
@@ -570,6 +679,7 @@ function showComingSoon(title) {
     }
 
 
+
     /*
      * Overlay erstellen.
      */
@@ -591,9 +701,11 @@ function showComingSoon(title) {
                 type="button"
                 aria-label="Schließen"
             >
+
                 <iconify-icon
                     icon="iconoir:xmark"
                 ></iconify-icon>
+
             </button>
 
 
@@ -634,21 +746,27 @@ function showComingSoon(title) {
     `;
 
 
-    document.body.appendChild(overlay);
+    document.body.appendChild(
+        overlay
+    );
 
 
-    /*
-     * Schließen
-     */
+
+    /* =====================================================
+       SCHLIESSEN
+    ===================================================== */
 
     const close = () => {
 
-        overlay.classList.add('closing');
+        overlay.classList.add(
+            'closing'
+        );
 
 
         setTimeout(() => {
 
             if (overlay.isConnected) {
+
                 overlay.remove();
             }
 
@@ -656,33 +774,40 @@ function showComingSoon(title) {
     };
 
 
-    /*
-     * X Button
-     */
+
+    /* =====================================================
+       X BUTTON
+    ===================================================== */
 
     overlay
-        .querySelector('.coming-soon-close')
+        .querySelector(
+            '.coming-soon-close'
+        )
         ?.addEventListener(
             'click',
             close
         );
 
 
-    /*
-     * Verstanden
-     */
+
+    /* =====================================================
+       VERSTANDEN
+    ===================================================== */
 
     overlay
-        .querySelector('.coming-soon-confirm')
+        .querySelector(
+            '.coming-soon-confirm'
+        )
         ?.addEventListener(
             'click',
             close
         );
 
 
-    /*
-     * Klick außerhalb
-     */
+
+    /* =====================================================
+       KLICK AUSSERHALB
+    ===================================================== */
 
     overlay.addEventListener(
         'click',
@@ -691,31 +816,36 @@ function showComingSoon(title) {
             if (
                 event.target === overlay
             ) {
+
                 close();
             }
         }
     );
 
 
-    /*
-     * ESC
-     */
 
-    const escapeHandler = (event) => {
+    /* =====================================================
+       ESC
+    ===================================================== */
 
-        if (event.key !== 'Escape') {
-            return;
-        }
+    const escapeHandler =
+        (event) => {
+
+            if (
+                event.key !== 'Escape'
+            ) {
+                return;
+            }
 
 
-        close();
+            close();
 
 
-        document.removeEventListener(
-            'keydown',
-            escapeHandler
-        );
-    };
+            document.removeEventListener(
+                'keydown',
+                escapeHandler
+            );
+        };
 
 
     document.addEventListener(
@@ -724,9 +854,10 @@ function showComingSoon(title) {
     );
 
 
-    /*
-     * Animation starten
-     */
+
+    /* =====================================================
+       ANIMATION STARTEN
+    ===================================================== */
 
     requestAnimationFrame(() => {
 
@@ -737,6 +868,7 @@ function showComingSoon(title) {
 }
 
 
+
 /* =========================================================
    HTML ESCAPING
    ========================================================= */
@@ -744,17 +876,31 @@ function showComingSoon(title) {
 function escapeHtml(value) {
 
     return String(value)
-        .replaceAll('&', '&amp;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;')
-        .replaceAll('"', '&quot;')
-        .replaceAll("'", '&#039;');
+        .replaceAll(
+            '&',
+            '&amp;'
+        )
+        .replaceAll(
+            '<',
+            '&lt;'
+        )
+        .replaceAll(
+            '>',
+            '&gt;'
+        )
+        .replaceAll(
+            '"',
+            '&quot;'
+        )
+        .replaceAll(
+            "'",
+            '&#039;'
+        );
 }
 
 
-/* =========================================================
-   INITIALISIERUNG
-   ========================================================= */
+
+
 
 async function initializeLeadership() {
 
@@ -763,26 +909,22 @@ async function initializeLeadership() {
     );
 
 
-    /*
-     * Erst Zugriff prüfen.
-     */
+
+  
 
     const accessInfo =
         await checkLeadershipAccess();
 
 
-    /*
-     * Zugriff verweigert / nicht eingeloggt.
-     */
+
 
     if (!accessInfo) {
         return;
     }
 
 
-    /*
-     * Benutzerprofil anzeigen.
-     */
+
+
 
     updateProfile(
         accessInfo
@@ -790,26 +932,28 @@ async function initializeLeadership() {
 
 
 
+ 
+
     setupProfileDropdown();
 
 
- 
+
+
 
     setupLogout();
 
 
-    /*
-     * Schnellzugriff aktivieren.
-     */
+
+   
 
     setupQuickActions();
 
 
-    /*
-     * Statistiken laden.
-     */
+
+ 
 
     await loadStatistics();
+
 
 
     console.log(
