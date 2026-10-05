@@ -2,74 +2,180 @@
 <html lang="de">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Leadership | Österreichischer Roter Stern</title>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Leadership | Österreichischer Roter Stern
+    </title>
 
     <meta
         name="description"
-        content="Leadership-Bereich des Österreichischen Roten Sterns."
+        content="Interner Leadership-Bereich des Österreichischen Roten Sterns."
     >
 
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/leadership.css">
+    <!-- Haupt-CSS -->
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
 
-    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <!-- Leadership-CSS -->
+    <link
+        rel="stylesheet"
+        href="../css/leadership.css"
+    >
+
+    <!-- Iconoir -->
+    <script
+        src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"
+    ></script>
+
 </head>
+
 
 <body>
 
+    <!-- =====================================================
+         BACKGROUND
+         ===================================================== -->
+
     <div class="leadership-background">
+
         <div class="leadership-grid"></div>
-        <div class="leadership-glow leadership-glow-one"></div>
-        <div class="leadership-glow leadership-glow-two"></div>
+
+        <div
+            class="leadership-glow leadership-glow-one"
+        ></div>
+
+        <div
+            class="leadership-glow leadership-glow-two"
+        ></div>
+
     </div>
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
 
     <header class="leadership-header">
 
-        <a href="../../index.html" class="leadership-brand">
+
+        <!-- BRAND -->
+
+        <a
+            href="../../index.html"
+            class="leadership-brand"
+        >
+
             <div class="leadership-brand-icon">
-                <iconify-icon icon="iconoir:shield-check"></iconify-icon>
+
+                <iconify-icon
+                    icon="iconoir:shield-check"
+                ></iconify-icon>
+
             </div>
 
-            <div>
+
+            <div class="leadership-brand-text">
+
                 <strong>ÖRS</strong>
-                <span>Leadership</span>
+
+                <span>
+                    Leadership
+                </span>
+
             </div>
+
         </a>
 
+
+
+        <!-- NAVIGATION -->
+
         <nav class="leadership-nav">
+
             <a href="../../index.html">
-                <iconify-icon icon="iconoir:home"></iconify-icon>
-                Startseite
+
+                <iconify-icon
+                    icon="iconoir:home"
+                ></iconify-icon>
+
+                <span>
+                    Startseite
+                </span>
+
             </a>
 
-            <a href="#overview" class="active">
-                <iconify-icon icon="iconoir:dashboard"></iconify-icon>
-                Übersicht
+
+            <a
+                href="#overview"
+                class="active"
+            >
+
+                <iconify-icon
+                    icon="iconoir:dashboard"
+                ></iconify-icon>
+
+                <span>
+                    Übersicht
+                </span>
+
             </a>
+
 
             <a href="#management">
-                <iconify-icon icon="iconoir:settings"></iconify-icon>
-                Verwaltung
+
+                <iconify-icon
+                    icon="iconoir:settings"
+                ></iconify-icon>
+
+                <span>
+                    Verwaltung
+                </span>
+
             </a>
+
 
             <a href="#activity">
-                <iconify-icon icon="iconoir:activity"></iconify-icon>
-                Aktivität
+
+                <iconify-icon
+                    icon="iconoir:activity"
+                ></iconify-icon>
+
+                <span>
+                    Aktivität
+                </span>
+
             </a>
+
         </nav>
 
+
+
+        <!-- =================================================
+             PROFILE
+             ================================================= -->
+
         <div class="leadership-account-wrapper">
+
 
             <button
                 id="profile-button"
                 class="leadership-profile-button"
                 type="button"
                 aria-expanded="false"
+                aria-haspopup="true"
             >
+
                 <div class="profile-avatar-wrapper">
+
                     <img
                         id="profile-avatar"
                         src=""
@@ -77,55 +183,112 @@
                     >
 
                     <span class="profile-online"></span>
+
                 </div>
 
+
                 <div class="profile-information">
-                    <strong id="profile-name">Laden...</strong>
-                    <span id="profile-role">Leadership</span>
+
+                    <strong id="profile-name">
+                        Laden...
+                    </strong>
+
+                    <span id="profile-role">
+                        Leadership
+                    </span>
+
                 </div>
+
 
                 <iconify-icon
                     icon="iconoir:nav-arrow-down"
                     class="profile-arrow"
                 ></iconify-icon>
+
             </button>
+
+
+
+            <!-- PROFILE DROPDOWN -->
 
             <div
                 id="profile-dropdown"
                 class="profile-dropdown"
                 hidden
             >
+
+
                 <div class="dropdown-user">
+
                     <img
                         id="dropdown-avatar"
                         src=""
                         alt="Profilbild"
                     >
 
+
                     <div>
-                        <strong id="dropdown-name">Laden...</strong>
-                        <span id="dropdown-discord">Discord</span>
+
+                        <strong id="dropdown-name">
+                            Laden...
+                        </strong>
+
+                        <span id="dropdown-discord">
+                            Discord
+                        </span>
+
                     </div>
+
                 </div>
 
+
+
                 <div class="dropdown-divider"></div>
+
+
 
                 <a href="../../index.html">
-                    <iconify-icon icon="iconoir:home"></iconify-icon>
+
+                    <iconify-icon
+                        icon="iconoir:home"
+                    ></iconify-icon>
+
                     Zur Startseite
+
                 </a>
 
+
+
                 <a href="#overview">
-                    <iconify-icon icon="iconoir:dashboard"></iconify-icon>
+
+                    <iconify-icon
+                        icon="iconoir:dashboard"
+                    ></iconify-icon>
+
                     Leadership Übersicht
+
                 </a>
+
+
 
                 <div class="dropdown-divider"></div>
 
-                <button id="logout-button" type="button">
-                    <iconify-icon icon="iconoir:log-out"></iconify-icon>
+
+
+                <button
+                    id="logout-button"
+                    type="button"
+                >
+
+                    <iconify-icon
+                        icon="iconoir:log-out"
+                    ></iconify-icon>
+
                     Abmelden
+
                 </button>
+
+
             </div>
 
         </div>
@@ -133,93 +296,207 @@
     </header>
 
 
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
     <main class="leadership-main">
 
-        <section class="leadership-intro" id="overview">
 
-            <div>
+        <!-- =================================================
+             INTRO
+             ================================================= -->
+
+        <section
+            class="leadership-intro"
+            id="overview"
+        >
+
+            <div class="leadership-intro-content">
+
+
                 <div class="section-label">
+
                     <span></span>
+
                     Interner Bereich
+
                 </div>
 
-                <h1>Leadership</h1>
+
+                <h1>
+                    Leadership
+                </h1>
+
 
                 <p>
-                    Zentrale Übersicht für die Leitung des Österreichischen
-                    Roten Sterns.
+                    Zentrale Übersicht für die Leitung
+                    des Österreichischen Roten Sterns.
                 </p>
+
             </div>
 
+
+
+            <!-- SYSTEM STATUS -->
+
             <div class="leadership-status">
+
                 <span class="status-indicator"></span>
 
+
                 <div>
-                    <strong>System verbunden</strong>
-                    <span>Leadership-Zugriff aktiv</span>
+
+                    <strong>
+                        System verbunden
+                    </strong>
+
+                    <span>
+                        Leadership-Zugriff aktiv
+                    </span>
+
                 </div>
+
             </div>
 
         </section>
 
+
+
+        <!-- =================================================
+             STATISTIKEN
+             ================================================= -->
 
         <section class="leadership-stats">
 
+
+            <!-- MITGLIEDER -->
+
             <article class="leadership-stat-card">
 
                 <div class="stat-icon">
-                    <iconify-icon icon="iconoir:group"></iconify-icon>
+
+                    <iconify-icon
+                        icon="iconoir:group"
+                    ></iconify-icon>
+
                 </div>
 
+
                 <div class="stat-content">
-                    <span>Mitglieder</span>
-                    <strong id="members-count">–</strong>
-                    <small>ÖRS Mitglieder</small>
+
+                    <span>
+                        Mitglieder
+                    </span>
+
+                    <strong id="members-count">
+                        –
+                    </strong>
+
+                    <small>
+                        ÖRS Mitglieder
+                    </small>
+
                 </div>
 
             </article>
 
 
+
+            <!-- MEDIZIN -->
+
             <article class="leadership-stat-card">
 
                 <div class="stat-icon">
-                    <iconify-icon icon="iconoir:medical-cross"></iconify-icon>
+
+                    <iconify-icon
+                        icon="iconoir:health-shield"
+                    ></iconify-icon>
+
                 </div>
 
+
                 <div class="stat-content">
-                    <span>Medizin</span>
-                    <strong id="medical-count">–</strong>
-                    <small>Medizinische Vorgänge</small>
+
+                    <span>
+                        Medizin
+                    </span>
+
+                    <strong id="medical-count">
+                        –
+                    </strong>
+
+                    <small>
+                        Medizinische Vorgänge
+                    </small>
+
                 </div>
 
             </article>
 
 
+
+            <!-- EINSÄTZE -->
+
             <article class="leadership-stat-card">
 
                 <div class="stat-icon">
-                    <iconify-icon icon="iconoir:flash"></iconify-icon>
+
+                    <iconify-icon
+                        icon="iconoir:flash"
+                    ></iconify-icon>
+
                 </div>
 
+
                 <div class="stat-content">
-                    <span>Einsätze</span>
-                    <strong id="operations-count">–</strong>
-                    <small>Erfasste Einsätze</small>
+
+                    <span>
+                        Einsätze
+                    </span>
+
+                    <strong id="operations-count">
+                        –
+                    </strong>
+
+                    <small>
+                        Erfasste Einsätze
+                    </small>
+
                 </div>
 
             </article>
 
 
+
+            <!-- AKTIVITÄT -->
+
             <article class="leadership-stat-card">
 
                 <div class="stat-icon">
-                    <iconify-icon icon="iconoir:activity"></iconify-icon>
+
+                    <iconify-icon
+                        icon="iconoir:activity"
+                    ></iconify-icon>
+
                 </div>
 
+
                 <div class="stat-content">
-                    <span>Aktivität</span>
-                    <strong id="activity-count">–</strong>
-                    <small>Protokollierte Aktionen</small>
+
+                    <span>
+                        Aktivität
+                    </span>
+
+                    <strong id="activity-count">
+                        –
+                    </strong>
+
+                    <small>
+                        Protokollierte Aktionen
+                    </small>
+
                 </div>
 
             </article>
@@ -227,16 +504,38 @@
         </section>
 
 
-        <section class="leadership-content-grid" id="management">
+
+        <!-- =================================================
+             SCHNELLZUGRIFF + AKTIVITÄT
+             ================================================= -->
+
+        <section
+            class="leadership-content-grid"
+            id="management"
+        >
+
+
+            <!-- =============================================
+                 SCHNELLZUGRIFF
+                 ============================================= -->
 
             <article class="leadership-panel">
+
 
                 <div class="panel-header">
 
                     <div>
-                        <span class="panel-kicker">Verwaltung</span>
-                        <h2>Schnellzugriff</h2>
+
+                        <span class="panel-kicker">
+                            Verwaltung
+                        </span>
+
+                        <h2>
+                            Schnellzugriff
+                        </h2>
+
                     </div>
+
 
                     <iconify-icon
                         icon="iconoir:arrow-up-right"
@@ -245,188 +544,195 @@
                 </div>
 
 
-          <div class="management-list">
 
-    <button
-        class="management-item"
-        type="button"
-        data-section="members"
-    >
-
-        <div class="management-item-icon">
-            <iconify-icon icon="iconoir:group"></iconify-icon>
-        </div>
-
-        <div>
-            <strong>Mitgliederverwaltung</strong>
-
-            <span>
-                Mitglieder und interne Informationen verwalten
-            </span>
-        </div>
-
-        <iconify-icon
-            icon="iconoir:nav-arrow-right"
-        ></iconify-icon>
-
-    </button>
+                <div class="management-list">
 
 
-    <button
-        class="management-item"
-        type="button"
-        data-section="operations"
-    >
+                    <!-- MITGLIEDER -->
 
-        <div class="management-item-icon">
-            <iconify-icon icon="iconoir:flash"></iconify-icon>
-        </div>
+                    <button
+                        class="management-item"
+                        type="button"
+                        data-section="members"
+                    >
 
-        <div>
-            <strong>Einsätze</strong>
+                        <div class="management-item-icon">
 
-            <span>
-                Einsätze einsehen und verwalten
-            </span>
-        </div>
+                            <iconify-icon
+                                icon="iconoir:group"
+                            ></iconify-icon>
 
-        <iconify-icon
-            icon="iconoir:nav-arrow-right"
-        ></iconify-icon>
-
-    </button>
+                        </div>
 
 
-    <button
-        class="management-item"
-        type="button"
-        data-section="medical"
-    >
+                        <div class="management-item-content">
 
-        <div class="management-item-icon">
-            <iconify-icon icon="iconoir:medical-cross"></iconify-icon>
-        </div>
+                            <strong>
+                                Mitgliederverwaltung
+                            </strong>
 
-        <div>
-            <strong>Medizin</strong>
+                            <span>
+                                Mitglieder und interne Informationen verwalten
+                            </span>
 
-            <span>
-                Medizinische Bereiche und Vorgänge
-            </span>
-        </div>
+                        </div>
 
-        <iconify-icon
-            icon="iconoir:nav-arrow-right"
-        ></iconify-icon>
-
-    </button>
-
-
-    <button
-        class="management-item"
-        type="button"
-        data-section="settings"
-    >
-
-        <div class="management-item-icon">
-            <iconify-icon icon="iconoir:settings"></iconify-icon>
-        </div>
-
-        <div>
-            <strong>Systemverwaltung</strong>
-
-            <span>
-                Zentrale Einstellungen des Systems
-            </span>
-        </div>
-
-        <iconify-icon
-            icon="iconoir:nav-arrow-right"
-        ></iconify-icon>
-
-    </button>
-
-</div>
 
                         <iconify-icon
+                            class="management-arrow"
                             icon="iconoir:nav-arrow-right"
                         ></iconify-icon>
 
                     </button>
 
 
-                    <button class="management-item" type="button">
+
+                    <!-- EINSÄTZE -->
+
+                    <button
+                        class="management-item"
+                        type="button"
+                        data-section="operations"
+                    >
 
                         <div class="management-item-icon">
-                            <iconify-icon icon="iconoir:flash"></iconify-icon>
+
+                            <iconify-icon
+                                icon="iconoir:flash"
+                            ></iconify-icon>
+
                         </div>
 
-                        <div>
-                            <strong>Einsätze</strong>
+
+                        <div class="management-item-content">
+
+                            <strong>
+                                Einsätze
+                            </strong>
+
                             <span>
                                 Einsätze einsehen und verwalten
                             </span>
+
                         </div>
 
+
                         <iconify-icon
+                            class="management-arrow"
                             icon="iconoir:nav-arrow-right"
                         ></iconify-icon>
 
                     </button>
 
 
-                    <button class="management-item" type="button">
+
+                    <!-- MEDIZIN -->
+
+                    <button
+                        class="management-item"
+                        type="button"
+                        data-section="medical"
+                    >
 
                         <div class="management-item-icon">
-                            <iconify-icon icon="iconoir:medical-cross"></iconify-icon>
+
+                            <iconify-icon
+                                icon="iconoir:health-shield"
+                            ></iconify-icon>
+
                         </div>
 
-                        <div>
-                            <strong>Medizin</strong>
+
+                        <div class="management-item-content">
+
+                            <strong>
+                                Medizin
+                            </strong>
+
                             <span>
                                 Medizinische Bereiche und Vorgänge
                             </span>
+
                         </div>
 
+
                         <iconify-icon
+                            class="management-arrow"
                             icon="iconoir:nav-arrow-right"
                         ></iconify-icon>
 
                     </button>
 
 
-                    <button class="management-item" type="button">
+
+                    <!-- SYSTEMVERWALTUNG -->
+
+                    <button
+                        class="management-item"
+                        type="button"
+                        data-section="settings"
+                    >
 
                         <div class="management-item-icon">
-                            <iconify-icon icon="iconoir:settings"></iconify-icon>
+
+                            <iconify-icon
+                                icon="iconoir:settings"
+                            ></iconify-icon>
+
                         </div>
 
-                        <div>
-                            <strong>Systemverwaltung</strong>
+
+                        <div class="management-item-content">
+
+                            <strong>
+                                Systemverwaltung
+                            </strong>
+
                             <span>
                                 Zentrale Einstellungen des Systems
                             </span>
+
                         </div>
 
+
                         <iconify-icon
+                            class="management-arrow"
                             icon="iconoir:nav-arrow-right"
                         ></iconify-icon>
 
                     </button>
+
 
                 </div>
 
             </article>
 
 
-            <article class="leadership-panel" id="activity">
+
+            <!-- =============================================
+                 AKTIVITÄT
+                 ============================================= -->
+
+            <article
+                class="leadership-panel"
+                id="activity"
+            >
+
 
                 <div class="panel-header">
 
                     <div>
-                        <span class="panel-kicker">System</span>
-                        <h2>Aktivität</h2>
+
+                        <span class="panel-kicker">
+                            System
+                        </span>
+
+                        <h2>
+                            Aktivität
+                        </h2>
+
                     </div>
+
 
                     <iconify-icon
                         icon="iconoir:activity"
@@ -434,20 +740,35 @@
 
                 </div>
 
-                <div id="activity-list" class="activity-list">
+
+
+                <div
+                    id="activity-list"
+                    class="activity-list"
+                >
 
                     <div class="activity-empty">
 
+
                         <div class="activity-empty-icon">
-                            <iconify-icon icon="iconoir:clock"></iconify-icon>
+
+                            <iconify-icon
+                                icon="iconoir:clock"
+                            ></iconify-icon>
+
                         </div>
 
-                        <strong>Keine Aktivitäten geladen</strong>
+
+                        <strong>
+                            Keine Aktivitäten geladen
+                        </strong>
+
 
                         <span>
                             Sobald Aktionen protokolliert werden,
                             erscheinen sie hier.
                         </span>
+
 
                     </div>
 
@@ -455,52 +776,157 @@
 
             </article>
 
+
         </section>
 
+
+
+        <!-- =================================================
+             LEADERSHIP MEMBER
+             ================================================= -->
+
+        <section class="leadership-member-preview">
+
+
+            <div class="member-preview-icon">
+
+                <iconify-icon
+                    icon="iconoir:group"
+                ></iconify-icon>
+
+            </div>
+
+
+            <div class="member-preview-content">
+
+                <span class="panel-kicker">
+                    Leadership
+                </span>
+
+                <h2>
+                    Leadership Member
+                </h2>
+
+                <p>
+                    Die Verwaltung der Leadership-Mitglieder
+                    wird später hier integriert.
+                </p>
+
+            </div>
+
+
+            <div class="member-preview-status">
+
+                <span>
+                    Vorbereitung
+                </span>
+
+                <strong>
+                    Bald verfügbar
+                </strong>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             SYSTEM INFORMATION
+             ================================================= -->
 
         <section class="leadership-system-panel">
 
+
             <div class="system-panel-icon">
-                <iconify-icon icon="iconoir:shield-check"></iconify-icon>
+
+                <iconify-icon
+                    icon="iconoir:shield-check"
+                ></iconify-icon>
+
             </div>
+
 
             <div class="system-panel-content">
-                <span class="panel-kicker">Zugriff</span>
 
-                <h2>Leadership-Zugriff bestätigt</h2>
+                <span class="panel-kicker">
+                    Zugriff
+                </span>
+
+                <h2>
+                    Leadership-Zugriff bestätigt
+                </h2>
 
                 <p>
-                    Dein Discord-Konto wurde erfolgreich als
-                    Leadership-Mitglied erkannt.
+                    Dein Discord-Konto wurde erfolgreich
+                    als Leadership-Mitglied erkannt.
                 </p>
+
             </div>
+
 
             <div class="system-panel-meta">
-                <span>Discord-ID</span>
-                <strong id="system-discord-id">–</strong>
+
+                <span>
+                    Discord-ID
+                </span>
+
+                <strong id="system-discord-id">
+                    –
+                </strong>
+
             </div>
 
+
         </section>
+
 
     </main>
 
 
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
     <footer class="leadership-footer">
 
+
         <div>
-            <strong>Österreichischer Roter Stern</strong>
-            <span>Interner Leadership-Bereich</span>
+
+            <strong>
+                Österreichischer Roter Stern
+            </strong>
+
+            <span>
+                Interner Leadership-Bereich
+            </span>
+
         </div>
 
+
         <a href="../../index.html">
+
             Zurück zur Website
-            <iconify-icon icon="iconoir:arrow-up-right"></iconify-icon>
+
+            <iconify-icon
+                icon="iconoir:arrow-up-right"
+            ></iconify-icon>
+
         </a>
+
 
     </footer>
 
 
-    <script type="module" src="../js/leadership.js"></script>
+
+
+
+    <script
+        type="module"
+        src="../js/leadership.js"
+    ></script>
+
 
 </body>
 
