@@ -6,9 +6,12 @@ import {
 import { supabase } from '../js/supabase.js';
 
 
-
+/* =========================================================
+   ÖRS LEADERSHIP
+   ========================================================= */
 
 const elements = {
+    /* Profile */
     profileButton: document.getElementById('profile-button'),
     profileDropdown: document.getElementById('profile-dropdown'),
 
@@ -22,8 +25,10 @@ const elements = {
 
     logoutButton: document.getElementById('logout-button'),
 
+    /* System */
     systemDiscordId: document.getElementById('system-discord-id'),
 
+    /* Statistics */
     membersCount: document.getElementById('members-count'),
     medicalCount: document.getElementById('medical-count'),
     operationsCount: document.getElementById('operations-count'),
@@ -31,12 +36,17 @@ const elements = {
 };
 
 
+/* =========================================================
+   AVATAR FALLBACK
+   ========================================================= */
 
 function createAvatar(name = 'ÖRS') {
+
     const safeName = String(name || 'ÖRS')
         .trim()
         .slice(0, 2)
         .toUpperCase();
+
 
     return `https://ui-avatars.com/api/?name=${encodeURIComponent(
         safeName
@@ -53,6 +63,7 @@ function updateProfile(accessInfo) {
     const profile = accessInfo?.profile;
     const user = accessInfo?.user;
 
+
     const name =
         profile?.display_name ||
         profile?.username ||
@@ -60,11 +71,13 @@ function updateProfile(accessInfo) {
         user?.user_metadata?.name ||
         'Leadership';
 
+
     const discordId =
         profile?.discord_id ||
         user?.user_metadata?.provider_id ||
         user?.user_metadata?.sub ||
         'Nicht verfügbar';
+
 
     const avatar =
         profile?.avatar_url ||
@@ -72,32 +85,43 @@ function updateProfile(accessInfo) {
         createAvatar(name);
 
 
+    /* Header */
+
     if (elements.profileName) {
         elements.profileName.textContent = name;
     }
+
 
     if (elements.profileRole) {
         elements.profileRole.textContent = 'Leadership';
     }
 
+
     if (elements.profileAvatar) {
+
         elements.profileAvatar.src = avatar;
+
         elements.profileAvatar.onerror = () => {
             elements.profileAvatar.src = createAvatar(name);
         };
     }
 
 
+    /* Dropdown */
+
     if (elements.dropdownName) {
         elements.dropdownName.textContent = name;
     }
+
 
     if (elements.dropdownDiscord) {
         elements.dropdownDiscord.textContent =
             `Discord: ${discordId}`;
     }
 
+
     if (elements.dropdownAvatar) {
+
         elements.dropdownAvatar.src = avatar;
 
         elements.dropdownAvatar.onerror = () => {
@@ -106,73 +130,115 @@ function updateProfile(accessInfo) {
     }
 
 
+    /* System information */
+
     if (elements.systemDiscordId) {
         elements.systemDiscordId.textContent = discordId;
     }
 }
 
 
-
+/* =========================================================
+   PROFILE DROPDOWN
+   ========================================================= */
 
 function setupProfileDropdown() {
 
-    if (!elements.profileButton || !elements.profileDropdown) {
+    if (
+        !elements.profileButton ||
+        !elements.profileDropdown
+    ) {
         return;
     }
 
 
-    elements.profileButton.addEventListener('click', (event) => {
+    /* Öffnen / Schließen */
 
-        event.stopPropagation();
+    elements.profileButton.addEventListener(
+        'click',
+        (event) => {
 
-        const isOpen =
-            elements.profileButton.getAttribute(
-                'aria-expanded'
-            ) === 'true';
-
-        elements.profileButton.setAttribute(
-            'aria-expanded',
-            String(!isOpen)
-        );
-
-        elements.profileDropdown.hidden = isOpen;
-    });
+            event.stopPropagation();
 
 
-    document.addEventListener('click', (event) => {
+            const isOpen =
+                elements.profileButton.getAttribute(
+                    'aria-expanded'
+                ) === 'true';
 
-        if (
-            !elements.profileDropdown.contains(event.target) &&
-            !elements.profileButton.contains(event.target)
-        ) {
-            closeProfileDropdown();
+
+            elements.profileButton.setAttribute(
+                'aria-expanded',
+                String(!isOpen)
+            );
+
+
+            elements.profileDropdown.hidden = isOpen;
         }
-    });
+    );
 
 
-    document.addEventListener('keydown', (event) => {
+    /* Klick außerhalb */
 
-        if (event.key === 'Escape') {
-            closeProfileDropdown();
+    document.addEventListener(
+        'click',
+        (event) => {
+
+            if (
+                !elements.profileDropdown.contains(
+                    event.target
+                ) &&
+                !elements.profileButton.contains(
+                    event.target
+                )
+            ) {
+                closeProfileDropdown();
+            }
         }
-    });
+    );
+
+
+    /* ESC */
+
+    document.addEventListener(
+        'keydown',
+        (event) => {
+
+            if (event.key === 'Escape') {
+                closeProfileDropdown();
+            }
+        }
+    );
 }
 
 
+/* =========================================================
+   PROFILE DROPDOWN SCHLIESSEN
+   ========================================================= */
+
 function closeProfileDropdown() {
 
-    if (!elements.profileButton || !elements.profileDropdown) {
+    if (
+        !elements.profileButton ||
+        !elements.profileDropdown
+    ) {
         return;
     }
+
 
     elements.profileButton.setAttribute(
         'aria-expanded',
         'false'
     );
 
+
     elements.profileDropdown.hidden = true;
 }
 
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
 
 function setupLogout() {
 
@@ -181,36 +247,49 @@ function setupLogout() {
     }
 
 
-    elements.logoutButton.addEventListener('click', async () => {
+    elements.logoutButton.addEventListener(
+        'click',
+        async () => {
 
-        elements.logoutButton.disabled = true;
+            elements.logoutButton.disabled = true;
 
-        try {
 
-            await signOut();
+            try {
 
-            window.location.href = '../../index.html';
+                await signOut();
 
-        } catch (error) {
 
-            console.error(
-                '[ÖRS Leadership] Abmeldung fehlgeschlagen:',
-                error
-            );
+                window.location.href =
+                    '../../index.html';
 
-            elements.logoutButton.disabled = false;
+
+            } catch (error) {
+
+                console.error(
+                    '[ÖRS Leadership] Abmeldung fehlgeschlagen:',
+                    error
+                );
+
+
+                elements.logoutButton.disabled = false;
+            }
         }
-    });
+    );
 }
 
 
-
+/* =========================================================
+   SUPABASE TABLE COUNT
+   ========================================================= */
 
 async function getTableCount(tableName) {
 
     try {
 
-        const { count, error } = await supabase
+        const {
+            count,
+            error
+        } = await supabase
             .from(tableName)
             .select('*', {
                 count: 'exact',
@@ -225,10 +304,13 @@ async function getTableCount(tableName) {
                 error.message
             );
 
+
             return null;
         }
 
+
         return count ?? 0;
+
 
     } catch (error) {
 
@@ -237,14 +319,21 @@ async function getTableCount(tableName) {
             error
         );
 
+
         return null;
     }
 }
 
 
-
+/* =========================================================
+   STATISTIKEN LADEN
+   ========================================================= */
 
 async function loadStatistics() {
+
+    /*
+     * Die vier Werte werden parallel geladen.
+     */
 
     const [
         members,
@@ -263,63 +352,119 @@ async function loadStatistics() {
     ]);
 
 
+    /* Mitglieder */
+
     if (elements.membersCount) {
+
         elements.membersCount.textContent =
-            members === null ? '–' : members;
+            members === null
+                ? '–'
+                : members;
     }
 
+
+    /* Medizin */
 
     if (elements.medicalCount) {
+
         elements.medicalCount.textContent =
-            medical === null ? '–' : medical;
+            medical === null
+                ? '–'
+                : medical;
     }
 
+
+    /* Einsätze */
 
     if (elements.operationsCount) {
+
         elements.operationsCount.textContent =
-            operations === null ? '–' : operations;
+            operations === null
+                ? '–'
+                : operations;
     }
 
 
+    /* Aktivität */
+
     if (elements.activityCount) {
+
         elements.activityCount.textContent =
-            activity === null ? '–' : activity;
+            activity === null
+                ? '–'
+                : activity;
     }
 }
 
+
+/* =========================================================
+   LEADERSHIP ZUGRIFF PRÜFEN
+   ========================================================= */
 
 async function checkLeadershipAccess() {
 
     try {
 
-        const accessInfo = await getUserAccessInfo();
+        console.log(
+            '[ÖRS Leadership] Prüfe Benutzerzugriff...'
+        );
+
+
+        const accessInfo =
+            await getUserAccessInfo();
 
 
         /*
          * Nicht eingeloggt
          */
+
         if (!accessInfo?.authenticated) {
+
+            console.warn(
+                '[ÖRS Leadership] Benutzer ist nicht eingeloggt.'
+            );
+
 
             window.location.replace(
                 '../../index.html?access=login-required'
             );
 
+
             return null;
         }
 
 
-     
+        /*
+         * Leadership-Zugriff
+         *
+         * Wichtig:
+         * Die Entscheidung kommt aus Supabase
+         * und nicht nur aus dem Frontend.
+         */
+
         if (!accessInfo.isLeadership) {
+
+            console.warn(
+                '[ÖRS Leadership] Kein Leadership-Zugriff.'
+            );
+
 
             window.location.replace(
                 '../../index.html?access=denied'
             );
 
+
             return null;
         }
 
 
+        console.log(
+            '[ÖRS Leadership] Leadership-Zugriff bestätigt.'
+        );
+
+
         return accessInfo;
+
 
     } catch (error) {
 
@@ -328,41 +473,288 @@ async function checkLeadershipAccess() {
             error
         );
 
+
         window.location.replace(
             '../../index.html?access=error'
         );
+
 
         return null;
     }
 }
 
 
+/* =========================================================
+   SCHNELLZUGRIFF
+   ========================================================= */
 
 function setupQuickActions() {
 
-    const buttons = document.querySelectorAll(
-        '.management-item'
-    );
+    const buttons =
+        document.querySelectorAll(
+            '.management-item'
+        );
+
+
+    if (!buttons.length) {
+        return;
+    }
 
 
     buttons.forEach((button) => {
 
-        button.addEventListener('click', () => {
+        button.addEventListener(
+            'click',
+            () => {
 
-       
+                const section =
+                    button.dataset.section;
 
-            button.classList.add('loading');
 
-            setTimeout(() => {
-                button.classList.remove('loading');
-            }, 250);
+                if (!section) {
+                    return;
+                }
 
-        });
+
+                /*
+                 * Die Unterseiten bauen wir anschließend
+                 * einzeln auf.
+                 */
+
+                const titles = {
+
+                    members:
+                        'Mitgliederverwaltung',
+
+                    operations:
+                        'Einsätze',
+
+                    medical:
+                        'Medizin',
+
+                    settings:
+                        'Systemverwaltung'
+                };
+
+
+                const title =
+                    titles[section] ||
+                    'Bereich';
+
+
+                showComingSoon(title);
+            }
+        );
     });
 }
 
 
+/* =========================================================
+   COMING SOON
+   ========================================================= */
 
+function showComingSoon(title) {
+
+    /*
+     * Bereits vorhandenes Fenster entfernen.
+     */
+
+    const existing =
+        document.querySelector(
+            '.leadership-coming-soon'
+        );
+
+
+    if (existing) {
+        existing.remove();
+    }
+
+
+    /*
+     * Overlay erstellen.
+     */
+
+    const overlay =
+        document.createElement('div');
+
+
+    overlay.className =
+        'leadership-coming-soon';
+
+
+    overlay.innerHTML = `
+
+        <div class="coming-soon-box">
+
+            <button
+                class="coming-soon-close"
+                type="button"
+                aria-label="Schließen"
+            >
+                <iconify-icon
+                    icon="iconoir:xmark"
+                ></iconify-icon>
+            </button>
+
+
+            <div class="coming-soon-icon">
+
+                <iconify-icon
+                    icon="iconoir:hammer"
+                ></iconify-icon>
+
+            </div>
+
+
+            <span class="panel-kicker">
+                Leadership
+            </span>
+
+
+            <h2>
+                ${escapeHtml(title)}
+            </h2>
+
+
+            <p>
+                Dieser Bereich wird gerade vorbereitet
+                und später als eigene Unterseite verfügbar sein.
+            </p>
+
+
+            <button
+                class="coming-soon-confirm"
+                type="button"
+            >
+                Verstanden
+            </button>
+
+        </div>
+
+    `;
+
+
+    document.body.appendChild(overlay);
+
+
+    /*
+     * Schließen
+     */
+
+    const close = () => {
+
+        overlay.classList.add('closing');
+
+
+        setTimeout(() => {
+
+            if (overlay.isConnected) {
+                overlay.remove();
+            }
+
+        }, 180);
+    };
+
+
+    /*
+     * X Button
+     */
+
+    overlay
+        .querySelector('.coming-soon-close')
+        ?.addEventListener(
+            'click',
+            close
+        );
+
+
+    /*
+     * Verstanden
+     */
+
+    overlay
+        .querySelector('.coming-soon-confirm')
+        ?.addEventListener(
+            'click',
+            close
+        );
+
+
+    /*
+     * Klick außerhalb
+     */
+
+    overlay.addEventListener(
+        'click',
+        (event) => {
+
+            if (
+                event.target === overlay
+            ) {
+                close();
+            }
+        }
+    );
+
+
+    /*
+     * ESC
+     */
+
+    const escapeHandler = (event) => {
+
+        if (event.key !== 'Escape') {
+            return;
+        }
+
+
+        close();
+
+
+        document.removeEventListener(
+            'keydown',
+            escapeHandler
+        );
+    };
+
+
+    document.addEventListener(
+        'keydown',
+        escapeHandler
+    );
+
+
+    /*
+     * Animation starten
+     */
+
+    requestAnimationFrame(() => {
+
+        overlay.classList.add(
+            'visible'
+        );
+    });
+}
+
+
+/* =========================================================
+   HTML ESCAPING
+   ========================================================= */
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+}
+
+
+/* =========================================================
+   INITIALISIERUNG
+   ========================================================= */
 
 async function initializeLeadership() {
 
@@ -371,35 +763,73 @@ async function initializeLeadership() {
     );
 
 
+    /*
+     * Erst Zugriff prüfen.
+     */
+
     const accessInfo =
         await checkLeadershipAccess();
 
+
+    /*
+     * Zugriff verweigert / nicht eingeloggt.
+     */
 
     if (!accessInfo) {
         return;
     }
 
 
-    updateProfile(accessInfo);
+    /*
+     * Benutzerprofil anzeigen.
+     */
+
+    updateProfile(
+        accessInfo
+    );
+
+
 
     setupProfileDropdown();
 
+
+ 
+
     setupLogout();
 
+
+    /*
+     * Schnellzugriff aktivieren.
+     */
+
     setupQuickActions();
+
+
+    /*
+     * Statistiken laden.
+     */
 
     await loadStatistics();
 
 
     console.log(
-        '[ÖRS Leadership] Zugriff bestätigt.'
+        '[ÖRS Leadership] Initialisierung abgeschlossen.'
     );
 }
 
 
 
 
-document.addEventListener(
-    'DOMContentLoaded',
-    initializeLeadership
-);
+if (
+    document.readyState === 'loading'
+) {
+
+    document.addEventListener(
+        'DOMContentLoaded',
+        initializeLeadership
+    );
+
+} else {
+
+    initializeLeadership();
+}
