@@ -3,12 +3,10 @@
 // Österreichischer Roter Stern
 // =========================================================
 
-
 import {
     getSession,
     onAuthStateChange
 } from './supabase.js';
-
 
 import {
     signInWithDiscord,
@@ -45,8 +43,8 @@ const elements = {
     userAccess:
         document.getElementById('user-access'),
 
-    accountDashboard:
-        document.getElementById('account-dashboard'),
+    accountProfile:
+        document.getElementById('account-profile'),
 
     navLinks:
         document.querySelectorAll('.nav-link'),
@@ -84,9 +82,6 @@ const elements = {
     dropdownUserId:
         document.getElementById('dropdown-user-id'),
 
-    profileDashboard:
-        document.getElementById('profile-dashboard'),
-
     profileRoleSection:
         document.getElementById('profile-role-section'),
 
@@ -97,8 +92,8 @@ const elements = {
 
 
 
-let currentUser = null;
 
+let currentUser = null;
 let currentAccess = null;
 
 
@@ -122,7 +117,6 @@ function error(...args) {
     );
 
 }
-
 
 
 
@@ -160,12 +154,13 @@ function setLoginState(loggedIn) {
 }
 
 
+
+
 function showAccount() {
 
     if (!elements.accountSection) {
         return;
     }
-
 
     elements.accountSection.classList.remove(
         'hidden'
@@ -179,7 +174,6 @@ function hideAccount() {
     if (!elements.accountSection) {
         return;
     }
-
 
     elements.accountSection.classList.add(
         'hidden'
@@ -234,13 +228,11 @@ function resetAccountUI() {
 
 
 
-
 function getAvatarUrl(user) {
 
     if (!user) {
         return null;
     }
-
 
     return (
         user.user_metadata?.avatar_url ||
@@ -299,6 +291,9 @@ function getDisplayName(
 }
 
 
+// =========================================================
+// DISCORD ID
+// =========================================================
 
 function getDiscordId(
     user,
@@ -330,7 +325,9 @@ function getDiscordId(
 }
 
 
-
+// =========================================================
+// ACCESS LABEL
+// =========================================================
 
 function getAccessLabel(access) {
 
@@ -472,7 +469,6 @@ function resetProfileMenu() {
 
     clearRoleMenu();
 
-
     if (elements.profileRoleSection) {
 
         elements.profileRoleSection.classList.add(
@@ -481,23 +477,13 @@ function resetProfileMenu() {
 
     }
 
-
-    if (elements.profileDashboard) {
-
-        elements.profileDashboard.classList.add(
-            'hidden'
-        );
-
-    }
-
-
     closeProfileMenu();
 
 }
 
 
 // =========================================================
-// ROLE MENU LEEREN
+// ROLE MENÜ LEEREN
 // =========================================================
 
 function clearRoleMenu() {
@@ -506,9 +492,7 @@ function clearRoleMenu() {
         return;
     }
 
-
-    elements.profileRoleLinks.innerHTML =
-        '';
+    elements.profileRoleLinks.innerHTML = '';
 
 }
 
@@ -572,6 +556,79 @@ function createRoleLink(
 
 
 // =========================================================
+// ROLE GRUPPE
+// =========================================================
+
+function createRoleGroup(
+    title,
+    items
+) {
+
+    const group =
+        document.createElement(
+            'div'
+        );
+
+
+    group.className =
+        'profile-role-group';
+
+
+    const titleElement =
+        document.createElement(
+            'div'
+        );
+
+
+    titleElement.className =
+        'profile-role-group-title';
+
+
+    titleElement.textContent =
+        title;
+
+
+    group.appendChild(
+        titleElement
+    );
+
+
+    const links =
+        document.createElement(
+            'div'
+        );
+
+
+    links.className =
+        'profile-role-group-links';
+
+
+    items.forEach(
+        item => {
+
+            links.appendChild(
+                createRoleLink(
+                    item.icon,
+                    item.label,
+                    item.action
+                )
+            );
+
+        }
+    );
+
+
+    group.appendChild(
+        links
+    );
+
+
+    return group;
+
+}
+
+
+// =========================================================
 // ROLE MENÜ AUFBAUEN
 // =========================================================
 
@@ -588,7 +645,7 @@ function updateRoleMenu(access) {
     }
 
 
-    const links = [];
+    const groups = [];
 
 
     // =====================================================
@@ -597,38 +654,62 @@ function updateRoleMenu(access) {
 
     if (access?.isLeadership) {
 
-        links.push(
-            createRoleLink(
-                'iconoir:dashboard',
-                'Führungsebene',
-                'leadership'
+        groups.push(
+            createRoleGroup(
+                'FÜHRUNG',
+                [
+                    {
+                        icon:
+                            'iconoir:community',
+
+                        label:
+                            'Führungsebene',
+
+                        action:
+                            'leadership'
+                    }
+                ]
             )
         );
 
 
-        links.push(
-            createRoleLink(
-                'iconoir:group',
-                'Mitgliederverwaltung',
-                'members'
-            )
-        );
+        groups.push(
+            createRoleGroup(
+                'VERWALTUNG',
+                [
+                    {
+                        icon:
+                            'iconoir:group',
 
+                        label:
+                            'Mitgliederverwaltung',
 
-        links.push(
-            createRoleLink(
-                'iconoir:map',
-                'Einsatzverwaltung',
-                'operations'
-            )
-        );
+                        action:
+                            'members'
+                    },
 
+                    {
+                        icon:
+                            'iconoir:map',
 
-        links.push(
-            createRoleLink(
-                'iconoir:settings',
-                'Systemverwaltung',
-                'settings'
+                        label:
+                            'Einsatzverwaltung',
+
+                        action:
+                            'operations'
+                    },
+
+                    {
+                        icon:
+                            'iconoir:settings',
+
+                        label:
+                            'Systemverwaltung',
+
+                        action:
+                            'settings'
+                    }
+                ]
             )
         );
 
@@ -641,29 +722,51 @@ function updateRoleMenu(access) {
 
     else if (access?.isOfficer) {
 
-        links.push(
-            createRoleLink(
-                'iconoir:dashboard',
-                'Officer-Bereich',
-                'officer'
+        groups.push(
+            createRoleGroup(
+                'OFFICER',
+                [
+                    {
+                        icon:
+                            'iconoir:community',
+
+                        label:
+                            'Officer-Bereich',
+
+                        action:
+                            'officer'
+                    }
+                ]
             )
         );
 
 
-        links.push(
-            createRoleLink(
-                'iconoir:group',
-                'Mitglieder',
-                'members'
-            )
-        );
+        groups.push(
+            createRoleGroup(
+                'VERWALTUNG',
+                [
+                    {
+                        icon:
+                            'iconoir:group',
 
+                        label:
+                            'Mitglieder',
 
-        links.push(
-            createRoleLink(
-                'iconoir:map',
-                'Einsätze',
-                'operations'
+                        action:
+                            'members'
+                    },
+
+                    {
+                        icon:
+                            'iconoir:map',
+
+                        label:
+                            'Einsätze',
+
+                        action:
+                            'operations'
+                    }
+                ]
             )
         );
 
@@ -679,38 +782,54 @@ function updateRoleMenu(access) {
         access?.isLeadership
     ) {
 
-        links.push(
-            createRoleLink(
-                'iconoir:health-shield',
-                'Medizin',
-                'medical'
-            )
-        );
+        groups.push(
+            createRoleGroup(
+                'MEDIZIN',
+                [
+                    {
+                        icon:
+                            'iconoir:health-shield',
 
+                        label:
+                            'Medizin',
 
-        links.push(
-            createRoleLink(
-                'iconoir:medical-case',
-                'Behandlungen',
-                'treatments'
-            )
-        );
+                        action:
+                            'medical'
+                    },
 
+                    {
+                        icon:
+                            'iconoir:medical-case',
 
-        links.push(
-            createRoleLink(
-                'iconoir:activity',
-                'Reanimation',
-                'reanimation'
-            )
-        );
+                        label:
+                            'Behandlungen',
 
+                        action:
+                            'treatments'
+                    },
 
-        links.push(
-            createRoleLink(
-                'iconoir:box',
-                'Ausrüstung',
-                'equipment'
+                    {
+                        icon:
+                            'iconoir:activity',
+
+                        label:
+                            'Reanimation',
+
+                        action:
+                            'reanimation'
+                    },
+
+                    {
+                        icon:
+                            'iconoir:box',
+
+                        label:
+                            'Ausrüstung',
+
+                        action:
+                            'equipment'
+                    }
+                ]
             )
         );
 
@@ -718,10 +837,10 @@ function updateRoleMenu(access) {
 
 
     // =====================================================
-    // KEINE ROLLEN-BEREICHE
+    // KEINE BEREICHE
     // =====================================================
 
-    if (!links.length) {
+    if (!groups.length) {
 
         elements.profileRoleSection.classList.add(
             'hidden'
@@ -732,14 +851,14 @@ function updateRoleMenu(access) {
 
 
     // =====================================================
-    // LINKS EINFÜGEN
+    // GRUPPEN EINFÜGEN
     // =====================================================
 
-    links.forEach(
-        link => {
+    groups.forEach(
+        group => {
 
             elements.profileRoleLinks.appendChild(
-                link
+                group
             );
 
         }
@@ -762,18 +881,7 @@ function handleRoleAction(action) {
     closeProfileMenu();
 
 
-    // =====================================================
-    // LEADERSHIP
-    // =====================================================
-
     if (action === 'leadership') {
-
-        /*
-         * Frontend-Prüfung als zusätzliche UX-Sicherung.
-         *
-         * Die eigentliche Sicherheit erfolgt weiterhin
-         * über Supabase und die Leadership-Seite selbst.
-         */
 
         if (!currentAccess?.isLeadership) {
 
@@ -792,10 +900,6 @@ function handleRoleAction(action) {
         return;
     }
 
-
-    // =====================================================
-    // ZUKÜNFTIGE BEREICHE
-    // =====================================================
 
     const messages = {
 
@@ -877,10 +981,6 @@ function updateHeaderProfile(
         );
 
 
-    // =====================================================
-    // HEADER
-    // =====================================================
-
     if (elements.headerUserName) {
 
         elements.headerUserName.textContent =
@@ -897,10 +997,6 @@ function updateHeaderProfile(
     }
 
 
-    // =====================================================
-    // DROPDOWN
-    // =====================================================
-
     if (elements.dropdownUserName) {
 
         elements.dropdownUserName.textContent =
@@ -916,10 +1012,6 @@ function updateHeaderProfile(
 
     }
 
-
-    // =====================================================
-    // HEADER AVATAR
-    // =====================================================
 
     if (elements.headerUserAvatar) {
 
@@ -943,10 +1035,6 @@ function updateHeaderProfile(
     }
 
 
-    // =====================================================
-    // DROPDOWN AVATAR
-    // =====================================================
-
     if (elements.dropdownUserAvatar) {
 
         if (avatar) {
@@ -968,10 +1056,6 @@ function updateHeaderProfile(
 
     }
 
-
-    // =====================================================
-    // ROLLENMENÜ
-    // =====================================================
 
     updateRoleMenu(
         access
@@ -1051,10 +1135,6 @@ async function updateAccountUI(user) {
             );
 
 
-        // =================================================
-        // ACCOUNT NAME
-        // =================================================
-
         if (elements.userName) {
 
             elements.userName.textContent =
@@ -1063,10 +1143,6 @@ async function updateAccountUI(user) {
         }
 
 
-        // =================================================
-        // DISCORD ID
-        // =================================================
-
         if (elements.userDiscordId) {
 
             elements.userDiscordId.textContent =
@@ -1074,10 +1150,6 @@ async function updateAccountUI(user) {
 
         }
 
-
-        // =================================================
-        // ACCOUNT AVATAR
-        // =================================================
 
         if (elements.userAvatar) {
 
@@ -1100,10 +1172,6 @@ async function updateAccountUI(user) {
         }
 
 
-        // =================================================
-        // ZUGRIFF
-        // =================================================
-
         if (elements.userAccess) {
 
             elements.userAccess.textContent =
@@ -1112,10 +1180,6 @@ async function updateAccountUI(user) {
         }
 
 
-        // =================================================
-        // HEADER
-        // =================================================
-
         updateHeaderProfile(
             user,
             profile,
@@ -1123,29 +1187,12 @@ async function updateAccountUI(user) {
         );
 
 
-        // =================================================
-        // ACCOUNT DASHBOARD BUTTON
-        // =================================================
+        // Die Profilkarte wird für jeden
+        // angemeldeten Benutzer angezeigt.
+        if (elements.accountProfile) {
 
-        if (elements.accountDashboard) {
-
-            elements.accountDashboard.classList.toggle(
-                'hidden',
-                !accessInfo.hasAccess
-            );
-
-        }
-
-
-        // =================================================
-        // DROPDOWN DASHBOARD
-        // =================================================
-
-        if (elements.profileDashboard) {
-
-            elements.profileDashboard.classList.toggle(
-                'hidden',
-                !accessInfo.hasAccess
+            elements.accountProfile.classList.remove(
+                'hidden'
             );
 
         }
@@ -1495,10 +1542,6 @@ function initializeProfileMenu() {
                         button.dataset.profileAction;
 
 
-                    // =====================================
-                    // PROFIL
-                    // =====================================
-
                     if (
                         action === 'profile'
                     ) {
@@ -1506,41 +1549,8 @@ function initializeProfileMenu() {
                         closeProfileMenu();
 
 
-                        /*
-                         * Eigenständige Profilseite.
-                         *
-                         * Das Profil wird dort anhand
-                         * der aktuell angemeldeten
-                         * Supabase-Session geladen.
-                         */
-
                         window.location.href =
                             './ors/profile/';
-
-                    }
-
-
-                    // =====================================
-                    // DASHBOARD
-                    // =====================================
-
-                    if (
-                        action === 'dashboard'
-                    ) {
-
-                        closeProfileMenu();
-
-
-                        if (
-                            currentAccess?.hasAccess
-                        ) {
-
-                            showNotification(
-                                'Das Dashboard wird als nächster Bereich eingebunden.',
-                                'info'
-                            );
-
-                        }
 
                     }
 
@@ -1580,17 +1590,17 @@ function initializeLoginButtons() {
 
 
 // =========================================================
-// DASHBOARD BUTTON
+// PROFIL BUTTON UNTEN
 // =========================================================
 
-function initializeDashboardButton() {
+function initializeAccountProfileButton() {
 
-    if (!elements.accountDashboard) {
+    if (!elements.accountProfile) {
         return;
     }
 
 
-    elements.accountDashboard.addEventListener(
+    elements.accountProfile.addEventListener(
         'click',
         () => {
 
@@ -1605,23 +1615,8 @@ function initializeDashboardButton() {
             }
 
 
-            if (
-                !currentAccess?.hasAccess
-            ) {
-
-                showNotification(
-                    'Du hast keinen Zugriff auf das ÖRS Dashboard.',
-                    'error'
-                );
-
-                return;
-            }
-
-
-            showNotification(
-                'Das Dashboard wird als nächster Bereich eingebunden.',
-                'info'
-            );
+            window.location.href =
+                './ors/profile/';
 
         }
     );
@@ -1796,7 +1791,9 @@ function initializeExternalLinks() {
 }
 
 
-
+// =========================================================
+// NOTIFICATIONS
+// =========================================================
 
 function showNotification(
     message,
@@ -1905,6 +1902,9 @@ function showNotification(
 }
 
 
+// =========================================================
+// ESCAPE HTML
+// =========================================================
 
 function escapeHtml(value) {
 
@@ -1938,6 +1938,9 @@ function escapeHtml(value) {
 }
 
 
+// =========================================================
+// INITIALIZE
+// =========================================================
 
 async function initialize() {
 
@@ -1952,7 +1955,7 @@ async function initialize() {
 
     initializeNavigation();
 
-    initializeDashboardButton();
+    initializeAccountProfileButton();
 
     initializeAvatarFallback();
 
@@ -1971,7 +1974,9 @@ async function initialize() {
 }
 
 
-
+// =========================================================
+// AUTHENTICATION
+// =========================================================
 
 async function initializeAuthentication() {
 
@@ -2001,6 +2006,7 @@ async function initializeAuthentication() {
     }
 
 }
+
 
 
 
