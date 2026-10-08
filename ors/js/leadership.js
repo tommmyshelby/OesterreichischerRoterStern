@@ -610,52 +610,44 @@ function setupQuickActions() {
 
 
 
-                /* =================================================
-                   MITGLIEDERVERWALTUNG
-                   
-                   Dieser Bereich ist jetzt aktiv.
-                   ================================================= */
 
-                if (section === 'members') {
+function setupQuickActions() {
+    const buttons = document.querySelectorAll('.management-item');
 
-                    window.location.href =
-                        './members/';
+    if (!buttons.length) {
+        return;
+    }
 
-                    return;
-                }
+    buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+            const section = button.dataset.section;
 
-
-
-                /* =================================================
-                   ALLE ANDEREN BEREICHE
-                   
-                   Bleiben vorerst Platzhalter.
-                   ================================================= */
-
-                const titles = {
-
-                    operations:
-                        'Einsatzverwaltung',
-
-                    medical:
-                        'Medizin',
-
-                    settings:
-                        'Systemverwaltung'
-                };
-
-
-                const title =
-                    titles[section] ||
-                    'Bereich';
-
-
-                showComingSoon(title);
+            if (!section) {
+                return;
             }
-        );
+
+        
+            if (section === 'members') {
+                window.location.href = './members/';
+                return;
+            }
+
+          
+            if (section === 'settings') {
+                window.location.href = './system/';
+                return;
+            }
+
+         
+            const titles = {
+                operations: 'Einsatzverwaltung',
+                medical: 'Medizin'
+            };
+
+            showComingSoon(titles[section] || 'Bereich');
+        });
     });
 }
-
 
 
 /* =========================================================
