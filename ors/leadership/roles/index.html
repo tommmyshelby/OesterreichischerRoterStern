@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rollen & Berechtigungen | ÖRS</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/leadership.css">
+    <link rel="stylesheet" href="./roles.css">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+</head>
+<body>
+    <main class="roles-page">
+        <header class="roles-topbar">
+            <a class="roles-brand" href="../">
+                <span class="roles-brand-icon">
+                    <iconify-icon icon="iconoir:shield-check"></iconify-icon>
+                </span>
+                <span><strong>ÖRS</strong><small>Leadership</small></span>
+            </a>
+
+            <nav>
+                <a href="../">Führungsbereich</a>
+                <a href="../members/">Mitglieder</a>
+                <button id="logout-button" type="button">Abmelden</button>
+            </nav>
+        </header>
+
+        <section class="roles-heading">
+            <span class="roles-eyebrow">Zugriffsverwaltung</span>
+            <h1>Rollen & Berechtigungen</h1>
+            <p>
+                Verwalte die zusätzlichen Zugriffsbereiche für aktive
+                ÖRS-Mitglieder. Änderungen werden serverseitig geprüft.
+            </p>
+        </section>
+
+        <section class="roles-summary">
+            <article class="roles-stat">
+                <span>Erfasste Mitglieder</span>
+                <strong id="count-members">–</strong>
+            </article>
+            <article class="roles-stat">
+                <span>Leadership</span>
+                <strong id="count-leadership">–</strong>
+            </article>
+            <article class="roles-stat">
+                <span>Officer</span>
+                <strong id="count-officer">–</strong>
+            </article>
+            <article class="roles-stat">
+                <span>Medical</span>
+                <strong id="count-medical">–</strong>
+            </article>
+        </section>
+
+        <section class="roles-panel">
+            <div class="roles-panel-heading">
+                <div>
+                    <span class="roles-eyebrow">Rollen zuweisen</span>
+                    <h2>Neue Berechtigung</h2>
+                </div>
+                <iconify-icon icon="iconoir:user-plus"></iconify-icon>
+            </div>
+
+            <form id="role-form">
+                <label for="discord-id">Discord-ID des Mitglieds</label>
+                <input
+                    id="discord-id"
+                    name="discordId"
+                    inputmode="numeric"
+                    pattern="[0-9]{17,20}"
+                    minlength="17"
+                    maxlength="20"
+                    placeholder="z. B. 123456789012345678"
+                    required
+                >
+
+                <label for="role-type">Berechtigung</label>
+                <select id="role-type" name="role" required>
+                    <option value="officer">Officer</option>
+                    <option value="medical">Medical</option>
+                </select>
+
+                <label for="role-id">Zugehörige Discord-Rolle</label>
+                <select id="role-id" name="roleId" required>
+                    <option value="1444448461519978778">Officer – Rolle 1</option>
+                    <option value="1443935474837229618">Officer – Rolle 2</option>
+                </select>
+
+                <button class="roles-primary-button" type="submit" id="save-role">
+                    Berechtigung vergeben
+                </button>
+                <p id="form-message" class="roles-message" role="status"></p>
+            </form>
+
+            <p class="roles-note">
+                Es können nur bereits aktive Mitglieder erfasst werden.
+                Leadership ist fest geschützt und wird nicht über dieses
+                Formular vergeben oder entfernt.
+            </p>
+        </section>
+
+        <section class="roles-panel">
+            <div class="roles-panel-heading">
+                <div>
+                    <span class="roles-eyebrow">Aktueller Datenbestand</span>
+                    <h2>Mitglieder und Rollen</h2>
+                </div>
+                <button id="refresh-button" class="roles-secondary-button" type="button">
+                    <iconify-icon icon="iconoir:refresh"></iconify-icon>
+                    Aktualisieren
+                </button>
+            </div>
+
+            <div class="roles-filter">
+                <iconify-icon icon="iconoir:search"></iconify-icon>
+                <input id="search-input" type="search" placeholder="Name oder Discord-ID suchen">
+                <select id="filter-role" aria-label="Nach Rolle filtern">
+                    <option value="all">Alle Rollen</option>
+                    <option value="leadership">Leadership</option>
+                    <option value="officer">Officer</option>
+                    <option value="medical">Medical</option>
+                    <option value="member">Mitglied</option>
+                </select>
+            </div>
+
+            <p id="list-message" class="roles-message" role="status">
+                Mitglieder werden geladen …
+            </p>
+
+            <div class="roles-table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mitglied</th>
+                            <th>Discord-ID</th>
+                            <th>Berechtigung</th>
+                            <th>Status</th>
+                            <th>Aktion</th>
+                        </tr>
+                    </thead>
+                    <tbody id="roles-table-body"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <footer class="roles-footer">
+            ÖRS · Interne Zugriffsverwaltung
+        </footer>
+    </main>
+
+    <script type="module" src="./roles.js"></script>
+</body>
+</html>
