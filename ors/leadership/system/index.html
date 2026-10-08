@@ -1,1 +1,1377 @@
+<!DOCTYPE html>
+<html lang="de">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Systemverwaltung | ÖRS
+    </title>
+
+    <meta
+        name="description"
+        content="Zentrale Systemverwaltung des Österreichischen Roten Sterns."
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../leadership.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="./system.css"
+    >
+
+    <script
+        src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"
+    ></script>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         BACKGROUND
+         ===================================================== -->
+
+    <div class="system-background">
+
+        <div class="system-grid"></div>
+
+        <div class="system-glow system-glow-one"></div>
+
+        <div class="system-glow system-glow-two"></div>
+
+    </div>
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header class="system-header">
+
+        <a
+            href="../"
+            class="system-brand"
+        >
+
+            <div class="system-brand-icon">
+
+                <iconify-icon
+                    icon="iconoir:shield-check"
+                ></iconify-icon>
+
+            </div>
+
+            <div class="system-brand-text">
+
+                <strong>
+                    ÖRS
+                </strong>
+
+                <span>
+                    Systemverwaltung
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <nav class="system-nav">
+
+            <a href="../">
+
+                <iconify-icon
+                    icon="iconoir:dashboard"
+                ></iconify-icon>
+
+                <span>
+                    Leadership
+                </span>
+
+            </a>
+
+
+            <a
+                href="#overview"
+                class="active"
+            >
+
+                <iconify-icon
+                    icon="iconoir:settings"
+                ></iconify-icon>
+
+                <span>
+                    System
+                </span>
+
+            </a>
+
+        </nav>
+
+
+        <div class="system-header-actions">
+
+            <button
+                id="refresh-button"
+                class="system-header-button"
+                type="button"
+                title="Systemdaten aktualisieren"
+            >
+
+                <iconify-icon
+                    icon="iconoir:refresh"
+                ></iconify-icon>
+
+                <span>
+                    Aktualisieren
+                </span>
+
+            </button>
+
+
+            <a
+                href="../"
+                class="system-header-button secondary"
+            >
+
+                <iconify-icon
+                    icon="iconoir:nav-arrow-left"
+                ></iconify-icon>
+
+                <span>
+                    Zurück
+                </span>
+
+            </a>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main class="system-main">
+
+
+        <!-- =================================================
+             INTRO
+             ================================================= -->
+
+        <section
+            class="system-intro"
+            id="overview"
+        >
+
+            <div class="system-intro-content">
+
+                <div class="system-kicker">
+
+                    <span></span>
+
+                    Leadership · Verwaltung
+
+                </div>
+
+
+                <h1>
+                    Systemverwaltung
+                </h1>
+
+
+                <p>
+                    Zentrale Übersicht über den technischen
+                    Zustand und die Datenstruktur des
+                    Österreichischen Roten Sterns.
+                </p>
+
+            </div>
+
+
+            <div
+                id="overall-status"
+                class="system-overall-status"
+                data-state="loading"
+            >
+
+                <span class="overall-status-indicator"></span>
+
+                <div>
+
+                    <strong id="overall-status-title">
+                        System wird geprüft
+                    </strong>
+
+                    <span id="overall-status-text">
+                        Verbindung und Daten werden geladen.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             SYSTEM STATUS
+             ================================================= -->
+
+        <section class="system-section">
+
+            <div class="system-section-heading">
+
+                <div>
+
+                    <span class="system-section-kicker">
+                        STATUS
+                    </span>
+
+                    <h2>
+                        Systemstatus
+                    </h2>
+
+                </div>
+
+                <iconify-icon
+                    icon="iconoir:activity"
+                ></iconify-icon>
+
+            </div>
+
+
+            <div class="system-status-grid">
+
+
+                <article class="system-status-card">
+
+                    <div class="system-card-icon">
+
+                        <iconify-icon
+                            icon="iconoir:database"
+                        ></iconify-icon>
+
+                    </div>
+
+                    <div class="system-card-content">
+
+                        <span>
+                            Supabase
+                        </span>
+
+                        <strong
+                            id="supabase-status"
+                            class="status-loading"
+                        >
+                            Prüfe…
+                        </strong>
+
+                        <small id="supabase-status-detail">
+                            Datenbankverbindung wird geprüft.
+                        </small>
+
+                    </div>
+
+                </article>
+
+
+
+                <article class="system-status-card">
+
+                    <div class="system-card-icon">
+
+                        <iconify-icon
+                            icon="iconoir:group"
+                        ></iconify-icon>
+
+                    </div>
+
+                    <div class="system-card-content">
+
+                        <span>
+                            Mitglieder
+                        </span>
+
+                        <strong id="members-status">
+                            –
+                        </strong>
+
+                        <small>
+                            aktive Datensätze
+                        </small>
+
+                    </div>
+
+                </article>
+
+
+
+                <article class="system-status-card">
+
+                    <div class="system-card-icon">
+
+                        <iconify-icon
+                            icon="iconoir:shield-check"
+                        ></iconify-icon>
+
+                    </div>
+
+                    <div class="system-card-content">
+
+                        <span>
+                            Berechtigungen
+                        </span>
+
+                        <strong id="roles-status">
+                            –
+                        </strong>
+
+                        <small>
+                            gespeicherte Zugriffsrollen
+                        </small>
+
+                    </div>
+
+                </article>
+
+
+
+                <article class="system-status-card">
+
+                    <div class="system-card-icon">
+
+                        <iconify-icon
+                            icon="iconoir:server"
+                        ></iconify-icon>
+
+                    </div>
+
+                    <div class="system-card-content">
+
+                        <span>
+                            Datenbank
+                        </span>
+
+                        <strong
+                            id="database-status"
+                            class="status-loading"
+                        >
+                            Prüfe…
+                        </strong>
+
+                        <small id="database-status-detail">
+                            Tabellen werden geprüft.
+                        </small>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             DATABASE
+             ================================================= -->
+
+        <section class="system-section">
+
+            <div class="system-section-heading">
+
+                <div>
+
+                    <span class="system-section-kicker">
+                        DATENBANK
+                    </span>
+
+                    <h2>
+                        Datenbankübersicht
+                    </h2>
+
+                </div>
+
+                <iconify-icon
+                    icon="iconoir:database"
+                ></iconify-icon>
+
+            </div>
+
+
+            <div class="system-database-grid">
+
+
+                <article class="system-database-card">
+
+                    <div class="database-card-top">
+
+                        <div class="database-card-icon">
+
+                            <iconify-icon
+                                icon="iconoir:user"
+                            ></iconify-icon>
+
+                        </div>
+
+                        <span
+                            id="profiles-state"
+                            class="database-state loading"
+                        >
+                            Prüfe
+                        </span>
+
+                    </div>
+
+                    <span>
+                        Profile
+                    </span>
+
+                    <strong id="profiles-count">
+                        –
+                    </strong>
+
+                    <small>
+                        authentifizierte Profile
+                    </small>
+
+                </article>
+
+
+
+                <article class="system-database-card">
+
+                    <div class="database-card-top">
+
+                        <div class="database-card-icon">
+
+                            <iconify-icon
+                                icon="iconoir:group"
+                            ></iconify-icon>
+
+                        </div>
+
+                        <span
+                            id="members-state"
+                            class="database-state loading"
+                        >
+                            Prüfe
+                        </span>
+
+                    </div>
+
+                    <span>
+                        Mitglieder
+                    </span>
+
+                    <strong id="members-count">
+                        –
+                    </strong>
+
+                    <small>
+                        ÖRS-Mitgliederdatensätze
+                    </small>
+
+                </article>
+
+
+
+                <article class="system-database-card">
+
+                    <div class="database-card-top">
+
+                        <div class="database-card-icon">
+
+                            <iconify-icon
+                                icon="iconoir:shield-check"
+                            ></iconify-icon>
+
+                        </div>
+
+                        <span
+                            id="access-roles-state"
+                            class="database-state loading"
+                        >
+                            Prüfe
+                        </span>
+
+                    </div>
+
+                    <span>
+                        Access Roles
+                    </span>
+
+                    <strong id="access-roles-count">
+                        –
+                    </strong>
+
+                    <small>
+                        gespeicherte Rollen
+                    </small>
+
+                </article>
+
+
+
+                <article class="system-database-card">
+
+                    <div class="database-card-top">
+
+                        <div class="database-card-icon">
+
+                            <iconify-icon
+                                icon="iconoir:map"
+                            ></iconify-icon>
+
+                        </div>
+
+                        <span
+                            id="operations-state"
+                            class="database-state loading"
+                        >
+                            Prüfe
+                        </span>
+
+                    </div>
+
+                    <span>
+                        Einsätze
+                    </span>
+
+                    <strong id="operations-count">
+                        –
+                    </strong>
+
+                    <small>
+                        Einsatzdatensätze
+                    </small>
+
+                </article>
+
+
+
+                <article class="system-database-card">
+
+                    <div class="database-card-top">
+
+                        <div class="database-card-icon">
+
+                            <iconify-icon
+                                icon="iconoir:health-shield"
+                            ></iconify-icon>
+
+                        </div>
+
+                        <span
+                            id="medical-state"
+                            class="database-state loading"
+                        >
+                            Prüfe
+                        </span>
+
+                    </div>
+
+                    <span>
+                        Medizin
+                    </span>
+
+                    <strong id="medical-count">
+                        –
+                    </strong>
+
+                    <small>
+                        medizinische Datensätze
+                    </small>
+
+                </article>
+
+
+
+                <article class="system-database-card">
+
+                    <div class="database-card-top">
+
+                        <div class="database-card-icon">
+
+                            <iconify-icon
+                                icon="iconoir:activity"
+                            ></iconify-icon>
+
+                        </div>
+
+                        <span
+                            id="audit-state"
+                            class="database-state loading"
+                        >
+                            Prüfe
+                        </span>
+
+                    </div>
+
+                    <span>
+                        Audit Logs
+                    </span>
+
+                    <strong id="audit-count">
+                        –
+                    </strong>
+
+                    <small>
+                        protokollierte Aktivitäten
+                    </small>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             ACCESS
+             ================================================= -->
+
+        <section class="system-section">
+
+            <div class="system-section-heading">
+
+                <div>
+
+                    <span class="system-section-kicker">
+                        ZUGRIFF
+                    </span>
+
+                    <h2>
+                        Rollenübersicht
+                    </h2>
+
+                </div>
+
+                <iconify-icon
+                    icon="iconoir:lock"
+                ></iconify-icon>
+
+            </div>
+
+
+            <div class="system-role-grid">
+
+
+                <article class="system-role-card leadership">
+
+                    <div class="role-card-icon">
+
+                        <iconify-icon
+                            icon="iconoir:shield"
+                        ></iconify-icon>
+
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Leadership
+                        </span>
+
+                        <strong id="leadership-count">
+                            –
+                        </strong>
+
+                        <small>
+                            Leitung
+                        </small>
+
+                    </div>
+
+                </article>
+
+
+
+                <article class="system-role-card officer">
+
+                    <div class="role-card-icon">
+
+                        <iconify-icon
+                            icon="iconoir:badge-check"
+                        ></iconify-icon>
+
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Officer
+                        </span>
+
+                        <strong id="officer-count">
+                            –
+                        </strong>
+
+                        <small>
+                            Offiziere
+                        </small>
+
+                    </div>
+
+                </article>
+
+
+
+                <article class="system-role-card medical">
+
+                    <div class="role-card-icon">
+
+                        <iconify-icon
+                            icon="iconoir:health-shield"
+                        ></iconify-icon>
+
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Medical
+                        </span>
+
+                        <strong id="medical-role-count">
+                            –
+                        </strong>
+
+                        <small>
+                            Medizin
+                        </small>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             CONFIGURATION
+             ================================================= -->
+
+        <section class="system-section">
+
+            <div class="system-section-heading">
+
+                <div>
+
+                    <span class="system-section-kicker">
+                        KONFIGURATION
+                    </span>
+
+                    <h2>
+                        ÖRS-Konfiguration
+                    </h2>
+
+                </div>
+
+                <iconify-icon
+                    icon="iconoir:settings"
+                ></iconify-icon>
+
+            </div>
+
+
+            <div class="system-config-panel">
+
+
+                <div class="config-row">
+
+                    <div class="config-label">
+
+                        <iconify-icon
+                            icon="iconoir:database"
+                        ></iconify-icon>
+
+                        <div>
+
+                            <strong>
+                                Supabase
+                            </strong>
+
+                            <span>
+                                Backend-Projekt
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <code id="config-supabase-url">
+                        –
+                    </code>
+
+                </div>
+
+
+
+                <div class="config-row">
+
+                    <div class="config-label">
+
+                        <iconify-icon
+                            icon="iconoir:server"
+                        ></iconify-icon>
+
+                        <div>
+
+                            <strong>
+                                Discord Server
+                            </strong>
+
+                            <span>
+                                ÖRS Guild
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <code id="config-guild-id">
+                        –
+                    </code>
+
+                </div>
+
+
+
+                <div class="config-row">
+
+                    <div class="config-label">
+
+                        <iconify-icon
+                            icon="iconoir:profile-circle"
+                        ></iconify-icon>
+
+                        <div>
+
+                            <strong>
+                                Discord OAuth
+                            </strong>
+
+                            <span>
+                                Client ID
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <code id="config-client-id">
+                        –
+                    </code>
+
+                </div>
+
+
+
+                <div class="config-row">
+
+                    <div class="config-label">
+
+                        <iconify-icon
+                            icon="iconoir:shield-check"
+                        ></iconify-icon>
+
+                        <div>
+
+                            <strong>
+                                Leadership
+                            </strong>
+
+                            <span>
+                                hinterlegte Leitungs-IDs
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <code id="config-leadership">
+                        –
+                    </code>
+
+                </div>
+
+
+
+                <div class="config-row">
+
+                    <div class="config-label">
+
+                        <iconify-icon
+                            icon="iconoir:badge-check"
+                        ></iconify-icon>
+
+                        <div>
+
+                            <strong>
+                                Officer
+                            </strong>
+
+                            <span>
+                                hinterlegte Discord-Rollen
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <code id="config-officer">
+                        –
+                    </code>
+
+                </div>
+
+
+
+                <div class="config-row">
+
+                    <div class="config-label">
+
+                        <iconify-icon
+                            icon="iconoir:health-shield"
+                        ></iconify-icon>
+
+                        <div>
+
+                            <strong>
+                                Medical
+                            </strong>
+
+                            <span>
+                                hinterlegte Discord-Rollen
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <code id="config-medical">
+                        –
+                    </code>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="system-security-note">
+
+                <div class="security-note-icon">
+
+                    <iconify-icon
+                        icon="iconoir:lock"
+                    ></iconify-icon>
+
+                </div>
+
+                <div>
+
+                    <strong>
+                        Sicherheitsinformation
+                    </strong>
+
+                    <p>
+                        Geheimschlüssel, Bot-Tokens und OAuth-Secrets
+                        werden niemals im Frontend angezeigt oder
+                        gespeichert.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             BOT
+             ================================================= -->
+
+        <section class="system-section">
+
+            <div class="system-section-heading">
+
+                <div>
+
+                    <span class="system-section-kicker">
+                        DISCORD
+                    </span>
+
+                    <h2>
+                        Bot-Synchronisation
+                    </h2>
+
+                </div>
+
+                <iconify-icon
+                    icon="iconoir:refresh"
+                ></iconify-icon>
+
+            </div>
+
+
+            <div class="system-bot-panel">
+
+
+                <div class="bot-status-icon">
+
+                    <iconify-icon
+                        icon="iconoir:server-connection"
+                    ></iconify-icon>
+
+                </div>
+
+
+                <div class="bot-status-content">
+
+                    <span class="system-section-kicker">
+                        ÖRS BOT
+                    </span>
+
+                    <h3>
+                        Synchronisationsstatus
+                    </h3>
+
+                    <p id="bot-status-text">
+                        Der Browser kann den aktuellen
+                        Bot-Heartbeat derzeit nicht direkt
+                        abrufen.
+                    </p>
+
+                </div>
+
+
+                <div class="bot-status-badge">
+
+                    <span></span>
+
+                    <strong>
+                        Nicht ermittelt
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="system-info-grid">
+
+
+                <div class="system-info-item">
+
+                    <span>
+                        Discord Guild
+                    </span>
+
+                    <strong id="bot-guild-id">
+                        –
+                    </strong>
+
+                </div>
+
+
+                <div class="system-info-item">
+
+                    <span>
+                        Frontend
+                    </span>
+
+                    <strong>
+                        GitHub Pages
+                    </strong>
+
+                </div>
+
+
+                <div class="system-info-item">
+
+                    <span>
+                        Backend
+                    </span>
+
+                    <strong>
+                        Supabase
+                    </strong>
+
+                </div>
+
+
+                <div class="system-info-item">
+
+                    <span>
+                        Sync-Status
+                    </span>
+
+                    <strong>
+                        Nur über Bot ermittelbar
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             AUDIT
+             ================================================= -->
+
+        <section class="system-section">
+
+            <div class="system-section-heading">
+
+                <div>
+
+                    <span class="system-section-kicker">
+                        SICHERHEIT
+                    </span>
+
+                    <h2>
+                        Audit & Protokollierung
+                    </h2>
+
+                </div>
+
+                <iconify-icon
+                    icon="iconoir:page-edit"
+                ></iconify-icon>
+
+            </div>
+
+
+            <div class="system-audit-panel">
+
+                <div class="audit-panel-icon">
+
+                    <iconify-icon
+                        icon="iconoir:activity"
+                    ></iconify-icon>
+
+                </div>
+
+
+                <div class="audit-panel-content">
+
+                    <span>
+                        Audit Logs
+                    </span>
+
+                    <strong id="audit-summary">
+                        –
+                    </strong>
+
+                    <p>
+                        Protokollierte Systemaktivitäten
+                        werden in Supabase gespeichert.
+                    </p>
+
+                </div>
+
+
+                <div class="audit-panel-state">
+
+                    <span
+                        id="audit-panel-state"
+                        class="database-state loading"
+                    >
+                        Prüfe
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             SYSTEM INFORMATION
+             ================================================= -->
+
+        <section class="system-section">
+
+            <div class="system-section-heading">
+
+                <div>
+
+                    <span class="system-section-kicker">
+                        INFORMATION
+                    </span>
+
+                    <h2>
+                        Systeminformationen
+                    </h2>
+
+                </div>
+
+                <iconify-icon
+                    icon="iconoir:info-circle"
+                ></iconify-icon>
+
+            </div>
+
+
+            <div class="system-information-grid">
+
+
+                <div class="system-information-card">
+
+                    <span>
+                        Anwendung
+                    </span>
+
+                    <strong>
+                        Österreichischer Roter Stern
+                    </strong>
+
+                </div>
+
+
+                <div class="system-information-card">
+
+                    <span>
+                        Bereich
+                    </span>
+
+                    <strong>
+                        Leadership
+                    </strong>
+
+                </div>
+
+
+                <div class="system-information-card">
+
+                    <span>
+                        Zugriff
+                    </span>
+
+                    <strong>
+                        Leadership Only
+                    </strong>
+
+                </div>
+
+
+                <div class="system-information-card">
+
+                    <span>
+                        Datenhaltung
+                    </span>
+
+                    <strong>
+                        Supabase
+                    </strong>
+
+                </div>
+
+
+                <div class="system-information-card">
+
+                    <span>
+                        Oberfläche
+                    </span>
+
+                    <strong>
+                        GitHub Pages
+                    </strong>
+
+                </div>
+
+
+                <div class="system-information-card">
+
+                    <span>
+                        Letzte Prüfung
+                    </span>
+
+                    <strong id="last-check">
+                        –
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             FOOTER STATUS
+             ================================================= -->
+
+        <footer class="system-footer">
+
+            <div>
+
+                <span class="system-footer-indicator"></span>
+
+                <span id="footer-status">
+                    Systemprüfung läuft…
+                </span>
+
+            </div>
+
+
+            <a href="../">
+
+                <iconify-icon
+                    icon="iconoir:nav-arrow-left"
+                ></iconify-icon>
+
+                Leadership Dashboard
+
+            </a>
+
+        </footer>
+
+    </main>
+
+
+
+
+    <script
+        type="module"
+        src="./system.js"
+    ></script>
+
+</body>
+
+</html>
