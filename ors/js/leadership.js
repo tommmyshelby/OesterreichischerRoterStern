@@ -310,23 +310,13 @@ async function checkLeadershipAccess() {
     }
 }
 
-/* =========================================================
-   SCHNELLZUGRIFF
-========================================================= */
+
+
 
 function setupQuickActions() {
     const buttons = document.querySelectorAll('.management-item');
 
-    if (!buttons.length) {
-        console.warn(
-            '[ÖRS Leadership] Keine Schnellzugriff-Buttons gefunden.'
-        );
-
-        return;
-    }
-
     buttons.forEach((button) => {
-        // Doppelte Event-Listener verhindern.
         if (button.dataset.quickActionBound === 'true') {
             return;
         }
@@ -336,30 +326,22 @@ function setupQuickActions() {
         button.addEventListener('click', () => {
             const section = button.dataset.section;
 
-            if (!section) {
-                console.warn(
-                    '[ÖRS Leadership] Button hat kein data-section-Attribut:',
-                    button
-                );
-
-                return;
-            }
-
-            // Mitgliederverwaltung
             if (section === 'members') {
                 window.location.href = './members/';
                 return;
             }
 
-            // Systemverwaltung
             if (section === 'settings') {
                 window.location.href = './system/';
                 return;
             }
 
-            // Andere Bereiche bleiben unverändert.
+            if (section === 'operations') {
+                window.location.href = './operations/';
+                return;
+            }
+
             const titles = {
-                operations: 'Einsatzverwaltung',
                 medical: 'Medizin'
             };
 
@@ -368,9 +350,6 @@ function setupQuickActions() {
     });
 }
 
-/* =========================================================
-   BEREICH NOCH NICHT VERFÜGBAR
-========================================================= */
 
 function showComingSoon(title) {
     const existing = document.querySelector(
