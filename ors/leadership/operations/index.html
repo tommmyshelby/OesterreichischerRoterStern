@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#101318">
+    <title>Einsatzverwaltung | ÖRS Leadership</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="./operations.css">
+    <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
+</head>
+<body>
+    <div class="operations-app">
+        <header class="ops-topbar">
+            <a class="ops-brand" href="../" aria-label="Zurück zur Leadership-Übersicht">
+                <span class="ops-brand-mark">
+                    <iconify-icon icon="iconoir:shield"></iconify-icon>
+                </span>
+                <span>
+                    <strong>ÖRS</strong>
+                    <small>LEADERSHIP</small>
+                </span>
+            </a>
+
+            <div class="ops-topbar-right">
+                <span class="ops-secure">
+                    <iconify-icon icon="iconoir:lock"></iconify-icon>
+                    Leadership-Bereich
+                </span>
+                <a class="ops-back-link" href="../">
+                    <iconify-icon icon="iconoir:arrow-left"></iconify-icon>
+                    Übersicht
+                </a>
+            </div>
+        </header>
+
+        <main class="ops-main">
+            <div class="ops-breadcrumb">
+                <a href="../">Leadership</a>
+                <iconify-icon icon="iconoir:nav-arrow-right"></iconify-icon>
+                <span>Einsatzverwaltung</span>
+            </div>
+
+            <section class="ops-heading">
+                <div>
+                    <span class="ops-eyebrow">OPERATIONS MANAGEMENT</span>
+                    <h1>Einsatzverwaltung</h1>
+                    <p>Plane, organisiere und verwalte die Einsätze des ÖRS zentral an einem Ort.</p>
+                </div>
+
+                <button class="ops-primary-button" id="create-operation-button" type="button">
+                    <iconify-icon icon="iconoir:plus"></iconify-icon>
+                    Einsatz erstellen
+                </button>
+            </section>
+
+            <section class="ops-stat-grid" aria-label="Einsatzstatistik">
+                <article class="ops-stat-card">
+                    <span class="ops-stat-icon">
+                        <iconify-icon icon="iconoir:clipboard-list"></iconify-icon>
+                    </span>
+                    <span class="ops-stat-label">Gesamte Einsätze</span>
+                    <strong id="stat-total">–</strong>
+                    <small>Alle registrierten Einsätze</small>
+                </article>
+
+                <article class="ops-stat-card">
+                    <span class="ops-stat-icon ops-stat-open">
+                        <iconify-icon icon="iconoir:clock"></iconify-icon>
+                    </span>
+                    <span class="ops-stat-label">Offen / geplant</span>
+                    <strong id="stat-open">–</strong>
+                    <small>Noch nicht abgeschlossen</small>
+                </article>
+
+                <article class="ops-stat-card">
+                    <span class="ops-stat-icon ops-stat-active">
+                        <iconify-icon icon="iconoir:activity"></iconify-icon>
+                    </span>
+                    <span class="ops-stat-label">Aktiv</span>
+                    <strong id="stat-active">–</strong>
+                    <small>Laufende Einsätze</small>
+                </article>
+
+                <article class="ops-stat-card">
+                    <span class="ops-stat-icon ops-stat-completed">
+                        <iconify-icon icon="iconoir:check-circle"></iconify-icon>
+                    </span>
+                    <span class="ops-stat-label">Abgeschlossen</span>
+                    <strong id="stat-completed">–</strong>
+                    <small>Beendete Einsätze</small>
+                </article>
+            </section>
+
+            <section class="ops-panel">
+                <div class="ops-panel-heading">
+                    <div>
+                        <h2>Alle Einsätze</h2>
+                        <p>Verwalte die Einsatzdaten und die zugewiesenen Mitglieder.</p>
+                    </div>
+                    <button id="refresh-operations" class="ops-icon-button" type="button" aria-label="Einsätze neu laden" title="Neu laden">
+                        <iconify-icon icon="iconoir:refresh"></iconify-icon>
+                    </button>
+                </div>
+
+                <div class="ops-toolbar">
+                    <label class="ops-search">
+                        <iconify-icon icon="iconoir:search"></iconify-icon>
+                        <input id="operation-search" type="search" placeholder="Einsatznummer, Titel oder Ort suchen …" autocomplete="off">
+                    </label>
+
+                    <label class="ops-filter">
+                        <span>Status</span>
+                        <select id="operation-status-filter">
+                            <option value="all">Alle Status</option>
+                            <option value="planned">Geplant</option>
+                            <option value="open">Offen</option>
+                            <option value="active">Aktiv</option>
+                            <option value="completed">Abgeschlossen</option>
+                            <option value="cancelled">Abgebrochen</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div id="operations-message" class="ops-message" role="status" hidden></div>
+
+                <div id="operations-loading" class="ops-loading">
+                    <span class="ops-spinner"></span>
+                    <span>Einsätze werden geladen …</span>
+                </div>
+
+                <div id="operations-empty" class="ops-empty" hidden>
+                    <span class="ops-empty-icon">
+                        <iconify-icon icon="iconoir:clipboard"></iconify-icon>
+                    </span>
+                    <h3 id="operations-empty-title">Noch keine Einsätze</h3>
+                    <p id="operations-empty-description">Erstelle den ersten Einsatz, um die Verwaltung zu starten.</p>
+                    <button id="empty-create-button" class="ops-primary-button" type="button">
+                        <iconify-icon icon="iconoir:plus"></iconify-icon>
+                        Ersten Einsatz erstellen
+                    </button>
+                </div>
+
+                <div class="ops-table-wrap" id="operations-table-wrap" hidden>
+                    <table class="ops-table">
+                        <thead>
+                            <tr>
+                                <th>Einsatz</th>
+                                <th>Ort</th>
+                                <th>Status</th>
+                                <th>Erstellt</th>
+                                <th class="ops-actions-heading">Aktionen</th>
+                            </tr>
+                        </thead>
+                        <tbody id="operations-table-body"></tbody>
+                    </table>
+                </div>
+
+                <div class="ops-results-footer">
+                    <span id="operations-results-count">0 Einsätze</span>
+                    <span>Daten werden live aus Supabase geladen</span>
+                </div>
+            </section>
+
+            <footer class="ops-footer">
+                <span>ÖRS · Interne Einsatzverwaltung</span>
+                <a href="../">Zur Leadership-Übersicht</a>
+            </footer>
+        </main>
+    </div>
+
+    <dialog class="ops-dialog" id="operation-dialog">
+        <form id="operation-form" class="ops-dialog-form">
+            <div class="ops-dialog-header">
+                <div>
+                    <span class="ops-eyebrow">EINSATZDATEN</span>
+                    <h2 id="operation-dialog-title">Einsatz erstellen</h2>
+                    <p>Die Einsatznummer wird automatisch vergeben.</p>
+                </div>
+                <button class="ops-icon-button" id="close-operation-dialog" type="button" aria-label="Dialog schließen">
+                    <iconify-icon icon="iconoir:xmark"></iconify-icon>
+                </button>
+            </div>
+
+            <input id="operation-id" type="hidden">
+
+            <label class="ops-field">
+                <span>Titel <b>*</b></span>
+                <input id="operation-title" name="title" maxlength="160" required placeholder="z. B. Sanitätsdienst Stadtfest">
+            </label>
+
+            <label class="ops-field">
+                <span>Einsatzort</span>
+                <input id="operation-location" name="location" maxlength="200" placeholder="Ort oder Adresse">
+            </label>
+
+            <label class="ops-field">
+                <span>Status</span>
+                <select id="operation-status" name="status" required>
+                    <option value="planned">Geplant</option>
+                    <option value="open" selected>Offen</option>
+                    <option value="active">Aktiv</option>
+                    <option value="completed">Abgeschlossen</option>
+                    <option value="cancelled">Abgebrochen</option>
+                </select>
+            </label>
+
+            <label class="ops-field">
+                <span>Beschreibung</span>
+                <textarea id="operation-description" name="description" rows="4" maxlength="5000" placeholder="Weitere Informationen zum Einsatz …"></textarea>
+            </label>
+
+            <div id="operation-form-error" class="ops-form-error" role="alert" hidden></div>
+
+            <div class="ops-dialog-actions">
+                <button class="ops-secondary-button" id="cancel-operation-dialog" type="button">Abbrechen</button>
+                <button class="ops-primary-button" id="save-operation-button" type="submit">
+                    <iconify-icon icon="iconoir:check"></iconify-icon>
+                    <span>Speichern</span>
+                </button>
+            </div>
+        </form>
+    </dialog>
+
+    <dialog class="ops-dialog ops-members-dialog" id="members-dialog">
+        <div class="ops-dialog-form">
+            <div class="ops-dialog-header">
+                <div>
+                    <span class="ops-eyebrow">PERSONALPLANUNG</span>
+                    <h2>Mitglieder zuweisen</h2>
+                    <p id="members-operation-label">Einsatz auswählen</p>
+                </div>
+                <button class="ops-icon-button" id="close-members-dialog" type="button" aria-label="Dialog schließen">
+                    <iconify-icon icon="iconoir:xmark"></iconify-icon>
+                </button>
+            </div>
+
+            <label class="ops-search ops-member-search">
+                <iconify-icon icon="iconoir:search"></iconify-icon>
+                <input id="member-search" type="search" placeholder="Mitglieder suchen …" autocomplete="off">
+            </label>
+
+            <div id="members-loading" class="ops-loading">
+                <span class="ops-spinner"></span>
+                <span>Mitglieder werden geladen …</span>
+            </div>
+
+            <div id="members-list" class="ops-members-list"></div>
+
+            <div id="members-error" class="ops-form-error" role="alert" hidden></div>
+
+            <div class="ops-dialog-actions">
+                <button class="ops-secondary-button" id="cancel-members-dialog" type="button">Schließen</button>
+                <button class="ops-primary-button" id="save-members-button" type="button">
+                    <iconify-icon icon="iconoir:check"></iconify-icon>
+                    Zuweisungen speichern
+                </button>
+            </div>
+        </div>
+    </dialog>
+
+    <dialog class="ops-dialog ops-confirm-dialog" id="confirm-dialog">
+        <div class="ops-dialog-form">
+            <span class="ops-confirm-icon">
+                <iconify-icon icon="iconoir:warning-triangle"></iconify-icon>
+            </span>
+            <h2 id="confirm-title">Einsatz löschen?</h2>
+            <p id="confirm-description">Diese Aktion kann nicht rückgängig gemacht werden.</p>
+            <div class="ops-dialog-actions">
+                <button class="ops-secondary-button" id="confirm-cancel" type="button">Abbrechen</button>
+                <button class="ops-danger-button" id="confirm-accept" type="button">Löschen</button>
+            </div>
+        </div>
+    </dialog>
+
+    <div id="ops-toast-region" class="ops-toast-region" aria-live="polite" aria-atomic="true"></div>
+
+    <script type="module" src="./operations.js"></script>
+</body>
+</html>
